@@ -1,0 +1,113 @@
+.profile {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 1rem;
+
+
+	&__footer {
+		display: flex;
+		justify-content: flex-start;
+		align-items: flex-start;
+		gap: 1rem;
+
+		width: 100%;
+		height: 128px;
+
+		padding: 1rem 3rem;
+
+		margin-block-start: auto;
+	}
+
+	&__socials {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		gap: 1rem;
+
+		&__icon {
+			&-wrapper {
+				background: var(--wrapper-color);
+				border-radius: 15px;
+				filter: drop-shadow(0 1px 2px $shadow-a-0);
+
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				position: relative;
+
+				width: 48px;
+				height: 48px;
+				padding: 0.5rem;
+
+				display: grid;
+				place-items: center;
+
+				flex-shrink: 0;
+				overflow: hidden;
+				position: relative;
+
+				transition: all 0.05s ease-out;
+
+				&.icon-only {
+					background: none;
+					padding: 0;
+				}
+
+				&::after {
+					content: '';
+					position: absolute;
+					inset: 0;
+					border-radius: inherit;
+					background: rgba(255, 255, 255, 0);
+
+					transition: all 0.05s ease-out;
+				}
+
+				&:hover {
+					cursor: pointer;
+					&::after {
+						background: rgba(255, 255, 255, 0.35);
+					}
+				}
+
+				&:active {
+					&::after {
+						background: rgba(255, 255, 255, 0.25);
+					}
+				}
+			}
+
+			width: 100% !important;
+			height: 100% !important;
+			object-fit: contain;
+
+
+			&:not(.no-fill) {
+				& path, & rect, & circle, & polygon, & line {
+					fill: var(--icon-color) !important;
+				}
+			}
+
+			&.hide-circles {
+				& circle {
+					display: none;
+				}
+			}
+
+			&.wh-125 {
+				width: 125% !important;
+				height: 125% !important;
+			}
+
+			&.wh-150 {
+				width: 150% !important;
+				height: 150% !important;
+			}
+		}
+	}
+}

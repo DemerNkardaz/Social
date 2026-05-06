@@ -1,0 +1,8 @@
+version = 1
+
+# https://reuse.software
+
+[[annotations]]
+path = "src/assets/images/socials/twitter.svg"
+SPDX-License-Identifier = "Apache-2.0"
+CopyrightText = "Copyright © Twitter"

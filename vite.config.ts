@@ -5,6 +5,7 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import vueDevTools from 'vite-plugin-vue-devtools'
 
+import svgLoader from 'vite-svg-loader'
 
 import mdx from '@mdx-js/rollup'
 
@@ -18,6 +19,7 @@ export default defineConfig({
 		},
     vue(),
     vueJsx(),
+		svgLoader(),
     vueDevTools(),
   ],
 	base: '/Social/',
@@ -32,6 +34,7 @@ export default defineConfig({
 	css: {
 		preprocessorOptions: {
 			scss: {
+				additionalData: `@use "@/styles/tokens" as *;`
 			}
 		}
 	},

@@ -1,0 +1,44 @@
+.backdrop-layer {
+	position: absolute;
+	inset: 0;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	overflow: hidden;
+
+	transform: perspective(800px) scale(1.1);
+	animation: zoom-out 0.5s $ease-out-smooth forwards;
+
+	z-index: -1;
+}
+
+.backdrop {
+	&__header {
+		background: $surface-a-0;
+		width: 100%;
+		height: 80px;
+	}
+
+	&__main-top {
+		background: $surface-b-0;
+		width: 100%;
+		height: 52%;
+	}
+}
+
+
+@keyframes zoom-out {
+	from {
+		transform: perspective(800px) scale(1.1);
+	}
+
+	10% {
+		transform: perspective(800px) scale(1.1);
+	}
+
+	to {
+		transform: perspective(800px) scale(1);
+	}
+}
