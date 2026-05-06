@@ -9,6 +9,7 @@ interface Props {
   width?: string
   height?: string
   color?: string
+  opacity?: number
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -18,6 +19,7 @@ const props = withDefaults(defineProps<Props>(), {
   width: '100%',
   height: '100%',
   color: '#eeeeee',
+  opacity: 1,
 })
 
 const { rootFontSize } = useRootFontSize()
@@ -32,6 +34,14 @@ const stripeParams = computed(() => {
   const gap = fluidRemLocal(props.gapPx)
   const total = stripeW + gap
   return { stripeW, total }
+})
+
+const strokeColor = computed(() => {
+  const hex = (props.color ?? '#eeeeee').replace('#', '')
+  const r = parseInt(hex.length === 3 ? hex.charAt(0).repeat(2) : hex.slice(0, 2), 16)
+  const g = parseInt(hex.length === 3 ? hex.charAt(1).repeat(2) : hex.slice(2, 4), 16)
+  const b = parseInt(hex.length === 3 ? hex.charAt(2).repeat(2) : hex.slice(4, 6), 16)
+  return `rgba(${r}, ${g}, ${b}, ${props.opacity})`
 })
 </script>
 
@@ -50,7 +60,7 @@ const stripeParams = computed(() => {
           y1="0"
           x2="0"
           :y2="stripeParams.total"
-          :stroke="color"
+          :stroke="strokeColor"
           :stroke-width="stripeParams.stripeW"
         />
       </pattern>
