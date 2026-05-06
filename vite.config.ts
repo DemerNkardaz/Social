@@ -37,6 +37,7 @@ export default defineConfig({
 				additionalData: `
 					@use "@/styles/tokens" as *;
 					@use "@/styles/functions" as *;
+					@use "@/styles/mixins" as *;
 				`
 			}
 		}

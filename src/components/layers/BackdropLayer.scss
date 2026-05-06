@@ -8,7 +8,7 @@
 	align-items: center;
 	overflow: hidden;
 
-	transform: perspective(fuild-rem(800)) scale(1.1);
+	transform: perspective(fluid-rem(800)) scale(1.1);
 	animation: zoom-out 0.5s $ease-out-smooth forwards;
 
 	z-index: -1;
@@ -18,7 +18,7 @@
 	&__header {
 		background: $surface-a-0;
 		width: 100%;
-		height: fuild-rem(80);
+		height: fluid-rem(80);
 	}
 
 	&__main-top {
@@ -26,19 +26,43 @@
 		width: 100%;
 		height: 52%;
 	}
+
+		&__image {
+		isolation: isolate;
+		position: relative;
+
+		background: url('/images/backdrop.avif') no-repeat center;
+		background-size: auto 100%;
+
+		filter: grayscale(100) opacity(0.35);
+
+		// mask: linear-gradient(to right, transparent 0%, #fff 35%, #fff 85%, transparent 98%, transparent);
+
+		width: 100%;
+		height: 100%;
+
+		&::after {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background: linear-gradient(to right, $surface-b-0 0%, transparent 35%, transparent 85%, transparent 98%, $surface-b-0);
+			background-size: auto 100%;
+			filter: blur(10px);
+		}
+	}
 }
 
 
 @keyframes zoom-out {
 	from {
-		transform: perspective(fuild-rem(800)) scale(1.1);
+		transform: perspective(fluid-rem(800)) scale(1.1);
 	}
 
 	10% {
-		transform: perspective(fuild-rem(800)) scale(1.1);
+		transform: perspective(fluid-rem(800)) scale(1.1);
 	}
 
 	to {
-		transform: perspective(fuild-rem(800)) scale(1);
+		transform: perspective(fluid-rem(800)) scale(1);
 	}
 }

@@ -15,7 +15,7 @@
 		gap: 1rem;
 
 		width: 100%;
-		height: fuild-rem(128);
+		height: fluid-rem(128);
 
 		padding: 1rem 3rem;
 
@@ -31,8 +31,8 @@
 		&__icon {
 			&-wrapper {
 				background: var(--wrapper-color);
-				border-radius: fuild-rem(15);
-				filter: drop-shadow(0 fuild-rem(1) fuild-rem(2) $shadow-a-0);
+				border-radius: fluid-rem(15);
+				filter: drop-shadow(0 fluid-rem(1) fluid-rem(2) $shadow-a-0);
 
 				display: flex;
 				justify-content: center;
@@ -40,8 +40,8 @@
 
 				position: relative;
 
-				width: fuild-rem(42);
-				height: fuild-rem(42);
+				width: fluid-rem(42);
+				height: fluid-rem(42);
 				padding: 0.5rem;
 
 				display: grid;

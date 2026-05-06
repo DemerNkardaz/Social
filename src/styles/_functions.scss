@@ -9,12 +9,12 @@
 	@return math.div($px, $base) * 100vh;
 }
 
-@function fuild-rem($px) {
+@function fluid-rem($px) {
 	@return math.div($px, 16) * 1rem;
 }
 
 @function alpha($color, $opacity) {
-	@return color.adjust($color, $alpha: -#{1 - $opacity});
+	@return color.adjust($color, $alpha: -(1 - $opacity));
 }
 
 @function aspect($w, $h) {

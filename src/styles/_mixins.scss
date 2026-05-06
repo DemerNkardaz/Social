@@ -1,0 +1,16 @@
+@mixin w($percent: 100) {
+	width: #{$percent}vw;
+
+	// Широкий монитор: ширина большая но высота <= 1080
+	@media (min-width: 2560px) and (max-height: 1080px) {
+		width: calc(#{$percent}vw * (1920 / 2560));
+	}
+
+	@media (min-width: 3440px) and (max-height: 1080px) {
+		width: calc(#{$percent}vw * (1920 / 3440));
+	}
+
+	@media (min-width: 7680px) and (max-height: 2160px) {
+		width: calc(#{$percent}vw * (3840 / 7680));
+	}
+}

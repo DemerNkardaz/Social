@@ -79,14 +79,14 @@ p {
 
 hr {
 	width: 100%;
-	height: fuild-rem(1);
+	height: fluid-rem(1);
 	border: none;
 	margin: 7pt;
 	align-self: center;
 }
 
 .vertical-hr {
-	width: fuild-rem(1);
+	width: fluid-rem(1);
 	border: none;
 	margin: 7pt;
 	align-self: stretch;
@@ -138,4 +138,18 @@ th, td {
 blockquote, figure, pre {
 	margin: 0;
 
+}
+
+.phantom-overlay-layer {
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	z-index: 99999;
+}
+.phantom-bound-box {
+	position: fixed;
+	outline: 2px solid alpha(#3ee492, 0.5);
+	background: alpha(#3ee492, 0.025);
+	border-radius: fluid-rem(10);
+	pointer-events: none;
 }
