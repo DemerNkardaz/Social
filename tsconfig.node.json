@@ -13,12 +13,25 @@
     // Bundler mode provides a smoother developer experience.
     "module": "preserve",
     "moduleResolution": "bundler",
+		//
+    "skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"strict": true,
 
     // Include Node.js types and avoid accidentally including other `@types/*` packages.
     "types": ["node"],
 
     // Disable emitting output during `vue-tsc --build`, which is used for type-checking only.
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
     "noEmit": true,
+
+    /* Linting */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
+    "noFallthroughCasesInSwitch": true,
 
     // `vue-tsc --build` produces a .tsbuildinfo file for incremental type-checking.
     // Specified here to keep it out of the root directory.

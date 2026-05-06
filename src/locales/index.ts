@@ -7,10 +7,12 @@ for (const path in modules) {
   if (!match) continue
 
 	const locale = match[1]
-  messages[locale as string] = (modules[path] as any).default
+  if (locale) {
+    messages[locale] = (modules[path] as any).default
+  }
 }
 
 export function getBrowserLocale(supported: string[]) {
-  const lang = navigator.language.toLowerCase().split('-')[0] as string
-  return supported.includes(lang) ? lang : 'en'
+  const lang = navigator.language.toLowerCase().split('-')[0]
+	return lang && supported.includes(lang) ? lang : 'en'
 }
