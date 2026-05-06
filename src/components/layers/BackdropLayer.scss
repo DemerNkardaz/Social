@@ -16,6 +16,8 @@
 
 .backdrop {
 	&__header {
+		isolation: isolate;
+		position: relative;
 		background:  $surface-a-0;
 		width: 100%;
 		height: fluid-rem(80);
@@ -62,6 +64,11 @@
 		flex-direction: row;
 		justify-content: center;
 		align-items: center;
+
+		&.of-backdrop-header {
+			width: 100%;
+			height: fluid-rem(80 - 3);
+		}
 	}
 
 	&__stripes {
@@ -69,11 +76,20 @@
 		height: 100%;
 
 		&__overlay {
-			background: $surface-b-0;
 			position: absolute;
 			width: fluid-rem(1920);
 			height: 100%;
-			mask: linear-gradient(to right, transparent 0%, transparent 2.5%, #fff 8%, #fff 92%, transparent 100%);
+
+
+			&.of-backdrop-header {
+				background: $surface-a-0;
+				mask: linear-gradient(to right, #fff 0%, #fff 20%, transparent 25%, transparent 75%, #fff 80%, #fff 100%);
+			}
+
+			&.of-backdrop-main-top {
+				background: $surface-b-0;
+				mask: linear-gradient(to right, transparent 0%, transparent 2.5%, #fff 8%, #fff 92%, transparent 100%);
+			}
 		}
 	}
 }
