@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { locale } from '@/i18n';
-import { TwitterLogo, GitHubLogo, PronounsPageLogo, SpotifyLogo, TelegramLogo } from '@/icons';
-import { computed, type ComputedRef } from 'vue';
+import { TwitterLogo, GitHubLogo, KoFiLogo } from '@/icons';
 
 type socialIcon = {
 	component: any,
@@ -12,11 +10,7 @@ type socialIcon = {
 	svg?: {
 		viewBox?: string
 	},
-	url: string | ComputedRef<string>
-}
-
-type localeRules = {
-	pronounsPage: 'en' | 'ru',
+	url: string
 }
 
 const socialIcons = {
@@ -33,30 +27,13 @@ const socialIcons = {
 		wrapperColor: '#179CF0',
 		url: 'https://x.com/NKARDAZ'
 	},
-	telegram: {
-		component: TelegramLogo,
-		wrapperColor: '#28a8e9',
-		svg: { viewBox: '0 0 1000 1000' },
-		iconClass: 'no-fill hide-circles wh-150',
-		url: 'https://t.me/maple_palace'
-	},
-	spotify: {
-		component: SpotifyLogo,
-		componentColor: '#F7F7F7',
-		wrapperColor: '#1ed760',
-		svg: { viewBox: '0 0 168 168' },
-		url: 'https://open.spotify.com/user/dbwiago3y8g6nze1jjkrz8rry'
-	},
-	pronounsPage: {
-		component: PronounsPageLogo,
-		componentColor: '#F7F7F7',
-		wrapperColor: '#c71585',
-		url: computed(() => {
-			const validLocales: Array<localeRules['pronounsPage']> = ['en', 'ru'];
-			const prefix = validLocales.includes(locale.value as any) ? `${locale.value}.` : '';
-			return `https://${prefix}pronouns.page/@nkardaz`;
-		})
-	},
+	koFi: {
+		component: KoFiLogo,
+		wrapperColor: '#FF5A16',
+		svg: { viewBox: '0 0 241 194' },
+		iconClass: 'no-fill wh-110',
+		url: 'https://ko-fi.com/yalla'
+	}
 } as Record<string, socialIcon>
 
 </script>
