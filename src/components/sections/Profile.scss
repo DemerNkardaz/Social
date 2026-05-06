@@ -15,7 +15,7 @@
 		gap: 1rem;
 
 		width: 100%;
-		height: 128px;
+		height: fuild-rem(128);
 
 		padding: 1rem 3rem;
 
@@ -31,8 +31,8 @@
 		&__icon {
 			&-wrapper {
 				background: var(--wrapper-color);
-				border-radius: 15px;
-				filter: drop-shadow(0 1px 2px $shadow-a-0);
+				border-radius: fuild-rem(15);
+				filter: drop-shadow(0 fuild-rem(1) fuild-rem(2) $shadow-a-0);
 
 				display: flex;
 				justify-content: center;
@@ -40,8 +40,8 @@
 
 				position: relative;
 
-				width: 48px;
-				height: 48px;
+				width: fuild-rem(42);
+				height: fuild-rem(42);
 				padding: 0.5rem;
 
 				display: grid;
@@ -50,8 +50,6 @@
 				flex-shrink: 0;
 				overflow: hidden;
 				position: relative;
-
-				transition: all 0.05s ease-out;
 
 				&.icon-only {
 					background: none;
@@ -65,7 +63,7 @@
 					border-radius: inherit;
 					background: rgba(255, 255, 255, 0);
 
-					transition: all 0.05s ease-out;
+					transition: background 0.1s ease-out;
 				}
 
 				&:hover {

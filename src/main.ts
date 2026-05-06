@@ -11,3 +11,11 @@ app.use(i18n)
 app.component('MdxVueProvider', MDXProvider)
 
 app.mount('#app')
+
+function updateScale() {
+  const scale = window.innerWidth / 1920;
+  document.documentElement.style.fontSize = `${scale * 12}pt`;
+}
+
+window.addEventListener('resize', updateScale);
+updateScale();

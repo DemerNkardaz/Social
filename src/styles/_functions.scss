@@ -1,0 +1,22 @@
+@use "sass:math";
+@use "sass:color";
+
+@function fluid-w($px, $base: 1920) {
+	@return math.div($px, $base) * 100vw;
+}
+
+@function fluid-h($px, $base: 1080) {
+	@return math.div($px, $base) * 100vh;
+}
+
+@function fuild-rem($px) {
+	@return math.div($px, 16) * 1rem;
+}
+
+@function alpha($color, $opacity) {
+	@return color.adjust($color, $alpha: -#{1 - $opacity});
+}
+
+@function aspect($w, $h) {
+	@return math.div($h, $w) * 100%;
+}

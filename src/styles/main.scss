@@ -79,14 +79,14 @@ p {
 
 hr {
 	width: 100%;
-	height: 1px;
+	height: fuild-rem(1);
 	border: none;
 	margin: 7pt;
 	align-self: center;
 }
 
 .vertical-hr {
-	width: 1px;
+	width: fuild-rem(1);
 	border: none;
 	margin: 7pt;
 	align-self: stretch;

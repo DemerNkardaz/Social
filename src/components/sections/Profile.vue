@@ -51,7 +51,7 @@ const socialIcons = {
 					:class="icon.class"
 					v-for="icon in socialIcons"
 					:style="{ '--wrapper-color': icon.wrapperColor }"
-					:href="typeof icon.url === 'string' ? icon.url : icon.url.value" target="_blank" rel="noopener noreferrer">
+					:href="icon.url" target="_blank" rel="noopener noreferrer">
 					<component
 						class="profile__socials__icon"
 						:class="icon.iconClass"

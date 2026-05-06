@@ -8,7 +8,7 @@
 	align-items: center;
 	overflow: hidden;
 
-	transform: perspective(800px) scale(1.1);
+	transform: perspective(fuild-rem(800)) scale(1.1);
 	animation: zoom-out 0.5s $ease-out-smooth forwards;
 
 	z-index: -1;
@@ -18,7 +18,7 @@
 	&__header {
 		background: $surface-a-0;
 		width: 100%;
-		height: 80px;
+		height: fuild-rem(80);
 	}
 
 	&__main-top {
@@ -31,14 +31,14 @@
 
 @keyframes zoom-out {
 	from {
-		transform: perspective(800px) scale(1.1);
+		transform: perspective(fuild-rem(800)) scale(1.1);
 	}
 
 	10% {
-		transform: perspective(800px) scale(1.1);
+		transform: perspective(fuild-rem(800)) scale(1.1);
 	}
 
 	to {
-		transform: perspective(800px) scale(1);
+		transform: perspective(fuild-rem(800)) scale(1);
 	}
 }
