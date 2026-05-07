@@ -50,9 +50,10 @@
 	&__footer {
 		position: relative;
 		display: flex;
+		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		gap: 1rem;
+		// gap: 1rem;
 
 		width: 100%;
 		min-height: fluid-rem(73.5);
@@ -67,6 +68,42 @@
 			background: $surface-a-3;
 
 			@include shift(fluid-rem(18));
+		}
+
+		&__content-container {
+			position: relative;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: fluid-rem(1405);
+			height: 100%;
+
+			@include shift(fluid-rem(18));
+		}
+
+		&__quote {
+			position: absolute;
+			top: fluid-rem(9);
+			left: 0;
+			font-size: 0.65rem;
+			letter-spacing: -0.1em;
+			line-height: 1.1em;
+			color: $surface-a-4;
+			font-family: $decorator-font;
+			font-weight: 800;
+			text-transform: uppercase;
+			transform: scaleY(0.8);
+
+			&::after {
+				content: '';
+				position: absolute;
+				bottom: fluid-rem(-1);
+				left: 50%;
+				transform: translateX(-50%);
+				width: 97.75%;
+				height: 0.175em;
+				background: linear-gradient(to bottom, $surface-a-3 0%, $surface-a-3 55%, $surface-a-5 55%);
+			}
 		}
 	}
 
@@ -172,5 +209,14 @@
 			-webkit-mask-composite: source-in;
 			mask-composite: intersect;
 		}
+
+		&.of-footer {
+			&.left-six-quads {
+				position: absolute;
+				left: 0;
+				top: fluid-rem(10);
+			}
+		}
 	}
+
 }

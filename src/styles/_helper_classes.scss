@@ -1,6 +1,146 @@
 .middle-block {
 	width: fluid-rem(1405);
+	height: 100%;
+	align-self: center;
+	@include shift(fluid-rem(18));
 }
+
+.absolute {
+	position: absolute;
+}
+
+.top-0px {
+	top: fluid-rem(0);
+}
+
+.top-5px {
+	top: fluid-rem(5);
+}
+
+.top-10px {
+	top: fluid-rem(10);
+}
+
+.top-15px {
+	top: fluid-rem(15);
+}
+
+.top-20px {
+	top: fluid-rem(20);
+}
+
+.top-25px {
+	top: fluid-rem(25);
+}
+
+.top-30px {
+	top: fluid-rem(30);
+}
+
+.top-35px {
+	top: fluid-rem(35);
+}
+
+.top-40px {
+	top: fluid-rem(40);
+}
+
+.top-45px {
+	top: fluid-rem(45);
+}
+
+.top-50px {
+	top: fluid-rem(50);
+}
+
+.left-0px {
+	left: fluid-rem(0);
+}
+
+.left-5px {
+	left: fluid-rem(5);
+}
+
+.left-10px {
+	left: fluid-rem(10);
+}
+
+.left-15px {
+	left: fluid-rem(15);
+}
+
+.left-20px {
+	left: fluid-rem(20);
+}
+
+.left-25px {
+	left: fluid-rem(25);
+}
+
+.left-30px {
+	left: fluid-rem(30);
+}
+
+.left-35px {
+	left: fluid-rem(35);
+}
+
+.left-40px {
+	left: fluid-rem(40);
+}
+
+.left-45px {
+	left: fluid-rem(45);
+}
+
+.left-50px {
+	left: fluid-rem(50);
+}
+
+.right-0px {
+	right: fluid-rem(0);
+}
+
+.right-5px {
+	right: fluid-rem(5);
+}
+
+.right-10px {
+	right: fluid-rem(10);
+}
+
+.right-15px {
+	right: fluid-rem(15);
+}
+
+.right-20px {
+	right: fluid-rem(20);
+}
+
+.right-25px {
+	right: fluid-rem(25);
+}
+
+.right-30px {
+	right: fluid-rem(30);
+}
+
+.right-35px {
+	right: fluid-rem(35);
+}
+
+.right-40px {
+	right: fluid-rem(40);
+}
+
+.right-45px {
+	right: fluid-rem(45);
+}
+
+.right-50px {
+	right: fluid-rem(50);
+}
+
 
 .text-medium {
 	font-size: fluid-rem(19);
