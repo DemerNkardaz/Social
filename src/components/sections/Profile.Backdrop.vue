@@ -48,14 +48,19 @@ const actualBackdropImage = computed(() => {
 		<div class="backdrop-profile__footer">
 			<div class="middle-block absolute">
 				<div class="backdrop-profile__quads-wrapper of-footer">
-					<QuadsGrid class="backdrop-profile__quads of-footer absolute left-5px top-25px" color="#CCC" :size-px="4" :gap-px="5" :opacity="0.25" :w="128 * (4 / 5)"/>
-					<Quads class="backdrop-profile__quads of-footer absolute left-0px top-25px" color="CECECE" :opacity="1" :size-px="5" :gap-px="2" :row="[6, 5, [1,3,4]]" :count="6" />
+					<QuadsGrid class="backdrop-profile__quads of-footer absolute left-5px top-25px" color="#CCC" :size-px="4" :gap-px="5" :opacity="0.25" :w="128 - 32"/>
+					<Quads class="backdrop-profile__quads of-footer absolute left-0px top-25px"
+						color="CECECE" :opacity="1"
+						:size-px="5" :gap-px="2"
+						:row="[6, 5, [1,3,4]]" :count="6"
+					/>
 
 				</div>
 			</div>
 			<div class="backdrop-profile__footer__top-decorator"/>
 			<div class="backdrop-profile__footer__content-container">
 				<div class="backdrop-profile__footer__quote">Integrity. Innovate.</div>
+				<div class="backdrop-profile__footer__oseer-plate">O.S.E.E.R. DataBank</div>
 
 			</div>
 		</div>

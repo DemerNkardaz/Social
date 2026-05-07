@@ -38,14 +38,26 @@ const params = computed(() => {
 	const gap = fluidRemLocal(props.gapPx)
 	const total = cell + gap
 
+	const resolveSize = (val: number | string): string => {
+		if (typeof val === 'number') {
+			const stretched = Math.ceil(val / total) * total
+			return `${stretched}px`
+		}
+		return val
+	}
+
 	const rx = typeof props.borderRadius === 'number'
 		? fluidRemLocal(props.borderRadius)
 		: (parseFloat(props.borderRadius) / 100) * (cell / 2)
 
-	const resolveSize = (val: number | string) =>
-		typeof val === 'number' ? `${fluidRemLocal(val)}px` : val
-
-	return { cell, gap, total, rx, w: resolveSize(props.w), h: resolveSize(props.h) }
+	return {
+		cell,
+		gap,
+		total,
+		rx,
+		w: resolveSize(props.w),
+		h: resolveSize(props.h),
+	}
 })
 
 function hexToRgba(hex: string, opacity: number): string {

@@ -105,6 +105,18 @@
 				background: linear-gradient(to bottom, $surface-a-3 0%, $surface-a-3 55%, $surface-a-5 55%);
 			}
 		}
+
+		&__oseer-plate {
+			position: absolute;
+			top: fluid-rem(9);
+			right: 0;
+			font-size: 0.95rem;
+			line-height: 1.1em;
+			color: $surface-a-4;
+			font-family: $decorator-font;
+			font-weight: 800;
+			text-transform: uppercase;
+		}
 	}
 
 	&__image {
