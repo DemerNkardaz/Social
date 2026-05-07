@@ -10,7 +10,7 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
 
-		"lib": ["ESNext", "DOM"]
+		"lib": ["ESNext", "DOM"],
 
     // Path mapping for cleaner imports.
     "moduleResolution": "bundler",

@@ -1,6 +1,7 @@
 .backdrop-layer {
 	position: absolute;
 	inset: 0;
+	height: fluid-rem(1080);
 
 	display: flex;
 	flex-direction: column;

@@ -4,6 +4,7 @@ import Profile from './sections/Profile.vue';
 
 </script>
 
+<style lang="scss" src="@/styles/_helper_classes.scss"></style>
 <style lang="scss" src="./PageMain.scss"></style>
 
 <template>

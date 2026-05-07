@@ -1,0 +1,25 @@
+.middle-block {
+	width: fluid-rem(1400);
+}
+
+.text-medium {
+	font-size: fluid-rem(19);
+	line-height: fluid-rem(19 * 1.5);
+}
+
+.heading-decorator {
+	$decorator-width: 8;
+	position: relative;
+	padding-inline-start: fluid-rem($decorator-width * 2);
+
+	&::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: calc(100% - 0.4em);
+		width: fluid-rem($decorator-width);
+		background: $surface-b-0;
+		background-size: auto 100%;
+	}
+}

@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { TwitterLogo, GitHubLogo, KoFiLogo } from '@/icons';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n()
 
 type socialIcon = {
 	component: any,
@@ -42,25 +45,33 @@ const socialIcons = {
 
 <template>
 	<article class="profile">
-		<header class="profile__header"></header>
-		<main class="profile__main"></main>
-		<footer class="profile__footer">
-			<div class="profile__socials">
-				<a
-					class="profile__socials__icon-wrapper"
-					:class="icon.class"
-					v-for="icon in socialIcons"
-					:style="{ '--wrapper-color': icon.wrapperColor }"
-					:href="icon.url" target="_blank" rel="noopener noreferrer">
-					<component
-						class="profile__socials__icon"
-						:class="icon.iconClass"
-						:is="icon.component"
-						:style="{ '--icon-color': icon.componentColor }"
-						v-bind="icon.svg" />
-				</a>
+		<header class="profile__header">
+
+		</header>
+		<main class="profile__main">
+
+			<div class="profile__main__middle-block">
+				<div class="profile__socials-wrapper">
+					<p class="profile__socials__title text-medium heading-decorator">{{ t('profile.socials.title') }}</p>
+					<div class="profile__socials__icons">
+						<a
+							class="profile__socials__icon-wrapper"
+							:class="icon.class"
+							v-for="icon in socialIcons"
+							:style="{ '--wrapper-color': icon.wrapperColor }"
+							:href="icon.url" target="_blank" rel="noopener noreferrer">
+							<component
+								class="profile__socials__icon"
+								:class="icon.iconClass"
+								:is="icon.component"
+								:style="{ '--icon-color': icon.componentColor }"
+								v-bind="icon.svg" />
+						</a>
+					</div>
+				</div>
 			</div>
-			<!-- <TwitterLogo /> -->
+		</main>
+		<footer class="profile__footer">
 		</footer>
 	</article>
 </template>

@@ -1,8 +1,8 @@
 .content-header {
-	// background: $surface-a-0;
-
+position: relative;
 	display: flex;
-
+	justify-content: center;
+	align-items: flex-start;
 	width: 100%;
-	height: fluid-rem(64);
+	height: fluid-rem(82);
 }

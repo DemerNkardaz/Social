@@ -7,31 +7,69 @@
 	justify-content: flex-start;
 	gap: 1rem;
 
-
-	&__footer {
+	&__header {
+		position: relative;
 		display: flex;
-		justify-content: flex-start;
+		justify-content: center;
+		align-items: flex-start;
+		width: 100%;
+		min-height: fluid-rem(82);
+	}
+
+	&__main {
+		display: flex;
+		justify-content: center;
 		align-items: flex-start;
 		gap: 1rem;
 
 		width: 100%;
-		height: fluid-rem(128);
+		height: 100%;
 
-		padding: 1rem 3rem;
+		&__middle-block {
+			width: fluid-rem(1400);
+
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-start;
+			gap: 1rem;
+			padding: 1rem 1rem;
+
+
+			margin-block-start: auto;
+		}
+	}
+
+	&__footer {
+		display: flex;
+		justify-content: center;
+		align-items: flex-start;
+		gap: 1rem;
+
+		width: 100%;
+		min-height: fluid-rem(72);
 
 		margin-block-start: auto;
 	}
 
 	&__socials {
-		display: flex;
-		justify-content: flex-start;
-		align-items: center;
-		gap: 1rem;
+		&-wrapper {
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: flex-start;
+			gap: 1rem;
+		}
+		&__icons {
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+			gap: 0.75rem;
+		}
 
 		&__icon {
 			&-wrapper {
 				background: var(--wrapper-color);
-				border-radius: fluid-rem(15);
+				border-radius: 50%;
 				filter: drop-shadow(0 fluid-rem(1) fluid-rem(2) $shadow-a-0);
 
 				display: flex;

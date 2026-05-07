@@ -1,4 +1,7 @@
 export default {
-	'Hello': 'Hello',
-	'Hello World': 'Hello World'
+	'profile': {
+		'socials': {
+			'title': 'Digital Resources',
+		}
+	}
 }

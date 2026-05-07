@@ -1,6 +1,7 @@
 .overlay-layer {
 	position: absolute;
 	inset: 0;
+	height: fluid-rem(1080);
 
 	-webkit-user-select: none;
 	user-select: none;

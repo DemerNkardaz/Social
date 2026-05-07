@@ -1,4 +1,7 @@
 export default {
-	'Hello': 'Привет',
-	'Hello World': 'Привет мир'
+	'profile': {
+		'socials': {
+			'title': 'Цифровые ресурсы',
+		}
+	}
 }
