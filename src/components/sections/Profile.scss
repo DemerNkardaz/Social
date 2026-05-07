@@ -5,7 +5,9 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: flex-start;
-	gap: 1rem;
+	gap: 0.75rem;
+
+	@include shift(fluid-rem(18));
 
 	&__header {
 		position: relative;
@@ -26,13 +28,13 @@
 		height: 100%;
 
 		&__middle-block {
-			width: fluid-rem(1400);
+			width: fluid-rem(1405);
 
 			display: flex;
 			justify-content: space-between;
 			align-items: flex-start;
 			gap: 1rem;
-			padding: 1rem 1rem;
+			// padding: 1rem 1rem;
 
 
 			margin-block-start: auto;
@@ -40,6 +42,7 @@
 	}
 
 	&__footer {
+		position: relative;
 		display: flex;
 		justify-content: center;
 		align-items: flex-start;
@@ -65,7 +68,7 @@
 			display: flex;
 			justify-content: flex-start;
 			align-items: center;
-			gap: 0.75rem;
+			gap: 1.135rem;
 		}
 
 		&__icon {

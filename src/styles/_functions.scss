@@ -21,3 +21,6 @@
 	@return math.div($h, $w) * 100%;
 }
 
+@function shift($x: 0, $y: 0) {
+	@return translate($x, $y);
+}

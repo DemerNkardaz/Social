@@ -1,3 +1,5 @@
+@use "@/styles/functions" as *;
+
 @mixin w($percent: 100) {
 	width: #{$percent}vw;
 
@@ -13,4 +15,8 @@
 	@media (min-width: 7680px) and (max-height: 2160px) {
 		width: calc(#{$percent}vw * (3840 / 7680));
 	}
+}
+
+@mixin shift($x: 0, $y: 0) {
+	transform: shift($x, $y);
 }

@@ -1,0 +1,13 @@
+@keyframes zoom-out {
+	from {
+		transform: perspective(fluid-rem(800)) scale(1.1);
+	}
+
+	10% {
+		transform: perspective(fluid-rem(800)) scale(1.1);
+	}
+
+	to {
+		transform: perspective(fluid-rem(800)) scale(1);
+	}
+}

@@ -9,6 +9,8 @@ import svgLoader from 'vite-svg-loader'
 
 import mdx from '@mdx-js/rollup'
 
+import scssTokensPlugin from './vite-plugin-scss-tokens'
+
 // https://vite.dev/config/
 export default defineConfig({
 	plugins: [
@@ -20,7 +22,8 @@ export default defineConfig({
     vue(),
     vueJsx(),
 		svgLoader(),
-    vueDevTools(),
+		vueDevTools(),
+		scssTokensPlugin(),
   ],
 	base: '/Social/',
 	server: {

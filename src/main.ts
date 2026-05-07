@@ -5,6 +5,7 @@ import { MDXProvider } from '@mdx-js/vue'
 
 import './styles/main.scss'
 import './styles/_variables.scss'
+import './styles/_animations.scss'
 
 import { updateScale } from './scripts/updateScale'
 
