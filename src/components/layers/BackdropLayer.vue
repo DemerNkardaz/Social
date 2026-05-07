@@ -1,6 +1,19 @@
 <script setup lang="ts">
 import Stripes from '@/components/patterns/Stripes.vue';
+import { useWindowSize } from '@/scripts/composables/useWindowSize';
+import { baseUrl } from '@/scripts/constants';
+import { computed } from 'vue';
+import QuadsGrid from '../patterns/QuadsGrid.vue';
+const { windowHeight } = useWindowSize()
 
+const backdropImageVariants = [1080, 1440, 2160, 4320]
+const actualBackdropImage = computed(() => {
+	const height = windowHeight.value
+	const match = backdropImageVariants.reduce((prev, curr) =>
+		curr <= height ? curr : prev
+	, backdropImageVariants[0]!)
+	return `${baseUrl}images/backdrop-${match}.avif`
+})
 </script>
 
 <style lang="scss" src="./BackdropLayer.scss"></style>
@@ -19,8 +32,13 @@ import Stripes from '@/components/patterns/Stripes.vue';
 				<Stripes class="backdrop__stripes of-backdrop-main-top" :angle="45" :gap-px="3.55" width="50%" color="#fff" :opacity="0.65" />
 			</div>
 			<div class="backdrop__stripes__overlay of-backdrop-main-top" />
-			<div class="backdrop__image"/>
+			<div class="backdrop__image" :style="{ '--backdrop': `url(${actualBackdropImage})` }"/>
+			<div class="backdrop__quads-wrapper">
+				<QuadsGrid class="backdrop__quads of-backdrop-main-top" color="#303030" :opacity="0.35"/>
+				<QuadsGrid class="backdrop__quads of-backdrop-main-top" color="#303030" :opacity="0.35" style="--mask-x: 20%; --mask-y: 0%"/>
+			</div>
 		</div>
-		<div class="backdrop__main-bottom"/>
+		<div class="backdrop__main-bottom">
+		</div>
 	</div>
 </template>
