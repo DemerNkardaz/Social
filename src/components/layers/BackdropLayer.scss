@@ -22,7 +22,7 @@
 		justify-content: center;
 		align-items: flex-start;
 		width: 100%;
-		height: fluid-rem(80);
+		height: fluid-rem(82);
 
 		overflow: hidden;
 	}
@@ -33,7 +33,7 @@
 		justify-content: center;
 		align-items: flex-start;
 		width: 100%;
-		height: 52%;
+		height: fluid-rem(568);
 		position: relative;
 
 		overflow: hidden;
@@ -45,7 +45,7 @@
 		justify-content: center;
 		align-items: flex-start;
 		width: 100%;
-		height: 48%;
+		// height: 48%;
 		position: relative;
 
 		overflow: hidden;
@@ -60,9 +60,15 @@
 		background: var(--backdrop) no-repeat center;
 		background-size: cover;
 
-		filter: grayscale(100) opacity(0.35);
+		filter: grayscale(0.5) opacity(0.35);
 
-		mask: linear-gradient(to right, transparent 0%, #fff 20%, #fff 80%, transparent);
+		mask:
+			radial-gradient(ellipse fluid-rem(512) fluid-rem(128) at 28% 45%, transparent 50%, #000 100%),
+			radial-gradient(ellipse fluid-rem(256 + 128) fluid-rem(128) at 72% 40%, transparent 50%, #000 100%),
+			linear-gradient(to right, transparent 1%, #000 5%, #000 80%, transparent 99%),
+			linear-gradient(to top, #000 0%, #000 30%, transparent 90%, transparent);
+		-webkit-mask-composite: intersect;
+		mask-composite: intersect;
 
 		width: fluid-rem(1920);
 		height: 100%;
@@ -74,6 +80,20 @@
 			background: linear-gradient(to right, $surface-b-0 0%, transparent 35%, transparent 85%, transparent 98%, $surface-b-0);
 			background-size: auto 100%;
 			filter: blur(fluid-rem(10));
+		}
+
+		&__overlay {
+			position: absolute;
+			width: fluid-rem(1920);
+			height: 100%;
+			background: $surface-a-0;
+
+			mask:
+				radial-gradient(ellipse fluid-rem(1024) fluid-rem(512) at 70% 150%, rgb(0, 0, 0, 0.25) 50%, transparent 100%),
+				radial-gradient(ellipse fluid-rem(256) fluid-rem(256) at 85% 100%, rgb(0, 0, 0, 0.25) 50%, transparent 100%),
+				radial-gradient(ellipse fluid-rem(1024) fluid-rem(512) at 20% 130%, rgb(0, 0, 0, 0.25) 50%, transparent 100%);
+			-webkit-mask-composite: source-over;
+			mask-composite: add;
 		}
 	}
 
@@ -99,7 +119,7 @@
 		&.of-backdrop-header {
 			flex: none;
 			width: fluid-rem(1920);
-			height: fluid-rem(80 - 3);
+			height: fluid-rem(82 - 3);
 		}
 
 		&__overlay {

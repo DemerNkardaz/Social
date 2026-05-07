@@ -33,9 +33,12 @@ const actualBackdropImage = computed(() => {
 			</div>
 			<div class="backdrop__stripes__overlay of-backdrop-main-top" />
 			<div class="backdrop__image" :style="{ '--backdrop': `url(${actualBackdropImage})` }"/>
+			<div class="backdrop__image__overlay"/>
 			<div class="backdrop__quads-wrapper">
-				<QuadsGrid class="backdrop__quads of-backdrop-main-top" color="#303030" :opacity="0.35"/>
-				<QuadsGrid class="backdrop__quads of-backdrop-main-top" color="#303030" :opacity="0.35" style="--mask-x: 20%; --mask-y: 0%"/>
+				<QuadsGrid class="backdrop__quads of-backdrop-main-top" color="#444444" :opacity="1"/>
+				<QuadsGrid class="backdrop__quads of-backdrop-main-top" color="#444444" :opacity="1" style="--mask-x: 60%; --mask-y: 0%"/>
+				<QuadsGrid class="backdrop__quads of-backdrop-main-top" color="#444444" :opacity="1" style="--mask-x: 20%; --mask-y: 0%"/>
+				<QuadsGrid class="backdrop__quads of-backdrop-main-top" color="#444444" :opacity="0.35" style="--mask-x: 28%; --mask-y: 40%"/>
 			</div>
 		</div>
 		<div class="backdrop__main-bottom">
