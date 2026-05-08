@@ -66,13 +66,23 @@ const actualBackdropImage = computed(() => {
 					<FrameOutline class="backdrop-profile__frame absolute right-169px top-25px" :directions="['top', 'right']" :length="12" :thickness-px="4" color="#CCC" />
 				</div>
 				<!-- Center -->
-				<FrameOutline class="backdrop-profile__frame absolute left-28.8% top-13px" :directions="['bottom', 'right']" :length="10" :length-right="15" :thickness-px="3" color="#DEDEDE" />
-				<FrameOutline class="backdrop-profile__frame absolute left-28.8% top-42px" :directions="['top', 'right']" :length="10" :length-right="15" :thickness-px="3" color="#DEDEDE" />
-				<FrameOutline class="backdrop-profile__frame absolute left-71.2% top-13px" :directions="['bottom', 'left']" :length="10" :length-left="15" :thickness-px="3" color="#DEDEDE" />
-				<FrameOutline class="backdrop-profile__frame absolute left-71.2% top-42px" :directions="['top', 'left']" :length="10" :length-left="15" :thickness-px="3" color="#DEDEDE" />
+				<FrameOutline class="backdrop-profile__frame absolute left--25px top--45.5px" :directions="['bottom', 'right']" :length="10" :length-right="15" :thickness-px="3" color="#DEDEDE" />
+				<FrameOutline class="backdrop-profile__frame absolute left--25px top--10.5px" :directions="['top', 'right']" :length="10" :length-right="15" :thickness-px="3" color="#DEDEDE" />
+				<FrameOutline class="backdrop-profile__frame absolute left-577px top--45.5px" :directions="['bottom', 'left']" :length="10" :length-left="15" :thickness-px="3" color="#DEDEDE" />
 
-				<Stripes class="backdrop-profile__stripes absolute shift-x-center-9 top-20px" :angle="45" :gap-px="3.522" :w="600" :h="28" color="#ccc" />
-				<Strip class="absolute shift-x-center-9 top-20px" :w="600" :h="28" :strip-w="200" :strip-h="28" color="#E8E8E8" />
+				<Stripes class="backdrop-profile__stripes absolute left--15px top--35px" :angle="45" :gap-px="3.522" :w="600" :h="28" color="#ccc" />
+				<Strip class="absolute left--15px top--35px" :w="600" :h="28" :strip-w="200" :strip-h="28" color="#E8E8E8" />
+
+				<div class="flex flex-col gap-2px absolute w-200px h-10px shift-x-center--175px top-10px">
+					<div class="flex flex-row gap-2px" v-for="i in [ [30, 15, 25, 25, 5, 12, 6, 4], [12, 8, 35, 5, 20, 8, 15] ]">
+						<Strip v-for="w in i" :strip-w="w" :strip-h="5" color="#DBDBDB" />
+					</div>
+				</div>
+				<div class="flex flex-col gap-2px absolute w-200px h-10px shift-x-center-175px top-10px">
+					<div class="flex flex-row gap-2px" v-for="i in [ [40, 20, 60, 30, 10], [12, 8, 35, 5, 20] ]">
+						<Strip v-for="w in i" :strip-w="w" :strip-h="5" color="#DBDBDB" />
+					</div>
+				</div>
 			</div>
 			<div class="backdrop-profile__footer__top-decorator"/>
 			<div class="backdrop-profile__footer__content-container">
