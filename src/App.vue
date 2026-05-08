@@ -2,9 +2,7 @@
 import BackdropLayer from '@/components/layers/BackdropLayer.vue';
 import OverlayLayer from '@/components/layers/OverlayLayer.vue';
 import ContentLayer from '@/components/layers/ContentLayer.vue';
-import ProfileBackdrop from './components/sections/Profile.Backdrop.vue';
-
-
+import ProfileBackdrop from '@/components/sections/Profile.Backdrop.vue';
 </script>
 
 <template>

@@ -40,12 +40,13 @@
 	-webkit-hyphenate-character: '\2010';
 	hyphenate-character: '\2010';
 	hyphenate-limit-chars: 5 5 3;
-	hanging-punctuation: first last;
+	// hanging-punctuation: first last;
 	widows: 3;
 	orphans: 3;
 	// text-shadow: 0 0 0.25px color-mix(in srgb, currentColor 80%, transparent);
 	&::selection {
 		background-color: $accent-a-0;
+		border-radius: 10px;
 		color: $text-a-0;
 	}
 }
