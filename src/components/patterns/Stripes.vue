@@ -1,13 +1,13 @@
 <script setup lang="ts">
+import { fluidRem } from '@/scripts/utils'
 import { computed } from 'vue'
-import { useRootFontSize } from '@/scripts/composables/useRootFontSize'
 
 interface Props {
 	stripesPx?: number
 	gapPx?: number
 	angle?: number
-	width?: string
-	height?: string
+	w?: number | string
+	h?: number | string
 	color?: string
 	opacity?: number
 	bgColor?: string
@@ -18,26 +18,37 @@ const props = withDefaults(defineProps<Props>(), {
 	stripesPx: 1,
 	gapPx: 4,
 	angle: 45,
-	width: '100%',
-	height: '100%',
+	w: '100%',
+	h: '100%',
 	color: '#eeeeee',
 	opacity: 1,
 	bgColor: undefined,
 	bgOpacity: 1,
 })
 
-const { rootFontSize } = useRootFontSize()
-
 const patternId = `stripes-${Math.random().toString(36).slice(2, 7)}`
 
 const stripeParams = computed(() => {
-	const fs = rootFontSize.value
-	const fluidRemLocal = (px: number) => (px / 16) * fs
-
-	const stripeW = fluidRemLocal(props.stripesPx)
-	const gap = fluidRemLocal(props.gapPx)
+	const stripeW = fluidRem(props.stripesPx)
+	const gap = fluidRem(props.gapPx)
 	const total = stripeW + gap
-	return { stripeW, total }
+
+	const resolveSize = (val: number | string): string => {
+		if (typeof val === 'number') {
+			const fluidVal = fluidRem(val)
+			const stretched = Math.ceil(fluidVal / total) * total
+			return `${stretched}px`
+		}
+		return val
+	}
+
+	return {
+		stripeW,
+		gap,
+		total,
+		w: resolveSize(props.w),
+		h: resolveSize(props.h),
+	}
 })
 
 function hexToRgba(hex: string, opacity: number): string {
@@ -57,7 +68,14 @@ const bgFill = computed(() => {
 </script>
 
 <template>
-	<svg :width="props.width" :height="props.height" xmlns="http://www.w3.org/2000/svg">
+	<svg
+		:width="stripeParams.w"
+		:height="stripeParams.h"
+		xmlns="http://www.w3.org/2000/svg"
+		:style="typeof w === 'number' || typeof h === 'number'
+			? { display: 'block', flexShrink: 0, width: stripeParams.w, height: stripeParams.h }
+			: undefined"
+	>
 		<defs>
 			<pattern
 				:id="patternId"
@@ -67,9 +85,7 @@ const bgFill = computed(() => {
 				:patternTransform="`rotate(${angle})`"
 			>
 				<line
-					x1="0"
-					y1="0"
-					x2="0"
+					x1="0" y1="0" x2="0"
 					:y2="stripeParams.total"
 					:stroke="strokeColor"
 					:stroke-width="stripeParams.stripeW"

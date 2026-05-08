@@ -1,3 +1,4 @@
+import { useRootFontSize } from "./composables/useRootFontSize"
 import { baseUrl } from "./constants"
 
 export function pathWithBase(path: string): string {
@@ -13,6 +14,7 @@ export function randomObjectKey<T extends Record<string, unknown>>(obj: T): keyo
 }
 
 export function fluidRem(px: number): number {
-	const fontSize = parseFloat(getComputedStyle(document.documentElement).fontSize)
+	const { rootFontSize } = useRootFontSize()
+	const fontSize = rootFontSize.value
 	return (px / 16) * fontSize
 }

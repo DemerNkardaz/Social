@@ -6,3 +6,8 @@ const uaData = (navigator as unknown as {
 }).userAgentData
 
 export const isWindows = uaData?.platform === 'Windows' || navigator.userAgent.includes('Windows')
+
+
+export const HumanityID = {
+	'Ялла Нкардаз': 107_103_773_700,
+}

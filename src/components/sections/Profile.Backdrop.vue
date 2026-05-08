@@ -24,14 +24,14 @@ const actualBackdropImage = computed(() => {
 	<div class="backdrop-profile">
 		<div class="backdrop-profile__header">
 			<div class="backdrop-profile__stripes-wrapper of-header">
-				<Stripes class="backdrop-profile__stripes of-header" :angle="45" :gap-px="1.522" :stripes-px="3" width="100%" color="#000" :opacity="0.425" bg-color="#fff" />
+				<Stripes class="backdrop-profile__stripes of-header" :angle="45" :gap-px="1.522" :stripes-px="3" w="100%" color="#000" :opacity="0.425" bg-color="#fff" />
 			</div>
 			<div class="backdrop-profile__stripes__overlay of-header" />
 		</div>
 		<div class="backdrop-profile__main-top">
 			<div class="backdrop-profile__stripes-wrapper of-main-top">
-				<Stripes class="backdrop-profile__stripes of-main-top" :angle="-45" :gap-px="3.522" width="50%" color="#fff" :opacity="0.65" />
-				<Stripes class="backdrop-profile__stripes of-main-top" :angle="45" :gap-px="3.522" width="50%" color="#fff" :opacity="0.65" />
+				<Stripes class="backdrop-profile__stripes of-main-top" :angle="-45" :gap-px="3.522" w="50%" color="#fff" :opacity="0.65" />
+				<Stripes class="backdrop-profile__stripes of-main-top" :angle="45" :gap-px="3.522" w="50%" color="#fff" :opacity="0.65" />
 			</div>
 			<div class="backdrop-profile__stripes__overlay of-main-top" />
 			<div class="backdrop-profile__image" :style="{ '--backdrop': `url(${actualBackdropImage})` }"/>

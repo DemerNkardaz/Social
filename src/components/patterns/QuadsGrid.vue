@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useRootFontSize } from '@/scripts/composables/useRootFontSize'
+import { fluidRem } from '@/scripts/utils'
 
 interface Props {
 	sizePx?: number
@@ -26,28 +26,24 @@ const props = withDefaults(defineProps<Props>(), {
 	h: '100%',
 })
 
-const { rootFontSize } = useRootFontSize()
-
 const patternId = `squares-${Math.random().toString(36).slice(2, 7)}`
 
 const params = computed(() => {
-	const fs = rootFontSize.value
-	const fluidRemLocal = (px: number) => (px / 16) * fs
-
-	const cell = fluidRemLocal(props.sizePx)
-	const gap = fluidRemLocal(props.gapPx)
+	const cell = fluidRem(props.sizePx)
+	const gap = fluidRem(props.gapPx)
 	const total = cell + gap
 
 	const resolveSize = (val: number | string): string => {
 		if (typeof val === 'number') {
-			const stretched = Math.ceil(val / total) * total
+			const fluidVal = fluidRem(val)
+			const stretched = Math.ceil(fluidVal / total) * total
 			return `${stretched}px`
 		}
 		return val
 	}
 
 	const rx = typeof props.borderRadius === 'number'
-		? fluidRemLocal(props.borderRadius)
+		? fluidRem(props.borderRadius)
 		: (parseFloat(props.borderRadius) / 100) * (cell / 2)
 
 	return {
@@ -77,33 +73,11 @@ const bgFill = computed(() => {
 </script>
 
 <template>
-		<svg
-			:width="params.w"
-			:height="params.h"
-			xmlns="http://www.w3.org/2000/svg"
-			:style="{
-				display: 'block',
-				flexShrink: 0,
-				width: params.w,
-				height: params.h,
-			}"
-		>
+		<svg :width="params.w" :height="params.h" xmlns="http://www.w3.org/2000/svg"
+			:style="{ display: 'block', flexShrink: 0, width: params.w, height: params.h }">
 		<defs>
-			<pattern
-				:id="patternId"
-				patternUnits="userSpaceOnUse"
-				:width="params.total"
-				:height="params.total"
-			>
-				<rect
-					:x="params.gap / 2"
-					:y="params.gap / 2"
-					:width="params.cell"
-					:height="params.cell"
-					:fill="fillColor"
-					:rx="params.rx"
-					:ry="params.rx"
-				/>
+			<pattern :id="patternId" patternUnits="userSpaceOnUse" :width="params.total" :height="params.total">
+				<rect :x="params.gap / 2" :y="params.gap / 2":width="params.cell" :height="params.cell" :fill="fillColor" :rx="params.rx" :ry="params.rx"/>
 			</pattern>
 		</defs>
 		<rect v-if="bgFill" width="100%" height="100%" :fill="bgFill" />

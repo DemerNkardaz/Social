@@ -8,6 +8,7 @@ import './styles/_variables.scss'
 import './styles/_animations.scss'
 
 import { updateScale } from './scripts/updateScale'
+import { updateRootFontSize } from './scripts/composables/useRootFontSize'
 
 const app = createApp(App)
 
@@ -16,8 +17,13 @@ app.component('MdxVueProvider', MDXProvider)
 
 app.mount('#app')
 
-window.addEventListener('resize', updateScale)
-updateScale()
+function UIUpdate() {
+	updateScale()
+	updateRootFontSize()
+}
+
+window.addEventListener('resize', UIUpdate)
+UIUpdate()
 
 if (import.meta.env.DEV) {
 	import('./scripts/dev').then(m => m.devShowBounds())
