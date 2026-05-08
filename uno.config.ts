@@ -4,6 +4,13 @@ function fluidRem(px: number) {
 	return `${px / 16}rem`
 }
 
+function shift(x: number = 0, y: number = 0) {
+  const parts: string[] = []
+  if (x !== 0) parts.push(`translateX(${fluidRem(x)})`)
+  if (y !== 0) parts.push(`translateY(${fluidRem(y)})`)
+  return parts.join(' ') || 'translate(0, 0)'
+}
+
 const pxToRem = ([, d]: RegExpMatchArray) => fluidRem(Number(d))
 
 export default defineConfig({
@@ -16,6 +23,36 @@ export default defineConfig({
 		[/^inset-(\d+)px$/, ([, d]) => ({ inset: fluidRem(Number(d)) })],
 		[/^inset-x-(\d+)px$/, ([, d]) => ({ left: fluidRem(Number(d)), right: fluidRem(Number(d)) })],
 		[/^inset-y-(\d+)px$/, ([, d]) => ({ top: fluidRem(Number(d)), bottom: fluidRem(Number(d)) })],
+
+		[/^inset-x-(\d+)%$/, ([, d]) => ({ 'inset-inline': `${d}%` })],
+		[/^inset-y-(\d+)%$/, ([, d]) => ({ 'inset-block': `${d}%` })],
+		['inset-x-center', { 'inset-inline-start': '50%', 'transform': 'translateX(-50%)' }],
+		['inset-y-center', { 'inset-block-start': '50%', 'transform': 'translateY(-50%)' }],
+		[/^inset-x-([\d.]+)%-translate-([\d.]+)%$/, ([, d, e]) => ({ 'inset-inline-start': `${d}%`, 'transform': `translateX(-${e}%)` })],
+		[/^inset-y-([\d.]+)%-translate-([\d.]+)%$/, ([, d, e]) => ({ 'inset-block-start': `${d}%`, 'transform': `translateY(-${e}%)` })],
+
+		[
+			/^shift-x-center-(-?[\d.]+)$/,
+			([, val]) => {
+				const px = parseFloat(val)
+				const offset = fluidRem(px)
+				return {
+					'inset-inline-start': `50%`,
+					'transform': `translateX(calc(-50% + ${offset}))`,
+				}
+			},
+		],
+		[
+			/^shift-y-center-(-?[\d.]+)$/,
+			([, val]) => {
+				const px = parseFloat(val)
+				const offset = fluidRem(px)
+				return {
+					'inset-block-start': `50%`,
+					'transform': `translateY(calc(-50% + ${offset}))`,
+				}
+			},
+		],
 
 		// ─── Sizing ────────────────────────────────────────────────
 		[/^w-(\d+)px$/, ([, d]) => ({ width: fluidRem(Number(d)) })],

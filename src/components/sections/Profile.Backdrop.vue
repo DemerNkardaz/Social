@@ -6,6 +6,7 @@ import { computed } from 'vue';
 import QuadsGrid from '../patterns/QuadsGrid.vue';
 import Quads from '../patterns/Quads.vue';
 import FrameOutline from '../patterns/primitives/FrameOutline.vue';
+import Strip from '../patterns/primitives/Strip.vue';
 
 const { windowHeight } = useWindowSize()
 
@@ -58,13 +59,20 @@ const actualBackdropImage = computed(() => {
 					/>
 				</div>
 				<!-- Right -->
-
 				<div class="backdrop-profile__stripes-wrapper">
 					<Stripes class="backdrop-profile__stripes absolute right-50px top-5px" :angle="45" :gap-px="3.522" :w="128" :h="42" color="#ccc" />
 				</div>
 				<div class="backdrop-profile__frames-wrapper">
 					<FrameOutline class="backdrop-profile__frame absolute right-169px top-25px" :directions="['top', 'right']" :length="12" :thickness-px="4" color="#CCC" />
 				</div>
+				<!-- Center -->
+				<FrameOutline class="backdrop-profile__frame absolute left-28.8% top-13px" :directions="['bottom', 'right']" :length="10" :length-right="15" :thickness-px="3" color="#DEDEDE" />
+				<FrameOutline class="backdrop-profile__frame absolute left-28.8% top-42px" :directions="['top', 'right']" :length="10" :length-right="15" :thickness-px="3" color="#DEDEDE" />
+				<FrameOutline class="backdrop-profile__frame absolute left-71.2% top-13px" :directions="['bottom', 'left']" :length="10" :length-left="15" :thickness-px="3" color="#DEDEDE" />
+				<FrameOutline class="backdrop-profile__frame absolute left-71.2% top-42px" :directions="['top', 'left']" :length="10" :length-left="15" :thickness-px="3" color="#DEDEDE" />
+
+				<Stripes class="backdrop-profile__stripes absolute shift-x-center-9 top-20px" :angle="45" :gap-px="3.522" :w="600" :h="28" color="#ccc" />
+				<Strip class="absolute shift-x-center-9 top-20px" :w="600" :h="28" :strip-w="200" :strip-h="28" color="#E8E8E8" />
 			</div>
 			<div class="backdrop-profile__footer__top-decorator"/>
 			<div class="backdrop-profile__footer__content-container">
