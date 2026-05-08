@@ -75,8 +75,7 @@ const actualBackdropImage = computed(() => {
 						{ directions: ['bottom', 'left']  as FrameOutlineDirection[], pos: [577, -45.5], lengthRight: undefined, lengthLeft: 15 }
 					]"
 					:key="index"
-					class="backdrop-profile__frame absolute"
-					:style="{ left: `${pos[0]}px`, top: `${pos[1]}px` }"
+					:class="`backdrop-profile__frame absolute left-${pos[0]}px top-${pos[1]}px`"
 					:directions="directions"
 					:length="10"
 					:length-right="lengthRight"
