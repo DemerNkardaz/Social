@@ -43,10 +43,10 @@
 	hanging-punctuation: first last;
 	widows: 3;
 	orphans: 3;
-
+	// text-shadow: 0 0 0.25px color-mix(in srgb, currentColor 80%, transparent);
 	&::selection {
 		background-color: $accent-a-0;
-		color: #ffffff;
+		color: $text-a-0;
 	}
 }
 
