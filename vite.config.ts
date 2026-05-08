@@ -9,6 +9,8 @@ import svgLoader from 'vite-svg-loader'
 
 import mdx from '@mdx-js/rollup'
 
+import UnoCSS from 'unocss/vite'
+
 import scssTokensPlugin from './vite-plugin-scss-tokens'
 
 // https://vite.dev/config/
@@ -22,6 +24,7 @@ export default defineConfig({
     vue(),
     vueJsx(),
 		svgLoader(),
+		UnoCSS(),
 		vueDevTools(),
 		scssTokensPlugin(),
   ],

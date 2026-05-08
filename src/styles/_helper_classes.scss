@@ -5,40 +5,6 @@
 	@include shift(fluid-rem(18));
 }
 
-.absolute {
-	position: absolute;
-}
-
-.fixed {
-	position: fixed;
-}
-
-@for $i from 0 through 400 {
-	.top-#{$i}px {
-		top: fluid-rem($i);
-	}
-
-	.bottom-#{$i}px {
-		bottom: fluid-rem($i);
-	}
-
-	.left-#{$i}px {
-		left: fluid-rem($i);
-	}
-
-	.right-#{$i}px {
-		right: fluid-rem($i);
-	}
-}
-
-.w-1920 {
-	width: fluid-rem(1920);
-}
-
-.h-1080 {
-	height: fluid-rem(1080);
-}
-
 .text-medium {
 	font-size: fluid-rem(19);
 	line-height: fluid-rem(19 * 1.5);

@@ -72,7 +72,7 @@ const actualBackdropImage = computed(() => {
 				<div class="backdrop-profile__footer__oseer-plate">O.S.E.E.R. DataBank</div>
 			</div>
 		</div>
-		<div class="backdrop-free-space w-1920 h-1080">
+		<div class="backdrop-free-space w-1920px h-1080px">
 				<FrameOutline class="absolute right-200px bottom-15px" :directions="['top', 'right', 'bottom', 'left']" :length="12" :thickness-px="2" color="#CCC" />
 				<FrameOutline class="absolute right-200px bottom-59px" :directions="['top', 'right', 'bottom', 'left']" :length="12" :thickness-px="2" color="#CCC" />
 		</div>

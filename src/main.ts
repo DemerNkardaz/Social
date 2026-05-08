@@ -7,6 +7,8 @@ import './styles/main.scss'
 import './styles/_variables.scss'
 import './styles/_animations.scss'
 
+import 'uno.css'
+
 import { updateScale } from './scripts/updateScale'
 import { updateRootFontSize } from './scripts/composables/useRootFontSize'
 
