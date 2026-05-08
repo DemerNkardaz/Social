@@ -1,4 +1,5 @@
 import { defineConfig } from 'unocss'
+import { handler as h } from '@unocss/preset-mini/utils'
 
 function fluidRem(px: number) {
 	return `${px / 16}rem`
@@ -15,6 +16,18 @@ const pxToRem = ([, d]: RegExpMatchArray) => fluidRem(Number(d))
 
 export default defineConfig({
 	rules: [
+		[/^text-shadow(?:-(.+))?$/, ([, s], { theme }) => {
+			const v = theme.textShadow?.[s || 'DEFAULT']
+			if (v != null) {
+				return { 'text-shadow': v }
+			}
+
+			const raw = h.bracket.cssvar.global(s)
+			if (!raw) return
+
+			const fluid = raw.replace(/(-?\d+(?:\.\d+)?)px/g, (_, n) => `${fluidRem(Number(n))}`)
+			return { 'text-shadow': fluid }
+		}],
 		// ─── Positioning ───────────────────────────────────────────
 		[/^top-(-?[\d.]+)px$/, ([, d]) => ({ top: fluidRem(Number(d)) })],
 		[/^bottom-(-?[\d.]+)px$/, ([, d]) => ({ bottom: fluidRem(Number(d)) })],

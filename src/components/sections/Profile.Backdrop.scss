@@ -214,21 +214,13 @@
 		height: 100%;
 		width: fluid-rem(1920);
 
-		&.of-main-top {
+		&.of-backdrop-image {
 			--mask-x: 80%;
 			--mask-y: 25%;
 			mask: radial-gradient(ellipse fluid-rem(256 + 128) fluid-rem(128) at var(--mask-x) var(--mask-y), #000 0 fluid-rem(64 + 32), transparent 100%);
 
 			-webkit-mask-composite: source-in;
 			mask-composite: intersect;
-		}
-
-		&.of-footer {
-			&.left-six-quads {
-				position: absolute;
-				left: 0;
-				top: fluid-rem(10);
-			}
 		}
 	}
 

@@ -3,7 +3,7 @@
 import { fluidRem } from '@/scripts/utils'
 import { computed } from 'vue'
 
-type Direction = 'top' | 'right' | 'bottom' | 'left'
+export type Direction = 'top' | 'right' | 'bottom' | 'left'
 
 interface Props {
 	thicknessPx?: number
