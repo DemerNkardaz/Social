@@ -3,10 +3,10 @@ import Stripes from '@/components/patterns/Stripes.vue';
 import { useWindowSize } from '@/scripts/composables/useWindowSize';
 import { baseUrl } from '@/scripts/constants';
 import { computed } from 'vue';
-import QuadsGrid from '../patterns/QuadsGrid.vue';
-import Quads from '../patterns/Quads.vue';
-import FrameOutline, { type Direction as FrameOutlineDirection } from '../patterns/primitives/FrameOutline.vue';
-import Strip from '../patterns/primitives/Strip.vue';
+import QuadsGrid from '@/components/patterns/QuadsGrid.vue';
+import Quads from '@/components/patterns/Quads.vue';
+import FrameOutline, { type Direction as FrameOutlineDirection } from '@/components/patterns/primitives/FrameOutline.vue';
+import Strip from '@/components/patterns/primitives/Strip.vue';
 
 const { windowHeight } = useWindowSize()
 
@@ -18,27 +18,22 @@ const actualBackdropImage = computed(() => {
 	, backdropImageVariants[0]!)
 	return `${baseUrl}images/backdrop-${match}.avif`
 })
+
 </script>
 
 <style lang="scss" src="./Profile.Backdrop.scss"></style>
 
 <template>
 	<div class="backdrop-profile">
-		<div class="backdrop-profile__header">
-			<div class="backdrop-profile__stripes-wrapper of-header">
-				<Stripes class="backdrop-profile__stripes of-header" :angle="45" :gap-px="1.522" :stripes-px="3" w="100%" color="#000" :opacity="0.425" bg-color="#fff" />
-			</div>
-			<div class="backdrop-profile__stripes__overlay of-header" />
-		</div>
-		<div class="backdrop-profile__main-top">
-			<div class="backdrop-profile__stripes-wrapper of-main-top">
-				<Stripes class="backdrop-profile__stripes of-main-top" :angle="-45" :gap-px="3.522" w="50%" color="#fff" :opacity="0.65" />
-				<Stripes class="backdrop-profile__stripes of-main-top" :angle="45" :gap-px="3.522" w="50%" color="#fff" :opacity="0.65" />
-			</div>
-			<div class="backdrop-profile__stripes__overlay of-main-top" />
-			<div class="backdrop-profile__image" :style="{ '--backdrop': `url(${actualBackdropImage})` }"/>
-			<div class="backdrop-profile__image__overlay"/>
-			<div class="backdrop-profile__quads-wrapper">
+		<div class="backdrop-profile__background">
+			<!-- <div class="abosul"> -->
+				<Stripes class="absolute right-50%" :angle="-45" :gap-px="3.522" w="50%" color="#fff" :opacity="0.65" />
+				<Stripes class="absolute left-50%":angle="45" :gap-px="3.522" w="50%" color="#fff" :opacity="0.65" />
+			<!-- </div> -->
+			<div class="absolute w-1920px h-100% left-50% translate-x--50% bg-[var(--surface-b-0)] mask-[var(--overlay-bg-mask)]" />
+			<div class="backdrop-profile__background__image" :style="{ '--backdrop': `url(${actualBackdropImage})` }"/>
+			<div class="backdrop-profile__background__image__overlay"/>
+			<div class="svg-quads-wrapper">
 				<QuadsGrid
 					v-for="(style, index) in [
 						{},
@@ -47,7 +42,7 @@ const actualBackdropImage = computed(() => {
 						{ '--mask-x': '28%', '--mask-y': '40%' },
 					]"
 					:key="index"
-					class="backdrop-profile__quads of-backdrop-image"
+					class="svg-quads of-background-image"
 					color="#444444"
 					:opacity="index === 3 ? 0.35 : 1"
 					:style="style"
@@ -59,9 +54,9 @@ const actualBackdropImage = computed(() => {
 		<div class="backdrop-profile__footer">
 			<div class="middle-block absolute">
 				<!-- Left Under Top -->
-				<div class="backdrop-profile__quads-wrapper">
-					<QuadsGrid class="backdrop-profile__quads absolute left-5px top-25px" color="#CCC" :size-px="4" :gap-px="5" :opacity="0.25" :w="128 - 32"/>
-					<Quads class="backdrop-profile__quads absolute left-0px top-25px"
+				<div class="svg-quads-wrapper">
+					<QuadsGrid class="svg-quads absolute left-5px top-25px" color="#CCC" :size-px="4" :gap-px="5" :opacity="0.25" :w="128 - 32"/>
+					<Quads class="svg-quads absolute left-0px top-25px"
 						color="CECECE" :opacity="1"
 						:size-px="5" :gap-px="2"
 						:row="[6, 5, [1,3,4]]" :count="6"
@@ -75,7 +70,7 @@ const actualBackdropImage = computed(() => {
 						{ directions: ['bottom', 'left']  as FrameOutlineDirection[], pos: [577, -45.5], lengthRight: undefined, lengthLeft: 15 }
 					]"
 					:key="index"
-					:class="`backdrop-profile__frame absolute left-${pos[0]}px top-${pos[1]}px`"
+					:class="`svg-frame absolute left-${pos[0]}px top-${pos[1]}px`"
 					:directions="directions"
 					:length="10"
 					:length-right="lengthRight"
@@ -83,15 +78,15 @@ const actualBackdropImage = computed(() => {
 					:thickness-px="3"
 					color="#DEDEDE"
 				/>
-				<Stripes class="backdrop-profile__stripes absolute left--15px top--35px" :angle="45" :gap-px="3.522" :w="600" :h="28" color="#ccc" />
-				<Strip class="absolute left--15px top--35px" :w="600" :h="28" :strip-w="200" :strip-h="28" color="#E8E8E8" />
+				<Stripes class="svg-stripes absolute left--15px top--35px" :angle="45" :gap-px="3.522" :w="600" :h="28" color="#ccc" />
+				<Strip class="svg-strip absolute left--15px top--35px" :w="600" :h="28" :strip-w="200" :strip-h="28" color="#E8E8E8" />
 
 				<!-- Right Under Top -->
-				<div class="backdrop-profile__stripes-wrapper">
-					<Stripes class="backdrop-profile__stripes absolute right-50px top-5px" :angle="45" :gap-px="2.5" :w="128" :h="42" color="#ccc" />
+				<div class="svg-stripes-wrapper">
+					<Stripes class="svg-stripes absolute right-50px top-5px" :angle="45" :gap-px="2.5" :w="128" :h="42" color="#ccc" />
 				</div>
-				<div class="backdrop-profile__frames-wrapper">
-					<FrameOutline class="backdrop-profile__frame absolute right-169px top-25px" :directions="['top', 'right']" :length="12" :thickness-px="4" color="#CCC" />
+				<div class="svg-frames-wrapper">
+					<FrameOutline class="svg-frame absolute right-169px top-25px" :directions="['top', 'right']" :length="12" :thickness-px="4" color="#CCC" />
 				</div>
 
 				<!-- Center Under Top -->

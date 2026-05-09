@@ -1,8 +1,8 @@
 import { defineConfig } from 'unocss'
 import { handler as h } from '@unocss/preset-mini/utils'
 
-function fluidRem(px: number) {
-	return `${px / 16}rem`
+function fluidRem(px: number, base: number = 16): string {
+	return `${px / base}rem`
 }
 
 function shift(x: number = 0, y: number = 0) {
@@ -67,9 +67,40 @@ export default defineConfig({
 			},
 		],
 
+		[/^shift-x-(-?[\d.]+)px$/, ([, d]) => ({ transform: shift(d) })],
+		[/^shift-y-(-?[\d.]+)px$/, ([, d]) => ({ transform: shift(0, d) })],
+
 		// ─── Sizing ────────────────────────────────────────────────
 		[/^w-(-?[\d.]+)px$/, ([, d]) => ({ width: fluidRem(Number(d)) })],
 		[/^h-(-?[\d.]+)px$/, ([, d]) => ({ height: fluidRem(Number(d)) })],
+		[
+			/^h-\[calc\((.+)\)\]$/,
+			([, expr]) => {
+				const converted = expr
+					.replace(/(-?[\d.]+)(px|pt)/g, (_, n, unit) =>
+						unit === 'px' ? fluidRem(Number(n)) : fluidRem(Number(n), 12)
+					)
+					.replace(/([+\-])/g, ' $1 ')
+					.replace(/\s+/g, ' ')
+					.trim()
+				return { height: `calc(${converted})` }
+			},
+		],
+		[
+			/^w-\[calc\((.+)\)\]$/,
+			([, expr]) => {
+				const converted = expr
+					.replace(/(-?[\d.]+)(px|pt)/g, (_, n, unit) =>
+						unit === 'px' ? fluidRem(Number(n)) : fluidRem(Number(n), 12)
+					)
+					.replace(/([+\-])/g, ' $1 ')
+					.replace(/\s+/g, ' ')
+					.trim()
+				return { width: `calc(${converted})` }
+			},
+		],
+
+
 		[/^size-(-?[\d.]+)px$/, ([, d]) => ({ width: fluidRem(Number(d)), height: fluidRem(Number(d)) })],
 		[/^min-w-(-?[\d.]+)px$/, ([, d]) => ({ 'min-width': fluidRem(Number(d)) })],
 		[/^max-w-(-?[\d.]+)px$/, ([, d]) => ({ 'max-width': fluidRem(Number(d)) })],
@@ -139,5 +170,9 @@ export default defineConfig({
 		[/^columns-(-?[\d.]+)px$/, ([, d]) => ({ columns: fluidRem(Number(d)) })],
 		[/^scroll-m-(-?[\d.]+)px$/, ([, d]) => ({ 'scroll-margin': fluidRem(Number(d)) })],
 		[/^scroll-p-(-?[\d.]+)px$/, ([, d]) => ({ 'scroll-padding': fluidRem(Number(d)) })],
+
+		//
+
+		[/^mask-\[(.+)\]$/, ([, v]) => ({ mask: v.replace(/_/g, ' ') })],
 	],
 })

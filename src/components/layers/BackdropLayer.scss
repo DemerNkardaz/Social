@@ -3,8 +3,42 @@
 	inset: 0;
 	overflow: hidden;
 	z-index: -1;
+
+	transform: perspective(fluid-rem(800)) scale(1);
+	animation: zoom-out 0.5s $ease-out-smooth forwards;
 }
 
 .backdrop-free-space {
 	position: absolute;
+}
+
+.backdrop {
+	&__header {
+		position: relative;
+		background: $surface-a-0;
+		width: 100%;
+		height: fluid-rem(82);
+		overflow: hidden;
+
+		&__stripes {
+			flex: none;
+			position: absolute;
+			top: 0;
+			height: 100%;
+			width: fluid-rem(1920);
+			left: 50%;
+			transform: translateX(-50%);
+
+			&__overlay {
+				position: absolute;
+				width: fluid-rem(1920);
+				height: 100%;
+				top: 0;
+				left: 50%;
+				transform: translateX(-50%);
+				background: $surface-a-0;
+				mask: linear-gradient(to right, #fff 0%, #fff 20%, transparent 25%, transparent 75%, #fff 80%, #fff 100%);
+			}
+		}
+	}
 }
