@@ -9,8 +9,10 @@ import QuadsGrid from '@/components/patterns/QuadsGrid.vue';
 import Quads from '@/components/patterns/Quads.vue';
 import FrameOutline from '@/components/patterns/primitives/FrameOutline.vue';
 import Strip from '@/components/patterns/primitives/Strip.vue';
+import { useReadyAnimate } from '@/scripts/composables/useReadyAnimate';
 
 const { windowHeight } = useWindowSize()
+const { isReady } = useReadyAnimate()
 
 const backdropImageVariants = [1080, 1440, 2160, 4320]
 const actualBackdropImage = computed(() => {
@@ -27,7 +29,7 @@ const actualBackdropImage = computed(() => {
 
 <template>
 	<div class="backdrop-profile">
-		<div class="backdrop-profile__top-slice animate-[zoom-out_325ms_var(--ease-out-smooth)_forwards]">
+			<div class="backdrop-profile__top-slice" :class="{ 'animate-[zoom-out_500ms_var(--ease-out-smooth)_forwards]': isReady }">
 			<div class="backdrop-profile__background">
 				<!-- Left And Right Stripes Pattern -->
 				<Stripes class="absolute right-50%" :angle="-45" :gap-px="3.522" w="50%" color="#fff" :opacity="0.5" />
@@ -66,7 +68,7 @@ const actualBackdropImage = computed(() => {
 					<Strip class="left-0px top-0px" :strip-w="1405" :strip-h="2" color="#CCC" />
 
 					<!-- Left Under Top -->
-					<div class="absolute left-0px top-25px opacity-0 animate-[flicker-2_175ms_forwards_325ms]">
+					<div class="absolute left-0px top-25px opacity-0" :class="{ 'animate-[flicker-2_175ms_forwards_250ms]': isReady }">
 						<QuadsGrid class="absolute left-5px" color="#CCC" :size-px="4" :gap-px="5" :opacity="0.25" :w="128 - 32" :h="128"/>
 						<Quads class="absolute left-0px"
 							color="CECECE" :opacity="1"
@@ -100,12 +102,12 @@ const actualBackdropImage = computed(() => {
 					</div>
 
 					<!-- Center Under Top -->
-					<div class="flex flex-col gap-2px absolute w-200px h-10px shift-x-center--175px top-10px  opacity-0 animate-[flicker-1_125ms_forwards_500ms]">
+					<div class="flex flex-col gap-2px absolute w-200px h-10px shift-x-center--175px top-10px  opacity-0" :class="{ 'animate-[flicker-1_125ms_forwards_500ms]': isReady }">
 						<div class="flex flex-row gap-2px" v-for="i in [ [30, 15, 25, 25, 5, 12, 6, 4], [12, 8, 35, 5, 20, 8, 15] ]">
 							<Strip v-for="w in i" :strip-w="w" :strip-h="5" color="#DBDBDB" />
 						</div>
 					</div>
-					<div class="flex flex-col gap-2px absolute w-200px h-10px shift-x-center-175px top-10px  opacity-0 animate-[flicker-2_200ms_forwards_500ms]">
+					<div class="flex flex-col gap-2px absolute w-200px h-10px shift-x-center-175px top-10px  opacity-0" :class="{ 'animate-[flicker-2_200ms_forwards_500ms]': isReady }">
 						<div class="flex flex-row gap-2px" v-for="i in [ [40, 20, 60, 30, 10], [12, 8, 35, 5, 20] ]">
 							<Strip v-for="w in i" :strip-w="w" :strip-h="5" color="#DBDBDB" />
 						</div>
@@ -113,7 +115,7 @@ const actualBackdropImage = computed(() => {
 				</div>
 
 				<!-- Texts -->
-				<div class="backdrop-profile__footer__content-container opacity-0 animate-[flicker-1_125ms_forwards_325ms]">
+				<div class="backdrop-profile__footer__content-container opacity-0" :class="{ 'animate-[flicker-1_125ms_forwards_250ms]': isReady }">
 					<!-- Left Side -->
 					<div class="backdrop-profile__footer__quote">Integrity. Innovate.</div>
 					<Strip class="absolute left-2px top-19px" :strip-w="96" :strip-h="1" color="#CCC" />

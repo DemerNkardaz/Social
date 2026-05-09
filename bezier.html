@@ -1,0 +1,760 @@
+<!-- Claude Generated -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bézier Editor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #eee;
+    --surface: #ccc;
+    --surface2: #fff;
+    --border: rgba(255,255,255,1);
+    --border2: rgba(255,255,255,1);
+    --text: #333;
+    --muted: #555;
+    --accent: #5effa0;
+    --accent2: #5eb8ff;
+    --warn: #ff6b6b;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Syne', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* header */
+  header {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+  }
+  header h1 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--text);
+  }
+  header span {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* layout */
+  main {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: 1fr auto;
+    gap: 0;
+  }
+
+  /* sidebar */
+  aside {
+    border-right: 1px solid var(--border);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    grid-row: 1 / 3;
+  }
+
+  .section-label {
+    font-size: 0.6rem;
+    font-family: var(--mono);
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  /* sliders */
+  .param-row {
+    margin-bottom: 1rem;
+  }
+  .param-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+  }
+  .param-name {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+  .param-val {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 2px;
+    background: var(--border2);
+    outline: none;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    transition: transform 0.1s;
+    box-shadow: 0 0 8px rgba(94,255,160,0.4);
+  }
+  input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.3); }
+  input[type=range].blue::-webkit-slider-thumb {
+    background: var(--accent2);
+    box-shadow: 0 0 8px rgba(94,184,255,0.4);
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* code output */
+  .code-block {
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    line-height: 1.6;
+    word-break: break-all;
+    cursor: pointer;
+    position: relative;
+    transition: border-color 0.15s;
+  }
+  .code-block:hover { border-color: rgba(94,255,160,0.3); }
+  .code-block .copy-hint {
+    position: absolute;
+    top: 6px; right: 8px;
+    font-size: 0.6rem;
+    color: var(--muted);
+    font-family: var(--mono);
+    letter-spacing: 0.05em;
+  }
+  .code-block .copied {
+    color: var(--accent);
+    display: none;
+  }
+  .code-block.just-copied .copy-hint { display: none; }
+  .code-block.just-copied .copied { display: inline; }
+
+  .orig-code {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--muted);
+    margin-top: 0.5rem;
+    padding-left: 0.25rem;
+  }
+
+  /* presets */
+  .presets {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+  .preset-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: 5px;
+    padding: 6px 8px;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--muted);
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s;
+    line-height: 1.4;
+  }
+  .preset-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .preset-btn span { display: block; font-size: 0.55rem; color: var(--muted); opacity: 0.6; }
+
+  /* graph area */
+  #graph-area {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  #graph-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    max-width: 460px;
+    margin: 0 auto;
+  }
+  #cv {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    display: block;
+    cursor: crosshair;
+  }
+
+  /* preview strip */
+  #preview-area {
+    padding: 1rem 1.5rem 1.5rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .preview-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .play-btn {
+    background: transparent;
+    border: 1px solid var(--border2);
+    border-radius: 5px;
+    padding: 6px 16px;
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.15s;
+  }
+  .play-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .play-btn.playing { border-color: var(--accent); color: var(--accent); }
+
+  .speed-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 200px;
+  }
+  .speed-label {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .speed-val {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent2);
+    width: 64px;
+    text-align: center;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: 5px;
+    outline: none;
+    padding: 4px 8px;
+    caret-color: var(--accent2);
+    transition: border-color 0.15s, box-shadow 0.15s;
+    flex-shrink: 0;
+  }
+  .speed-val:hover { border-color: rgba(94,184,255,0.35); }
+  .speed-val:focus { border-color: var(--accent2); box-shadow: 0 0 0 2px rgba(94,184,255,0.12); }
+  .speed-val.invalid { border-color: var(--warn); color: var(--warn); box-shadow: 0 0 0 2px rgba(255,107,107,0.12); }
+
+  .tracks {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .track-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .track-lbl {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--muted);
+    width: 50px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .track {
+    flex: 1;
+    height: 28px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  .ball {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    will-change: left;
+  }
+  .ball-o { background: #444450; box-shadow: 0 0 6px rgba(0,0,0,0.5); }
+  .ball-n { background: var(--accent); box-shadow: 0 0 10px rgba(94,255,160,0.5); }
+
+  /* responsive */
+  @media (max-width: 700px) {
+    main { grid-template-columns: 1fr; grid-template-rows: auto auto auto; }
+    aside { border-right: none; border-bottom: 1px solid var(--border); grid-row: auto; }
+    #preview-area { grid-column: 1; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Bézier Editor</h1>
+  <span>cubic-bezier playground</span>
+</header>
+
+<main>
+  <aside>
+    <div>
+      <div class="section-label">Контрольные точки</div>
+
+      <div class="param-row">
+        <div class="param-header">
+          <span class="param-name">P1 x</span>
+          <span class="param-val" id="v-p1x">0.39</span>
+        </div>
+        <input type="range" id="s-p1x" min="0" max="1" step="0.01" value="0.39">
+      </div>
+      <div class="param-row">
+        <div class="param-header">
+          <span class="param-name">P1 y</span>
+          <span class="param-val" id="v-p1y">0.71</span>
+        </div>
+        <input type="range" id="s-p1y" min="-0.5" max="2" step="0.01" value="0.71">
+      </div>
+      <div class="param-row">
+        <div class="param-header">
+          <span class="param-name">P2 x</span>
+          <span class="param-val" id="v-p2x">0.97</span>
+        </div>
+        <input type="range" id="s-p2x" min="0" max="1" step="0.01" value="0.97">
+      </div>
+      <div class="param-row">
+        <div class="param-header">
+          <span class="param-name">P2 y</span>
+          <span class="param-val" id="v-p2y">1.00</span>
+        </div>
+        <input type="range" id="s-p2y" min="-0.5" max="2" step="0.01" value="1.0">
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div>
+      <div class="section-label">Вывод</div>
+      <div class="code-block" id="code-out" onclick="copyCode()">
+        <span class="copy-hint">click to copy</span>
+        <span class="copied">✓ copied</span>
+        <span id="code-text">cubic-bezier(0.39, 0.71, 0.97, 1.00)</span>
+      </div>
+      <div class="orig-code">orig: cubic-bezier(0.39, 0.71, 0.77, 0.96)</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div>
+      <div class="section-label">Пресеты</div>
+      <div class="presets">
+        <button class="preset-btn" onclick="setPreset(0.39,0.71,0.97,1.0)">
+          Soft brake<span>мягкое торможение</span>
+        </button>
+        <button class="preset-btn" onclick="setPreset(0.25,0.1,0.25,1.0)">
+          ease<span>стандартный</span>
+        </button>
+        <button class="preset-btn" onclick="setPreset(0.42,0,1,1)">
+          ease-in-out<span>симметричный</span>
+        </button>
+        <button class="preset-btn" onclick="setPreset(0,0,0.58,1)">
+          ease-out<span>быстрый старт</span>
+        </button>
+        <button class="preset-btn" onclick="setPreset(0.34,1.56,0.64,1)">
+          spring<span>упругий</span>
+        </button>
+        <button class="preset-btn" onclick="setPreset(0.68,-0.55,0.27,1.55)">
+          back<span>с откатом</span>
+        </button>
+        <button class="preset-btn" onclick="setPreset(0.39,0.71,0.77,0.96)">
+          original<span>исходная кривая</span>
+        </button>
+        <button class="preset-btn" onclick="setPreset(0.12,0,0.39,0)">
+          ease-in<span>медленный старт</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <div id="graph-area">
+    <div class="section-label" style="margin-bottom:0">График (progress / time)</div>
+    <div id="graph-wrap">
+      <canvas id="cv"></canvas>
+    </div>
+  </div>
+
+  <div id="preview-area">
+    <div class="preview-controls">
+      <button class="play-btn" id="playBtn" onclick="play()">
+        <span id="playIcon">▶</span>
+        <span id="playText">Запустить</span>
+      </button>
+
+      <div class="speed-control">
+        <span class="speed-label">скорость</span>
+        <input type="range" id="s-speed" min="50" max="8000" step="1" value="1200" class="blue">
+        <input type="text" id="v-speed" value="1.2s" spellcheck="false">
+      </div>
+    </div>
+
+    <div class="tracks">
+      <div class="track-row">
+        <span class="track-lbl">original</span>
+        <div class="track"><div class="ball ball-o" id="b-orig"></div></div>
+      </div>
+      <div class="track-row">
+        <span class="track-lbl">current</span>
+        <div class="track"><div class="ball ball-n" id="b-new"></div></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+const ORIG = { p1x:0.39, p1y:0.71, p2x:0.77, p2y:0.96 };
+let vals = { p1x:0.39, p1y:0.71, p2x:0.97, p2y:1.0 };
+let speed = 1200;
+let animRAF = null;
+let isPlaying = false;
+
+const cv = document.getElementById('cv');
+const ctx = cv.getContext('2d');
+
+function resize() {
+  const wrap = document.getElementById('graph-wrap');
+  const w = wrap.clientWidth;
+  cv.width = w * devicePixelRatio;
+  cv.height = w * devicePixelRatio;
+  cv.style.width = w + 'px';
+  cv.style.height = w + 'px';
+  draw();
+}
+
+function solveBezier(p1x, p1y, p2x, p2y, t) {
+  const cx = 3*p1x, bx = 3*(p2x-p1x)-cx, ax = 1-cx-bx;
+  const cy = 3*p1y, by = 3*(p2y-p1y)-cy, ay = 1-cy-by;
+  function sX(t){ return ((ax*t+bx)*t+cx)*t; }
+  function sY(t){ return ((ay*t+by)*t+cy)*t; }
+  function dX(t){ return (3*ax*t+2*bx)*t+cx; }
+  let x = t;
+  for(let i=0;i<8;i++){ let e=sX(x)-t; if(Math.abs(e)<1e-7) break; let d=dX(x); if(Math.abs(d)<1e-7) break; x-=e/d; }
+  return sY(Math.max(0,Math.min(1,x)));
+}
+
+function draw() {
+  const dpr = devicePixelRatio;
+  const W = cv.width, H = cv.height;
+  const PAD = 40 * dpr;
+  const inner = W - PAD * 2;
+  ctx.clearRect(0, 0, W, H);
+
+  // bg
+  ctx.fillStyle = '#fff';
+  ctx.beginPath();
+  ctx.roundRect(0,0,W,H,8*dpr);
+  ctx.fill();
+
+  // grid
+  ctx.strokeStyle = 'rgba(0,0,0,0.13)';
+  ctx.lineWidth = dpr;
+  for (let i = 0; i <= 4; i++) {
+    const x = PAD + i*(inner/4);
+    const y = PAD + i*(inner/4);
+    ctx.beginPath(); ctx.moveTo(x, PAD); ctx.lineTo(x, H-PAD); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(PAD, y); ctx.lineTo(W-PAD, y); ctx.stroke();
+  }
+
+  // axis labels
+  ctx.fillStyle = 'rgba(122,122,140,1)';
+  ctx.font = `${9*dpr}px JetBrains Mono, monospace`;
+  ctx.textAlign = 'center';
+  for (let i = 0; i <= 4; i++) {
+    const x = PAD + i*(inner/4);
+    ctx.fillText((i/4).toFixed(2), x, H-PAD+14*dpr);
+  }
+  ctx.textAlign = 'right';
+  for (let i = 0; i <= 4; i++) {
+    const y = (H-PAD) - i*(inner/4);
+    ctx.fillText((i/4).toFixed(2), PAD-8*dpr, y+4*dpr);
+  }
+
+  // 90% vertical guide
+  const x90 = PAD + 0.9 * inner;
+  ctx.strokeStyle = 'rgba(255,107,107,1)';
+  ctx.lineWidth = dpr;
+  ctx.setLineDash([4*dpr, 4*dpr]);
+  ctx.beginPath(); ctx.moveTo(x90, PAD); ctx.lineTo(x90, H-PAD); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = 'rgba(255,107,107,1)';
+  ctx.font = `${8*dpr}px JetBrains Mono, monospace`;
+  ctx.textAlign = 'left';
+  ctx.fillText('90%', x90+4*dpr, PAD+12*dpr);
+
+  // diagonal baseline
+  ctx.strokeStyle = 'rgba(0,0,0,0.13)';
+  ctx.lineWidth = dpr;
+  ctx.beginPath(); ctx.moveTo(PAD,H-PAD); ctx.lineTo(W-PAD,PAD); ctx.stroke();
+
+  function drawCurve(p1x,p1y,p2x,p2y,color,lw,dash) {
+    if (dash) ctx.setLineDash([5*dpr,4*dpr]);
+    ctx.beginPath();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = lw * dpr;
+    for (let i = 0; i <= 200; i++) {
+      const t = i / 200;
+      const prog = solveBezier(p1x,p1y,p2x,p2y,t);
+      const px = PAD + t * inner;
+      const py = (H-PAD) - prog * inner;
+      i === 0 ? ctx.moveTo(px,py) : ctx.lineTo(px,py);
+    }
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  // original curve
+  drawCurve(ORIG.p1x,ORIG.p1y,ORIG.p2x,ORIG.p2y,'rgba(122,122,140,1)',1.5,true);
+
+  // current curve
+  drawCurve(vals.p1x,vals.p1y,vals.p2x,vals.p2y,'#5effa0',2.5,false);
+
+  // control point lines
+  const p1cx = PAD + vals.p1x*inner, p1cy = (H-PAD) - vals.p1y*inner;
+  const p2cx = PAD + vals.p2x*inner, p2cy = (H-PAD) - vals.p2y*inner;
+  ctx.strokeStyle = 'rgba(94,255,160,1)';
+  ctx.lineWidth = dpr;
+  ctx.beginPath(); ctx.moveTo(PAD, H-PAD); ctx.lineTo(p1cx,p1cy); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(W-PAD, PAD); ctx.lineTo(p2cx,p2cy); ctx.stroke();
+
+  // control points
+  function dot(x,y,color,r) {
+    ctx.beginPath(); ctx.arc(x,y,r*dpr,0,Math.PI*2);
+    ctx.fillStyle = color; ctx.fill();
+  }
+  dot(PAD, H-PAD, '#444450', 4);
+  dot(W-PAD, PAD, '#444450', 4);
+  dot(p1cx, p1cy, '#5effa0', 5);
+  dot(p2cx, p2cy, '#5effa0', 5);
+
+  // glow on control points
+  ctx.beginPath(); ctx.arc(p1cx,p1cy,8*dpr,0,Math.PI*2);
+  ctx.fillStyle = 'rgba(94,255,160,0.1)'; ctx.fill();
+  ctx.beginPath(); ctx.arc(p2cx,p2cy,8*dpr,0,Math.PI*2);
+  ctx.fillStyle = 'rgba(94,255,160,0.1)'; ctx.fill();
+}
+
+// dragging on canvas
+let dragging = null;
+cv.addEventListener('mousedown', e => {
+  const rect = cv.getBoundingClientRect();
+  const dpr = devicePixelRatio;
+  const PAD = 40 * dpr;
+  const inner = cv.width - PAD*2;
+  const mx = (e.clientX - rect.left) * dpr;
+  const my = (e.clientY - rect.top) * dpr;
+  const p1cx = PAD + vals.p1x*inner, p1cy = (cv.height-PAD) - vals.p1y*inner;
+  const p2cx = PAD + vals.p2x*inner, p2cy = (cv.height-PAD) - vals.p2y*inner;
+  const hit = (x,y) => Math.hypot(mx-x,my-y) < 14*dpr;
+  if (hit(p1cx,p1cy)) dragging = 'p1';
+  else if (hit(p2cx,p2cy)) dragging = 'p2';
+});
+cv.addEventListener('mousemove', e => {
+  if (!dragging) return;
+  const rect = cv.getBoundingClientRect();
+  const dpr = devicePixelRatio;
+  const PAD = 40 * dpr;
+  const inner = cv.width - PAD*2;
+  const mx = (e.clientX - rect.left) * dpr;
+  const my = (e.clientY - rect.top) * dpr;
+  const nx = Math.max(0,Math.min(1,(mx-PAD)/inner));
+  const ny = (((cv.height-PAD)-my)/inner);
+  const clamped = Math.max(-0.5,Math.min(2,ny));
+  if (dragging==='p1') { vals.p1x=parseFloat(nx.toFixed(2)); vals.p1y=parseFloat(clamped.toFixed(2)); }
+  else { vals.p2x=parseFloat(nx.toFixed(2)); vals.p2y=parseFloat(clamped.toFixed(2)); }
+  syncSliders(); draw(); updateCode();
+});
+cv.addEventListener('mouseup', () => dragging = null);
+cv.addEventListener('mouseleave', () => dragging = null);
+
+// touch support
+cv.addEventListener('touchstart', e => {
+  e.preventDefault();
+  const t = e.touches[0];
+  cv.dispatchEvent(new MouseEvent('mousedown',{clientX:t.clientX,clientY:t.clientY}));
+});
+cv.addEventListener('touchmove', e => {
+  e.preventDefault();
+  const t = e.touches[0];
+  cv.dispatchEvent(new MouseEvent('mousemove',{clientX:t.clientX,clientY:t.clientY}));
+});
+cv.addEventListener('touchend', () => cv.dispatchEvent(new MouseEvent('mouseup')));
+
+function syncSliders() {
+  ['p1x','p1y','p2x','p2y'].forEach(k => {
+    document.getElementById('s-'+k).value = vals[k];
+    document.getElementById('v-'+k).textContent = vals[k].toFixed(2);
+  });
+}
+
+function updateCode() {
+  const s = `cubic-bezier(${vals.p1x.toFixed(2)}, ${vals.p1y.toFixed(2)}, ${vals.p2x.toFixed(2)}, ${vals.p2y.toFixed(2)})`;
+  document.getElementById('code-text').textContent = s;
+}
+
+['p1x','p1y','p2x','p2y'].forEach(k => {
+  document.getElementById('s-'+k).addEventListener('input', e => {
+    vals[k] = parseFloat(e.target.value);
+    document.getElementById('v-'+k).textContent = vals[k].toFixed(2);
+    draw(); updateCode();
+  });
+});
+
+// ── speed control ──────────────────────────────────────────────
+const sSpeed = document.getElementById('s-speed');
+const vSpeed = document.getElementById('v-speed');
+
+function formatSpeed(ms) {
+  return ms < 1000 ? ms + 'ms' : (ms / 1000).toFixed(ms % 100 === 0 ? 1 : 3).replace(/\.?0+$/, '') + 's';
+}
+
+function parseSpeed(raw) {
+  const s = raw.trim().toLowerCase();
+  if (s.endsWith('ms')) { const v = parseFloat(s); return isNaN(v) ? null : Math.round(v); }
+  if (s.endsWith('s'))  { const v = parseFloat(s); return isNaN(v) ? null : Math.round(v * 1000); }
+  const n = parseFloat(s);
+  if (isNaN(n)) return null;
+  // bare number: if < 20 treat as seconds, else as ms
+  return n < 20 ? Math.round(n * 1000) : Math.round(n);
+}
+
+sSpeed.addEventListener('input', () => {
+  speed = parseInt(sSpeed.value);
+  vSpeed.value = formatSpeed(speed);
+  vSpeed.classList.remove('invalid');
+});
+
+vSpeed.addEventListener('keydown', e => {
+  if (e.key === 'Enter') { e.preventDefault(); vSpeed.blur(); }
+  if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+    e.preventDefault();
+    const step = e.shiftKey ? 100 : (e.altKey ? 1 : 10);
+    const delta = e.key === 'ArrowUp' ? step : -step;
+    speed = Math.max(50, Math.min(8000, speed + delta));
+    vSpeed.value = formatSpeed(speed);
+    sSpeed.value = speed;
+    vSpeed.classList.remove('invalid');
+  }
+});
+
+vSpeed.addEventListener('blur', () => {
+  const parsed = parseSpeed(vSpeed.value);
+  if (parsed === null || parsed < 50 || parsed > 8000) {
+    vSpeed.classList.add('invalid');
+    setTimeout(() => { vSpeed.value = formatSpeed(speed); vSpeed.classList.remove('invalid'); }, 900);
+    return;
+  }
+  speed = parsed;
+  sSpeed.value = speed;
+  vSpeed.value = formatSpeed(speed);
+  vSpeed.classList.remove('invalid');
+});
+
+// keep space-to-play from firing when editing speed field
+vSpeed.addEventListener('keydown', e => { if (e.code === 'Space') e.stopPropagation(); });
+
+function setPreset(p1x,p1y,p2x,p2y) {
+  vals = {p1x,p1y,p2x,p2y};
+  syncSliders(); draw(); updateCode();
+}
+
+function copyCode() {
+  const text = document.getElementById('code-text').textContent;
+  navigator.clipboard.writeText(text).catch(()=>{});
+  const el = document.getElementById('code-out');
+  el.classList.add('just-copied');
+  setTimeout(()=>el.classList.remove('just-copied'), 1500);
+}
+
+function play() {
+  if (isPlaying) return;
+  isPlaying = true;
+  const btn = document.getElementById('playBtn');
+  btn.classList.add('playing');
+  document.getElementById('playText').textContent = 'Идёт...';
+
+  const bOrig = document.getElementById('b-orig');
+  const bNew = document.getElementById('b-new');
+  const trackW = bOrig.closest('.track').clientWidth - 26;
+  const start = performance.now();
+  const dur = speed;
+
+  function frame(now) {
+    const t = Math.min((now - start) / dur, 1);
+    const po = solveBezier(ORIG.p1x,ORIG.p1y,ORIG.p2x,ORIG.p2y,t);
+    const pn = solveBezier(vals.p1x,vals.p1y,vals.p2x,vals.p2y,t);
+    bOrig.style.left = (3 + po*trackW) + 'px';
+    bNew.style.left = (3 + pn*trackW) + 'px';
+    if (t < 1) {
+      animRAF = requestAnimationFrame(frame);
+    } else {
+      setTimeout(() => {
+        bOrig.style.left = '3px';
+        bNew.style.left = '3px';
+        isPlaying = false;
+        btn.classList.remove('playing');
+        document.getElementById('playText').textContent = 'Запустить';
+      }, 500);
+    }
+  }
+  animRAF = requestAnimationFrame(frame);
+}
+
+// keyboard shortcut: Space to play
+document.addEventListener('keydown', e => {
+  if (e.code === 'Space' && e.target.tagName !== 'INPUT') { e.preventDefault(); play(); }
+});
+
+window.addEventListener('resize', resize);
+resize();
+updateCode();
+</script>
+</body>
+</html>

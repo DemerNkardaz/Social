@@ -21,6 +21,10 @@
 		align-items: center;
 	}
 
+	&__top-slice {
+		transform: perspective(fluid-rem(800)) scale(1.1);
+	}
+
 	&__background {
 		background: $surface-b-0;
 		display: flex;

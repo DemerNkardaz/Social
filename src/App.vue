@@ -12,9 +12,6 @@ import ProfileBackdrop from '@/components/sections/Profile.Backdrop.vue';
 </template>
 
 <style lang="scss">
-#app {
-	background: $surface-gradient-a-0;
-}
 .content-container {
 	width: 100%;
 	height: 100%;

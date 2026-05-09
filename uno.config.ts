@@ -17,16 +17,16 @@ const pxToRem = ([, d]: RegExpMatchArray) => fluidRem(Number(d))
 export default defineConfig({
 	rules: [
 		[/^text-shadow(?:-(.+))?$/, ([, s], { theme }) => {
-			const v = theme.textShadow?.[s || 'DEFAULT']
-			if (v != null) {
-				return { 'text-shadow': v }
-			}
+				const v = theme.textShadow?.[s || 'DEFAULT']
+				if (v != null) {
+						return { 'text-shadow': Array.isArray(v) ? v.join(', ') : v }
+				}
 
-			const raw = h.bracket.cssvar.global(s)
-			if (!raw) return
+				const raw = h.bracket.cssvar.global(s)
+				if (!raw) return
 
-			const fluid = raw.replace(/(-?\d+(?:\.\d+)?)px/g, (_, n) => `${fluidRem(Number(n))}`)
-			return { 'text-shadow': fluid }
+				const fluid = raw.replace(/(-?\d+(?:\.\d+)?)px/g, (_, n) => `${fluidRem(Number(n))}`)
+				return { 'text-shadow': fluid }
 		}],
 		// ─── Positioning ───────────────────────────────────────────
 		[/^top-(-?[\d.]+)px$/, ([, d]) => ({ top: fluidRem(Number(d)) })],
@@ -67,8 +67,8 @@ export default defineConfig({
 			},
 		],
 
-		[/^shift-x-(-?[\d.]+)px$/, ([, d]) => ({ transform: shift(d) })],
-		[/^shift-y-(-?[\d.]+)px$/, ([, d]) => ({ transform: shift(0, d) })],
+		[/^shift-x-(-?[\d.]+)px$/, ([, d]) => ({ transform: shift(Number(d)) })],
+		[/^shift-y-(-?[\d.]+)px$/, ([, d]) => ({ transform: shift(0,Number(d)) })],
 
 		// ─── Sizing ────────────────────────────────────────────────
 		[/^w-(-?[\d.]+)px$/, ([, d]) => ({ width: fluidRem(Number(d)) })],
