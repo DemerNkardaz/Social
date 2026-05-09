@@ -174,5 +174,6 @@ export default defineConfig({
 		//
 
 		[/^mask-\[(.+)\]$/, ([, v]) => ({ mask: v.replace(/_/g, ' ') })],
+		[/^mask-composite-\[(.+)\]$/, ([, v]) => ({ 'mask-composite': v.replace(/_/g, ' ') })],
 	],
 })

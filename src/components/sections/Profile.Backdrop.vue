@@ -2,7 +2,7 @@
 import { useWindowSize } from '@/scripts/composables/useWindowSize';
 import { baseUrl } from '@/scripts/constants';
 import { computed } from 'vue';
-import { fluidPx, fluidRem } from '@/scripts/utils';
+import { fluidPx } from '@/scripts/utils';
 
 import Stripes from '@/components/patterns/Stripes.vue';
 import QuadsGrid from '@/components/patterns/QuadsGrid.vue';
@@ -44,7 +44,7 @@ const actualBackdropImage = computed(() => {
 					{ '--mask-x': `${fluidPx((2560 - 64) - (768 + 256))}px`, '--mask-y': '40%' },
 				]"
 				:key="index"
-				class="svg-quads of-background-image"
+				class="background-image-quads-mask absolute"
 				color="#444"
 				:opacity="index === 3 ? 0.35 : 1"
 				:w="3840" h="100%"
@@ -54,41 +54,34 @@ const actualBackdropImage = computed(() => {
 		<div class="backdrop-profile__body">
 		</div>
 		<div class="backdrop-profile__footer">
-			<div class="absolute w-1405px h-100%">
+			<div class="absolute w-1405px h-100% shift-x-18px">
 				<!-- Left Under Top -->
-				<div class="svg-quads-wrapper">
-					<QuadsGrid class="svg-quads absolute left-5px top-25px" color="#CCC" :size-px="4" :gap-px="5" :opacity="0.25" :w="128 - 32"/>
-					<Quads class="svg-quads absolute left-0px top-25px"
+				<div class="absolute left-0px top-25px">
+					<QuadsGrid class="absolute left-5px" color="#CCC" :size-px="4" :gap-px="5" :opacity="0.25" :w="128 - 32" :h="128"/>
+					<Quads class="absolute left-0px"
 						color="CECECE" :opacity="1"
 						:size-px="5" :gap-px="2"
 						:row="[6, 5, [1,3,4]]" :count="6"
 					/>
 				</div>
 				<!-- Left Over Top -->
-				<FrameOutline
-					v-for="({ directions, pos, lengthRight, lengthLeft }, index) in [
-						{ directions: ['bottom', 'right'] as FrameOutlineDirection[], pos: [-25, -45.5], lengthRight: 15, lengthLeft: undefined },
-						{ directions: ['top', 'right']    as FrameOutlineDirection[], pos: [-25, -10.5], lengthRight: 15, lengthLeft: undefined },
-						{ directions: ['bottom', 'left']  as FrameOutlineDirection[], pos: [577, -45.5], lengthRight: undefined, lengthLeft: 15 }
-					]"
-					:key="index"
-					:class="`svg-frame absolute left-${pos[0]}px top-${pos[1]}px`"
-					:directions="directions"
-					:length="10"
-					:length-right="lengthRight"
-					:length-left="lengthLeft"
-					:thickness-px="3"
-					color="#DEDEDE"
-				/>
-				<Stripes class="svg-stripes absolute left--15px top--35px" :angle="45" :gap-px="3.522" :w="600" :h="28" color="#ccc" />
-				<Strip class="svg-strip absolute left--15px top--35px" :w="600" :h="28" :strip-w="200" :strip-h="28" color="#E8E8E8" />
+				<div class="absolute left--25px top--45px w-620px">
+					<FrameOutline class="backdrop-profile__frame absolute left-0px top-0px"
+					:directions="['bottom', 'right']" :length="10" :length-right="15" :thickness-px="2" color="#DEDEDE"/>
+					<FrameOutline class="backdrop-profile__frame absolute left-0px top-35px"
+					:directions="['top', 'right']" :length="10" :length-right="15" :thickness-px="2" color="#DEDEDE" />
+					<FrameOutline class="backdrop-profile__frame absolute right-0px top-0px"
+						:directions="['bottom', 'left']" :length="10" :length-left="15" :thickness-px="2" color="#DEDEDE" />
+					<Stripes class="absolute left-10px top-10px" :angle="45" :gap-px="3.522" :w="600" :h="28" color="#ccc" />
+					<Strip class="absolute left-10px top-10px" :w="600" :h="28" :strip-w="200" :strip-h="28" color="#E8E8E8" />
+				</div>
 
 				<!-- Right Under Top -->
 				<div class="svg-stripes-wrapper">
-					<Stripes class="svg-stripes absolute right-50px top-5px" :angle="45" :gap-px="2.5" :w="128" :h="42" color="#ccc" />
+					<Stripes class="absolute right-50px top-5px" :angle="45" :gap-px="2.5" :w="128" :h="42" color="#ccc" />
 				</div>
 				<div class="svg-frames-wrapper">
-					<FrameOutline class="svg-frame absolute right-169px top-25px" :directions="['top', 'right']" :length="12" :thickness-px="4" color="#CCC" />
+					<FrameOutline class="absolute right-169px top-25px" :directions="['top', 'right']" :length="12" :thickness-px="4" color="#CCC" />
 				</div>
 
 				<!-- Center Under Top -->

@@ -1,6 +1,11 @@
 @use '@/styles/functions' as *;
 
-$header-height: fluid-rem(82);
-$content-width: fluid-rem(1405);
 $page-width: fluid-rem(1920);
 $page-height: fluid-rem(1080);
+
+$header-height: fluid-rem(82);
+$content-width: fluid-rem(1405);
+
+$profile-bg-height: fluid-rem(568);
+$profile-footer-height: fluid-rem(73.5);
+$profile-body-height: 100%;
