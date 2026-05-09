@@ -13,8 +13,14 @@ export function randomObjectKey<T extends Record<string, unknown>>(obj: T): keyo
 	return keys[Math.floor(Math.random() * keys.length)]!
 }
 
-export function fluidRem(px: number): number {
+export function fluidPx(px: number): number {
 	const { rootFontSize } = useRootFontSize()
 	const fontSize = rootFontSize.value
 	return (px / 16) * fontSize
+}
+
+export function fluidRem(px: number): string {
+	const { rootFontSize } = useRootFontSize()
+	const fontSize = rootFontSize.value
+	return `${(px / fontSize) * 1}rem`
 }

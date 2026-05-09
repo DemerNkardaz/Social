@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { fluidRem } from '@/scripts/utils'
+import { fluidPx } from '@/scripts/utils'
 import { computed } from 'vue'
 
 interface Props {
@@ -30,17 +30,17 @@ const props = withDefaults(defineProps<Props>(), {
 const patternId = `squares-${Math.random().toString(36).slice(2, 7)}`
 
 const params = computed(() => {
-	const cell = fluidRem(props.sizePx)
-	const gap = fluidRem(props.gapPx)
+	const cell = fluidPx(props.sizePx)
+	const gap = fluidPx(props.gapPx)
 	const total = cell + gap
 
 	const rx = typeof props.borderRadius === 'number'
-		? fluidRem(props.borderRadius)
+		? fluidPx(props.borderRadius)
 		: (parseFloat(props.borderRadius) / 100) * (cell / 2)
 
 	const resolveSize = (val: number | string): string => {
 		if (typeof val === 'number') {
-			const fluidVal = fluidRem(val)
+			const fluidVal = fluidPx(val)
 			const stretched = Math.ceil(fluidVal / total) * total
 			return `${stretched}px`
 		}

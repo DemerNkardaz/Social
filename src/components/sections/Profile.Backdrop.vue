@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import Stripes from '@/components/patterns/Stripes.vue';
 import { useWindowSize } from '@/scripts/composables/useWindowSize';
 import { baseUrl } from '@/scripts/constants';
 import { computed } from 'vue';
+import { fluidPx, fluidRem } from '@/scripts/utils';
+
+import Stripes from '@/components/patterns/Stripes.vue';
 import QuadsGrid from '@/components/patterns/QuadsGrid.vue';
 import Quads from '@/components/patterns/Quads.vue';
 import FrameOutline, { type Direction as FrameOutlineDirection } from '@/components/patterns/primitives/FrameOutline.vue';
@@ -26,33 +28,33 @@ const actualBackdropImage = computed(() => {
 <template>
 	<div class="backdrop-profile">
 		<div class="backdrop-profile__background">
-			<!-- <div class="abosul"> -->
-				<Stripes class="absolute right-50%" :angle="-45" :gap-px="3.522" w="50%" color="#fff" :opacity="0.65" />
-				<Stripes class="absolute left-50%":angle="45" :gap-px="3.522" w="50%" color="#fff" :opacity="0.65" />
-			<!-- </div> -->
+			<!-- Left And Right Stripes Pattern -->
+			<Stripes class="absolute right-50%" :angle="-45" :gap-px="3.522" w="50%" color="#fff" :opacity="0.65" />
+			<Stripes class="absolute left-50%":angle="45" :gap-px="3.522" w="50%" color="#fff" :opacity="0.65" />
 			<div class="absolute w-1920px h-100% left-50% translate-x--50% bg-[var(--surface-b-0)] mask-[var(--overlay-bg-mask)]" />
+			<!-- Image -->
 			<div class="backdrop-profile__background__image" :style="{ '--backdrop': `url(${actualBackdropImage})` }"/>
 			<div class="backdrop-profile__background__image__overlay"/>
-			<div class="svg-quads-wrapper">
-				<QuadsGrid
-					v-for="(style, index) in [
-						{},
-						{ '--mask-x': '60%', '--mask-y': '0%' },
-						{ '--mask-x': '20%', '--mask-y': '0%' },
-						{ '--mask-x': '28%', '--mask-y': '40%' },
-					]"
-					:key="index"
-					class="svg-quads of-background-image"
-					color="#444444"
-					:opacity="index === 3 ? 0.35 : 1"
-					:style="style"
-				/>
-			</div>
+			<!-- Quads Pattern -->
+			<QuadsGrid
+				v-for="(style, index) in [
+					{ '--mask-x': `${fluidPx((2560 - 64) - (768 + 384))}px`, '--mask-y': '0%' },
+					{ '--mask-x': `${fluidPx((2560 - 64) - (384))}px`, '--mask-y': '0%' },
+					{ '--mask-x': `${fluidPx((2560 - 64))}px`, '--mask-y': '25%' },
+					{ '--mask-x': `${fluidPx((2560 - 64) - (768 + 256))}px`, '--mask-y': '40%' },
+				]"
+				:key="index"
+				class="svg-quads of-background-image"
+				color="#444"
+				:opacity="index === 3 ? 0.35 : 1"
+				:w="3840" h="100%"
+				:style="style"
+			/>
 		</div>
-		<div class="backdrop-profile__main-bottom">
+		<div class="backdrop-profile__body">
 		</div>
 		<div class="backdrop-profile__footer">
-			<div class="middle-block absolute">
+			<div class="absolute w-1405px h-100%">
 				<!-- Left Under Top -->
 				<div class="svg-quads-wrapper">
 					<QuadsGrid class="svg-quads absolute left-5px top-25px" color="#CCC" :size-px="4" :gap-px="5" :opacity="0.25" :w="128 - 32"/>

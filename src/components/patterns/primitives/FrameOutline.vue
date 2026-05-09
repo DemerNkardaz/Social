@@ -1,6 +1,6 @@
 // Frame
 <script setup lang="ts">
-import { fluidRem } from '@/scripts/utils'
+import { fluidPx } from '@/scripts/utils'
 import { computed } from 'vue'
 
 export type Direction = 'top' | 'right' | 'bottom' | 'left'
@@ -48,15 +48,15 @@ function hexToRgba(hex: string, opacity: number): string {
 
 function resolveLength(val: number | string | undefined, fallback: number | string): number {
 	const v = val ?? fallback
-	if (typeof v === 'number') return fluidRem(v)
+	if (typeof v === 'number') return fluidPx(v)
 	return parseFloat(v)
 }
 
 const fillColor = computed(() => hexToRgba(props.color ?? '#fff', props.opacity))
 const bgFill = computed(() => props.bgColor ? hexToRgba(props.bgColor, props.bgOpacity) : null)
 
-const t = computed(() => fluidRem(props.thicknessPx))
-const rx = computed(() => fluidRem(props.borderRadius))
+const t = computed(() => fluidPx(props.thicknessPx))
+const rx = computed(() => fluidPx(props.borderRadius))
 
 // Длины для каждой стороны в px (уже fluid)
 const lengths = computed(() => ({

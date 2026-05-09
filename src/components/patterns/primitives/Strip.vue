@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { fluidRem } from '@/scripts/utils'
+import { fluidPx } from '@/scripts/utils'
 import { computed } from 'vue'
 
 interface Props {
@@ -46,7 +46,7 @@ const baseStripSize = computed(() => ({
 }))
 
 const resolveSize = (val: number | string): string => {
-  if (typeof val === 'number') return `${fluidRem(val)}px`
+  if (typeof val === 'number') return `${fluidPx(val)}px`
   return val
 }
 
@@ -63,10 +63,10 @@ const corners = computed(() => {
   const [blx, bly]  = props.cornerBottomLeft
 
   return {
-    TL: { x: fluidRem(0 + tlx), y: fluidRem(0 + tly)  },
-    TR: { x: fluidRem(w + trx), y: fluidRem(0 + try_) },
-    BR: { x: fluidRem(w + brx), y: fluidRem(h + bry)  },
-    BL: { x: fluidRem(0 + blx), y: fluidRem(h + bly)  },
+    TL: { x: fluidPx(0 + tlx), y: fluidPx(0 + tly)  },
+    TR: { x: fluidPx(w + trx), y: fluidPx(0 + try_) },
+    BR: { x: fluidPx(w + brx), y: fluidPx(h + bry)  },
+    BL: { x: fluidPx(0 + blx), y: fluidPx(h + bly)  },
   }
 })
 
@@ -89,7 +89,7 @@ const svgSize = computed(() => ({
 const pathD = computed(() => {
   const { TL, TR, BR, BL } = corners.value
   const { minX, minY } = viewBox.value
-  const r = fluidRem(props.borderRadius)
+  const r = fluidPx(props.borderRadius)
 
   const tl = { x: TL.x - minX, y: TL.y - minY }
   const tr = { x: TR.x - minX, y: TR.y - minY }

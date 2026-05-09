@@ -1,6 +1,6 @@
 .backdrop-profile {
 	width: 100%;
-	height: fluid-rem(1080);
+	height: fluid-rem(1080) - $header-height;
 
 	display: flex;
 	flex-direction: column;
@@ -38,7 +38,7 @@
 			-webkit-mask-composite: intersect;
 			mask-composite: intersect;
 
-			width: fluid-rem(1920);
+			width: $page-width;
 			height: 100%;
 
 			&::after {
@@ -67,7 +67,7 @@
 		}
 	}
 
-	&__main-bottom {
+	&__body {
 		background: $surface-a-0;
 		display: flex;
 		justify-content: center;
@@ -85,7 +85,6 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		// gap: 1rem;
 
 		width: 100%;
 		min-height: fluid-rem(73.5);
@@ -95,7 +94,7 @@
 		&__top-decorator {
 			position: absolute;
 			top: 0;
-			width: fluid-rem(1405);
+			width: $content-width;
 			height: fluid-rem(2);
 			background: $surface-a-3;
 
@@ -107,7 +106,7 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			width: fluid-rem(1405);
+			width: $content-width;
 			height: 100%;
 
 			@include shift(fluid-rem(18));
@@ -155,18 +154,18 @@
 	--overlay-bg-mask: linear-gradient(to right, transparent 0%, transparent 2.5%, #fff 8%, #fff 92%, transparent 100%);
 
 	& .svg {
-		&-stripes-wrapper,
-		&-quads-wrapper,
-		&-frames-wrapper {
-			position: absolute;
-			inset: 0;
-			display: flex;
-			flex-direction: row;
-			justify-content: center;
-			align-items: flex-start;
+		// &-stripes-wrapper,
+		// &-quads-wrapper,
+		// &-frames-wrapper {
+		// 	position: absolute;
+		// 	inset: 0;
+		// 	display: flex;
+		// 	flex-direction: row;
+		// 	justify-content: center;
+		// 	align-items: flex-start;
 
-			overflow: hidden;
-		}
+		// 	overflow: hidden;
+		// }
 
 		&-stripes {
 			// flex: 1;
@@ -183,7 +182,7 @@
 		&-quads {
 			position: absolute;
 			height: 100%;
-			width: fluid-rem(1920);
+			width: $page-width;
 
 			&.of-background-image {
 				--mask-x: 80%;

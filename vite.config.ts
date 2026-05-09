@@ -42,6 +42,7 @@ export default defineConfig({
 			scss: {
 				additionalData: `
 					@use "@/styles/tokens" as *;
+					@use "@/styles/constants" as *;
 					@use "@/styles/functions" as *;
 					@use "@/styles/mixins" as *;
 				`

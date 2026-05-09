@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { fluidRem } from '@/scripts/utils'
+import { fluidPx } from '@/scripts/utils'
 import { computed } from 'vue'
 
 type RowSpec = number | number[]
@@ -36,12 +36,12 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const params = computed(() => {
-  const cell = fluidRem(props.sizePx)
-  const gap  = fluidRem(props.gapPx)
+  const cell = fluidPx(props.sizePx)
+  const gap  = fluidPx(props.gapPx)
   const step = cell + gap
 
   const rx = typeof props.borderRadius === 'number'
-    ? fluidRem(props.borderRadius)
+    ? fluidPx(props.borderRadius)
     : (parseFloat(props.borderRadius as string) / 100) * (cell / 2)
 
   return { cell, gap, step, rx }
@@ -91,7 +91,7 @@ const svgSize = computed(() => {
 
 const domSize = computed(() => {
   const resolve = (val: number | string): string => {
-    if (typeof val === 'number') return `${fluidRem(val)}px`
+    if (typeof val === 'number') return `${fluidPx(val)}px`
     return val
   }
   return {

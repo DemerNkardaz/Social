@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { fluidRem } from '@/scripts/utils'
+import { fluidPx } from '@/scripts/utils'
 import { computed } from 'vue'
 
 interface Props {
@@ -29,13 +29,13 @@ const props = withDefaults(defineProps<Props>(), {
 const patternId = `stripes-${Math.random().toString(36).slice(2, 7)}`
 
 const stripeParams = computed(() => {
-	const stripeW = fluidRem(props.stripesPx)
-	const gap = fluidRem(props.gapPx)
+	const stripeW = fluidPx(props.stripesPx)
+	const gap = fluidPx(props.gapPx)
 	const total = stripeW + gap
 
 	const resolveSize = (val: number | string): string => {
 		if (typeof val === 'number') {
-			const fluidVal = fluidRem(val)
+			const fluidVal = fluidPx(val)
 			// const stretched = Math.ceil(fluidVal / total) * total
 			return `${fluidVal}px`
 		}

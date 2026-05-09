@@ -1,6 +1,7 @@
 .backdrop-layer {
 	position: absolute;
-	inset: 0;
+	width: 100%;
+	height: $page-height;
 	overflow: hidden;
 	z-index: -1;
 
@@ -17,7 +18,7 @@
 		position: relative;
 		background: $surface-a-0;
 		width: 100%;
-		height: fluid-rem(82);
+		height: $header-height;
 		overflow: hidden;
 
 		&__stripes {
@@ -25,13 +26,13 @@
 			position: absolute;
 			top: 0;
 			height: 100%;
-			width: fluid-rem(1920);
+			width: $page-width;
 			left: 50%;
 			transform: translateX(-50%);
 
 			&__overlay {
 				position: absolute;
-				width: fluid-rem(1920);
+				width: $page-width;
 				height: 100%;
 				top: 0;
 				left: 50%;
