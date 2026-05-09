@@ -1,12 +1,25 @@
 .backdrop-profile {
-	width: 100%;
-	height: fluid-rem(1080) - $header-height;
+	position: absolute;
+	inset: 0;
+	height: $page-height;
 
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: center;
 	overflow: hidden;
+
+	z-index: 1;
+
+	&__top-slice, &__bottom-slice {
+		position: absolute;
+		inset: 0;
+
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: center;
+	}
 
 	&__background {
 		background: $surface-b-0;
@@ -17,6 +30,8 @@
 		width: 100%;
 		height: $profile-bg-height;
 		position: relative;
+
+		margin-block-start: $header-height;
 
 		overflow: hidden;
 
@@ -75,6 +90,8 @@
 		width: 100%;
 		height: $profile-body-height;
 		position: relative;
+
+		margin-block-start: $header-height + $profile-bg-height;
 
 		overflow: hidden;
 	}
@@ -138,5 +155,26 @@
 
 		-webkit-mask-composite: source-in;
 		mask-composite: intersect;
+	}
+
+	.vignette {
+		background:
+			linear-gradient(
+				to bottom,
+				rgba(0, 0, 0, 0.04),
+				rgba(0, 0, 0, 0.025) fluid-rem(15),
+				rgba(0, 0, 0, 0.02) fluid-rem(35),
+				transparent 100%
+			),
+			linear-gradient(
+				to right,
+				rgba(0, 0, 0, 0.045),
+				rgba(0, 0, 0, 0.015) fluid-rem(64),
+				rgba(0, 0, 0, 0) fluid-rem(256 - 32),
+				transparent 100%
+			);
+
+		position: absolute;
+		inset: 0;
 	}
 }

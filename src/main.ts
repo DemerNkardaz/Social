@@ -4,6 +4,7 @@ import { i18n } from './i18n'
 import { MDXProvider } from '@mdx-js/vue'
 
 import './styles/main.scss'
+import './styles/common.scss'
 import './styles/_variables.scss'
 import './styles/_animations.scss'
 

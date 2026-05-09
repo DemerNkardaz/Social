@@ -4,9 +4,6 @@
 	height: $page-height;
 	overflow: hidden;
 	z-index: -1;
-
-	transform: perspective(fluid-rem(800)) scale(1);
-	// animation: zoom-out 0.5s $ease-out-smooth forwards;
 }
 
 .backdrop-free-space {
@@ -16,10 +13,11 @@
 .backdrop {
 	&__header {
 		position: relative;
-		background: $surface-a-0;
 		width: 100%;
 		height: $header-height;
 		overflow: hidden;
+
+		z-index: 2;
 
 		&__stripes {
 			flex: none;
@@ -29,6 +27,8 @@
 			width: $page-width;
 			left: 50%;
 			transform: translateX(-50%);
+
+			mask: linear-gradient(to right, transparent 0%, transparent 20%, #000 25%, #000 75%, transparent 80%, transparent 100%);
 
 			&__overlay {
 				position: absolute;
