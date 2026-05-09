@@ -27,7 +27,7 @@ const actualBackdropImage = computed(() => {
 
 <template>
 	<div class="backdrop-profile">
-		<div class="backdrop-profile__top-slice animate-[zoom-out_325ms_ease_forwards]">
+		<div class="backdrop-profile__top-slice animate-[zoom-out_325ms_var(--ease-out-smooth)_forwards]">
 			<div class="backdrop-profile__background">
 				<!-- Left And Right Stripes Pattern -->
 				<Stripes class="absolute right-50%" :angle="-45" :gap-px="3.522" w="50%" color="#fff" :opacity="0.5" />
