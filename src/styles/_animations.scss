@@ -11,3 +11,30 @@
 		transform: perspective(fluid-rem(800)) scale(1);
 	}
 }
+
+@keyframes flicker-1 {
+0%,  32% { opacity: 0; }
+33%, 65% { opacity: 1; }
+66%, 98% { opacity: 0; }
+99%, 100%{ opacity: 1; }
+}
+
+@keyframes flicker-2 {
+0%,  19% { opacity: 0; }
+20%, 39% { opacity: 1; }
+40%, 59% { opacity: 0; }
+60%, 79% { opacity: 1; }
+80%, 98% { opacity: 0; }
+99%, 100%{ opacity: 1; }
+}
+
+@keyframes flicker-3 {
+0%,  13% { opacity: 0; }
+14%, 27% { opacity: 1; }
+28%, 41% { opacity: 0; }
+42%, 55% { opacity: 1; }
+56%, 69% { opacity: 0; }
+70%, 83% { opacity: 1; }
+84%, 98% { opacity: 0; }
+99%, 100%{ opacity: 1; }
+}

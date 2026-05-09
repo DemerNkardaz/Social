@@ -6,7 +6,7 @@
 	z-index: -1;
 
 	transform: perspective(fluid-rem(800)) scale(1);
-	animation: zoom-out 0.5s $ease-out-smooth forwards;
+	// animation: zoom-out 0.5s $ease-out-smooth forwards;
 }
 
 .backdrop-free-space {

@@ -69,7 +69,6 @@
 	}
 
 	&__body {
-		background: $surface-a-0;
 		display: flex;
 		justify-content: center;
 		align-items: flex-start;
@@ -92,16 +91,6 @@
 		height: $profile-footer-height;
 
 		margin-block-start: auto;
-
-		&__top-decorator {
-			position: absolute;
-			top: 0;
-			width: $content-width;
-			height: fluid-rem(2);
-			background: $surface-a-3;
-
-			@include shift(fluid-rem(18));
-		}
 
 		&__content-container {
 			position: relative;
@@ -126,17 +115,6 @@
 			font-weight: 800;
 			text-transform: uppercase;
 			transform: scaleY(0.8);
-
-			&::after {
-				content: '';
-				position: absolute;
-				bottom: fluid-rem(-1);
-				left: 50%;
-				transform: translateX(-50%);
-				width: 97.75%;
-				height: 0.175em;
-				background: linear-gradient(to bottom, $surface-a-3 0%, $surface-a-3 55%, $surface-a-5 55%);
-			}
 		}
 
 		&__oseer-plate {

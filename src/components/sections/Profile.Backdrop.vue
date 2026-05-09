@@ -55,8 +55,11 @@ const actualBackdropImage = computed(() => {
 		</div>
 		<div class="backdrop-profile__footer">
 			<div class="absolute w-1405px h-100% shift-x-18px">
+				<!-- Top Line -->
+				<Strip class="left-0px top-0px" :strip-w="1405" :strip-h="2" color="#CCC" />
+
 				<!-- Left Under Top -->
-				<div class="absolute left-0px top-25px">
+				<div class="absolute left-0px top-25px opacity-0 animate-[flicker-2_175ms_forwards_500ms]">
 					<QuadsGrid class="absolute left-5px" color="#CCC" :size-px="4" :gap-px="5" :opacity="0.25" :w="128 - 32" :h="128"/>
 					<Quads class="absolute left-0px"
 						color="CECECE" :opacity="1"
@@ -64,6 +67,7 @@ const actualBackdropImage = computed(() => {
 						:row="[6, 5, [1,3,4]]" :count="6"
 					/>
 				</div>
+
 				<!-- Left Over Top -->
 				<div class="absolute left--25px top--45px w-620px">
 					<FrameOutline class="backdrop-profile__frame absolute left-0px top-0px"
@@ -77,20 +81,24 @@ const actualBackdropImage = computed(() => {
 				</div>
 
 				<!-- Right Under Top -->
-				<div class="svg-stripes-wrapper">
-					<Stripes class="absolute right-50px top-5px" :angle="45" :gap-px="2.5" :w="128" :h="42" color="#ccc" />
+				<div class="absolute right-50px top-5px">
+					<Stripes :angle="45" :gap-px="2.5" :w="128" :h="42" color="#ccc" />
+					<FrameOutline class="absolute left--7px bottom-6px" :directions="['top', 'right']" :length="12" :thickness-px="4" color="#CCC" />
 				</div>
-				<div class="svg-frames-wrapper">
-					<FrameOutline class="absolute right-169px top-25px" :directions="['top', 'right']" :length="12" :thickness-px="4" color="#CCC" />
+
+				<!-- Over Right -->
+				<div class="absolute right--13px top--12px" >
+					<FrameOutline class="absolute" :directions="['top', 'right', 'bottom', 'left']" :length="12" :thickness-px="2" color="#CCC" />
+					<FrameOutline class="absolute top-44px" :directions="['top', 'right', 'bottom', 'left']" :length="12" :thickness-px="2" color="#CCC" />
 				</div>
 
 				<!-- Center Under Top -->
-				<div class="flex flex-col gap-2px absolute w-200px h-10px shift-x-center--175px top-10px">
+				<div class="flex flex-col gap-2px absolute w-200px h-10px shift-x-center--175px top-10px  opacity-0 animate-[flicker-1_125ms_forwards_500ms]">
 					<div class="flex flex-row gap-2px" v-for="i in [ [30, 15, 25, 25, 5, 12, 6, 4], [12, 8, 35, 5, 20, 8, 15] ]">
 						<Strip v-for="w in i" :strip-w="w" :strip-h="5" color="#DBDBDB" />
 					</div>
 				</div>
-				<div class="flex flex-col gap-2px absolute w-200px h-10px shift-x-center-175px top-10px">
+				<div class="flex flex-col gap-2px absolute w-200px h-10px shift-x-center-175px top-10px  opacity-0 animate-[flicker-2_200ms_forwards_500ms]">
 					<div class="flex flex-row gap-2px" v-for="i in [ [40, 20, 60, 30, 10], [12, 8, 35, 5, 20] ]">
 						<Strip v-for="w in i" :strip-w="w" :strip-h="5" color="#DBDBDB" />
 					</div>
@@ -98,15 +106,15 @@ const actualBackdropImage = computed(() => {
 			</div>
 
 			<!-- Texts -->
-			<div class="backdrop-profile__footer__top-decorator"/>
-			<div class="backdrop-profile__footer__content-container">
+			<div class="backdrop-profile__footer__content-container opacity-0 animate-[flicker-1_125ms_forwards_500ms]">
+				<!-- Left Side -->
 				<div class="backdrop-profile__footer__quote">Integrity. Innovate.</div>
+				<Strip class="absolute left-2px top-19px" :strip-w="96" :strip-h="1" color="#CCC" />
+				<Strip class="absolute left-2px top-19.5px" :strip-w="96" :strip-h="1" color="#DEDEDE" />
+
+				<!-- Right Side -->
 				<div class="backdrop-profile__footer__oseer-plate ">O.S.E.E.R. DataBank</div>
 			</div>
-		</div>
-		<div class="backdrop-free-space w-1920px h-1080px">
-				<FrameOutline class="absolute right-200px bottom-15px" :directions="['top', 'right', 'bottom', 'left']" :length="12" :thickness-px="2" color="#CCC" />
-				<FrameOutline class="absolute right-200px bottom-59px" :directions="['top', 'right', 'bottom', 'left']" :length="12" :thickness-px="2" color="#CCC" />
 		</div>
 	</div>
 </template>

@@ -36,7 +36,6 @@ const stripeParams = computed(() => {
 	const resolveSize = (val: number | string): string => {
 		if (typeof val === 'number') {
 			const fluidVal = fluidPx(val)
-			// const stretched = Math.ceil(fluidVal / total) * total
 			return `${fluidVal}px`
 		}
 		return val
