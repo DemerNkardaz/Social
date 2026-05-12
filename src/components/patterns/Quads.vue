@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { fluidPx } from '@/scripts/utils'
-import { computed } from 'vue'
 
 type RowSpec = number | number[]
 type ColSpec = number | number[]

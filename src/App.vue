@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import BackdropLayer from '@/components/layers/BackdropLayer.vue';
-import ContentLayer from '@/components/layers/ContentLayer.vue';
-import ProfileBackdrop from '@/components/sections/Profile.Backdrop.vue';
 </script>
 
 <template>

@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import Stripes from '@/components/patterns/Stripes.vue';
-
 const headerHeight = 82;
 </script>
 
-<style lang="scss" src="./BackdropLayer.scss"></style>
+<style lang="scss" src="./BackdropLayer.scss"/>
 
 <template>
 	<div class="backdrop-layer">

@@ -25,7 +25,7 @@ const actualBackdropImage = computed(() => {
 
 </script>
 
-<style lang="scss" src="./Profile.Backdrop.scss"></style>
+<style lang="scss" src="./Backdrop.scss"></style>
 
 <template>
 	<div class="backdrop-profile">
@@ -102,12 +102,12 @@ const actualBackdropImage = computed(() => {
 					</div>
 
 					<!-- Center Under Top -->
-					<div class="flex flex-col gap-2px absolute w-200px h-10px shift-x-center--175px top-10px  opacity-0" :class="{ 'animate-[flicker-1_125ms_forwards_500ms]': isReady }">
+					<div class="flex flex-col gap-2px absolute w-200px h-10px shift-x-center--175px top-10px  opacity-0" :class="{ 'animate-[flicker-1_125ms_forwards_200ms]': isReady }">
 						<div class="flex flex-row gap-2px" v-for="i in [ [30, 15, 25, 25, 5, 12, 6, 4], [12, 8, 35, 5, 20, 8, 15] ]">
 							<Strip v-for="w in i" :strip-w="w" :strip-h="5" color="#DBDBDB" />
 						</div>
 					</div>
-					<div class="flex flex-col gap-2px absolute w-200px h-10px shift-x-center-175px top-10px  opacity-0" :class="{ 'animate-[flicker-2_200ms_forwards_500ms]': isReady }">
+					<div class="flex flex-col gap-2px absolute w-200px h-10px shift-x-center-175px top-10px  opacity-0" :class="{ 'animate-[flicker-2_200ms_forwards_200ms]': isReady }">
 						<div class="flex flex-row gap-2px" v-for="i in [ [40, 20, 60, 30, 10], [12, 8, 35, 5, 20] ]">
 							<Strip v-for="w in i" :strip-w="w" :strip-h="5" color="#DBDBDB" />
 						</div>

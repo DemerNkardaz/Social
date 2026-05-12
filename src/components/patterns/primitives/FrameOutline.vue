@@ -1,7 +1,6 @@
 // Frame
 <script setup lang="ts">
 import { fluidPx } from '@/scripts/utils'
-import { computed } from 'vue'
 
 export type Direction = 'top' | 'right' | 'bottom' | 'left'
 

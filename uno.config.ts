@@ -73,6 +73,8 @@ export default defineConfig({
 		// ─── Sizing ────────────────────────────────────────────────
 		[/^w-(-?[\d.]+)px$/, ([, d]) => ({ width: fluidRem(Number(d)) })],
 		[/^h-(-?[\d.]+)px$/, ([, d]) => ({ height: fluidRem(Number(d)) })],
+		[/^wh-(-?[\d.]+)px$/, ([, d]) => ({ width: fluidRem(Number(d)), height: fluidRem(Number(d)) })],
+		[/^wh-(-?[\d.]+)%$/, ([, d]) => ({ width: `${d}%`, height: `${d}%` })],
 		[
 			/^h-\[calc\((.+)\)\]$/,
 			([, expr]) => {
