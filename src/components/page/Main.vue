@@ -5,6 +5,6 @@
 
 <template>
 	<main class="content-main">
-		<Profile />
+		<slot />
 	</main>
 </template>

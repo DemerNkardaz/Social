@@ -1,5 +1,4 @@
-import { useRootFontSize } from "./composables/useRootFontSize"
-import { baseUrl } from "./constants"
+import { useRootFontSize } from "../composables/useRootFontSize"
 
 export function pathWithBase(path: string): string {
 	return `${baseUrl.replace(/\/+$/, '')}/${path.replace(/^\/+/, '')}`

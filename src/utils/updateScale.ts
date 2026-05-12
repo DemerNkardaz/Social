@@ -1,4 +1,4 @@
-import { updateRootFontSize } from "./composables/useRootFontSize"
+import { updateRootFontSize } from "../composables/useRootFontSize"
 
 export function updateScale() {
   const baseWidth = 1920

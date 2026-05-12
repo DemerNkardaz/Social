@@ -2,7 +2,7 @@
 const headerHeight = 82;
 </script>
 
-<style lang="scss" src="./BackdropLayer.scss"/>
+<style lang="scss" src="./Backdrop.scss"/>
 
 <template>
 	<div class="backdrop-layer">

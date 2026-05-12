@@ -1,15 +1,8 @@
 <script setup lang="ts">
-import { useWindowSize } from '@/scripts/composables/useWindowSize';
-import { baseUrl } from '@/scripts/constants';
-import { computed } from 'vue';
-import { fluidPx } from '@/scripts/utils';
+import { useWindowSize } from '@/composables/useWindowSize';
+import { fluidPx } from '@/utils';
 
-import Stripes from '@/components/patterns/Stripes.vue';
-import QuadsGrid from '@/components/patterns/QuadsGrid.vue';
-import Quads from '@/components/patterns/Quads.vue';
-import FrameOutline from '@/components/patterns/primitives/FrameOutline.vue';
-import Strip from '@/components/patterns/primitives/Strip.vue';
-import { useReadyAnimate } from '@/scripts/composables/useReadyAnimate';
+import { useReadyAnimate } from '@/composables/useReadyAnimate';
 
 const { windowHeight } = useWindowSize()
 const { isReady } = useReadyAnimate()

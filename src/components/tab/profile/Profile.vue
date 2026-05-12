@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { createIcon } from '@/scripts/icons';
-import { useI18n } from 'vue-i18n';
-
+import { createIcon } from '@/utils/icons';
 const { t } = useI18n()
 
 interface IconEntry {

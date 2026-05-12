@@ -5,8 +5,8 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import vueDevTools from 'vite-plugin-vue-devtools'
 
-import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
+import AutoImport from './plugins/auto-import'
+import Components from './plugins/components'
 
 import svgLoader from 'vite-svg-loader'
 
@@ -14,8 +14,7 @@ import mdx from '@mdx-js/rollup'
 
 import UnoCSS from 'unocss/vite'
 
-import scssTokensPlugin from './vite-plugin-scss-tokens'
-import path from 'node:path'
+import scssTokensPlugin from './plugins/vite-plugin-scss-tokens'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -97,49 +96,8 @@ export default defineConfig({
 				]
 			}
 		}),
-		AutoImport({
-			imports: [
-				'vue',
-				'vue-router',
-				'pinia'
-			],
-			dts: 'src/auto-imports.d.ts',
-		}),
-		Components({
-			dirs: [
-				path.resolve(__dirname, 'src/components'),
-			],
-			dts: path.resolve(__dirname, 'src/components.d.ts'),
-			directoryAsNamespace: true,
-			collapseSamePrefixes: true,
-			deep: true,
-			extensions: ['vue', 'svg'],
-			include: [/\.vue$/, /\.vue\?vue/],
-			globalNamespaces: ['layers', 'patterns', 'sections', 'primitives'],
-
-			resolvers: [
-				(componentName) => {
-					if (componentName.startsWith('Icon')) {
-						const iconName = componentName.slice(4).toLowerCase();
-
-						return {
-							name: 'default',
-							from: `@/assets/images/icons/${iconName}.svg?component`,
-						};
-					}
-				},
-				(componentName) => {
-					if (componentName.startsWith('Logo')) {
-						const iconName = componentName.slice(4).toLowerCase()
-
-						return {
-							name: 'default',
-							from: `@/assets/images/socials/${iconName}.svg`,
-						}
-					}
-				},
-			],
-		}),
+		AutoImport(),
+		Components(),
 		UnoCSS(),
 		vueDevTools(),
 		scssTokensPlugin(),

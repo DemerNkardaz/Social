@@ -6,3 +6,8 @@ version = 1
 path = "src/assets/images/socials/twitter.svg"
 SPDX-License-Identifier = "Apache-2.0"
 CopyrightText = "Copyright © Twitter"
+
+[[annotations]]
+path = "src/assets/images/socials/github.svg"
+SPDX-License-Identifier = "CC-BY-4.0"
+CopyrightText = "Copyright © GitHub, Inc."

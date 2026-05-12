@@ -10,8 +10,8 @@ import './styles/_animations.scss'
 
 import 'uno.css'
 
-import { updateScale } from './scripts/updateScale'
-import { updateRootFontSize } from './scripts/composables/useRootFontSize'
+import { updateScale } from './utils/updateScale'
+import { updateRootFontSize } from './composables/useRootFontSize'
 
 const app = createApp(App)
 
@@ -29,5 +29,5 @@ window.addEventListener('resize', UIUpdate)
 UIUpdate()
 
 if (import.meta.env.DEV) {
-	import('./scripts/dev').then(m => m.devShowBounds())
+	import('./dev').then(m => m.devShowBounds())
 }

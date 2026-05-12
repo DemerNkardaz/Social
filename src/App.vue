@@ -2,10 +2,14 @@
 </script>
 
 <template>
-	<BackdropLayer>
-		<ProfileBackdrop />
-	</BackdropLayer>
-	<ContentLayer />
+	<LayerBackdrop>
+		<TabProfileBackdrop />
+	</LayerBackdrop>
+	<LayerContent>
+		<template #layer-content>
+			<TabProfile />
+		</template>
+	</LayerContent>
 </template>
 
 <style lang="scss">

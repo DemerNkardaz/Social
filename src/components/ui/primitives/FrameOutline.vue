@@ -1,6 +1,6 @@
 // Frame
 <script setup lang="ts">
-import { fluidPx } from '@/scripts/utils'
+import { fluidPx } from '@/utils'
 
 export type Direction = 'top' | 'right' | 'bottom' | 'left'
 

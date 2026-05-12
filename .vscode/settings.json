@@ -25,6 +25,6 @@
     "*.ts": "$(capture).js, $(capture).d.ts.map, $(capture).*.ts, $(capture)_*.js, $(capture)_*.ts",
     "*.tsx": "$(capture).ts, $(capture).*.ts, $(capture).*.tsx, $(capture)_*.ts, $(capture)_*.tsx, $(capture).css, $(capture).module.css, $(capture).less, $(capture).module.less, $(capture).module.less.d.ts, $(capture).scss, $(capture).module.scss, $(capture).module.scss.d.ts, $(capture).css.ts",
     "*.vbproj": "*.config, *proj.user, appsettings.*, bundleconfig.json",
-		"*.vue": "$(capture).scss, $(capture).css, $(capture).ts, $(capture).js, $(capture)*.vue, $(capture)*.scss",
+		"*.vue": "$(capture).scss, $(capture).css, $(capture).ts, $(capture).js",
   }
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { fluidPx } from '@/scripts/utils'
+import { fluidPx } from '@/utils'
 
 type RowSpec = number | number[]
 type ColSpec = number | number[]

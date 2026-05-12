@@ -1,26 +1,30 @@
 :root {
+	// Surface colors (Background, Border, etc.)
 	--surface-a-0: #EEE;
 	--surface-a-1: linear-gradient(to top, #F4F2F2, #E3E1E1 40%, #E3E1E1 60%, #E3E1E1);
 	--surface-a-3: #CCC;
 	--surface-a-4: #C0C0C0;
 	--surface-a-5: #DEDEDE;
 
-	--surface-gradient-a-0: linear-gradient(to bottom, #CCC, #D1D1D1 50%, #E8E8E8 90%, #F0F0F0 96%, #FAFAFA);
-
 	--surface-b-0: #363636;
 
+	--surface-gradient-a-0: linear-gradient(to bottom, #CCC, #D1D1D1 50%, #E8E8E8 90%, #F0F0F0 96%, #FAFAFA);
 
+	// Shadows
 	--shadow-a-0: rgba(0, 0, 0, 0.35);
 
+	// Easings
 	--ease-out-smooth: cubic-bezier(0.00, 0.94, 0.51, 1.00);
 
 
-
+	// Text
 	--text-a-0: #333;
 
+
+	// Accents
 	--accent-a-0: #fcff39;
 
-
+	// Fonts
 	--special-header-font: 'Bebas Neue', sans-serif;
 	--decorator-font: 'Inter', sans-serif;
 }

@@ -1,11 +1,12 @@
 <script setup lang="ts"></script>
 
-<style lang="scss" src="./ContentLayer.scss"/>
+<style lang="scss" src="./Content.scss"/>
 
 <template>
 	<div class="content-layer">
 		<PageHeader />
-		<PageMain />
-		<!-- <PageFooter /> -->
+		<PageMain>
+			<slot name="layer-content"/>
+		</PageMain>
 	</div>
 </template>
