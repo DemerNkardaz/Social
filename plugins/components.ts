@@ -1,9 +1,6 @@
 import Components from 'unplugin-vue-components/vite'
 import path from 'node:path'
 
-import { IconResolver } from './resolvers/icon-resolver'
-import { LogoResolver } from './resolvers/logo-resolver'
-
 export default function createComponents() {
 	return Components({
 		dirs: [
@@ -24,11 +21,6 @@ export default function createComponents() {
 			'patterns',
 			'sections',
 			'primitives',
-		],
-
-		resolvers: [
-			IconResolver,
-			LogoResolver,
-		],
+		]
 	})
 }

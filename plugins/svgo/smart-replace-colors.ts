@@ -21,7 +21,7 @@ export function smartReplaceColorsPlugin() {
 						if (style) {
 							const matches = style.match(/(?:fill|stroke):\s*([^;]+)/g)
 
-							matches?.forEach(m => {
+							matches?.forEach((m: string) => {
 								const color = m.split(':')[1].trim()
 
 								if (color !== 'none') {

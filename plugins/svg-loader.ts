@@ -3,7 +3,9 @@ import { smartReplaceColorsPlugin } from './svgo/smart-replace-colors'
 
 export default function createSvgLoader() {
 	return svgLoader({
+		svgo: true,
 		svgoConfig: {
+			multipass: true,
 			plugins: [
 				{
 					name: 'preset-default',

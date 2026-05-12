@@ -41,9 +41,9 @@
 
 
 		&__image {
-			position: relative;
+			// --backdrop: url('/images/backdrop.avif');
 
-			--backdrop: url('/images/backdrop.avif');
+			position: relative;
 
 			background: var(--backdrop) no-repeat center;
 			background-size: cover;

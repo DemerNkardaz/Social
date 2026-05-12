@@ -14,7 +14,6 @@ declare module 'vue' {
   export interface GlobalComponents {
     Checkboard: typeof import('./components/ui/patterns/Checkboard.vue')['default']
     FrameOutline: typeof import('./components/ui/primitives/FrameOutline.vue')['default']
-    IconProfile: typeof import('@/assets/images/icons/profile.svg?component')['default']
     LayerBackdrop: typeof import('./components/ui/layer/Backdrop.vue')['default']
     LayerContent: typeof import('./components/ui/layer/Content.vue')['default']
     PageFooter: typeof import('./components/page/Footer.vue')['default']
@@ -36,7 +35,6 @@ declare module 'vue' {
 declare global {
   const Checkboard: typeof import('./components/ui/patterns/Checkboard.vue')['default']
   const FrameOutline: typeof import('./components/ui/primitives/FrameOutline.vue')['default']
-  const IconProfile: typeof import('@/assets/images/icons/profile.svg?component')['default']
   const LayerBackdrop: typeof import('./components/ui/layer/Backdrop.vue')['default']
   const LayerContent: typeof import('./components/ui/layer/Content.vue')['default']
   const PageFooter: typeof import('./components/page/Footer.vue')['default']
