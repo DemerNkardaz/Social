@@ -5,7 +5,7 @@ export default function createSvgLoader() {
 	return svgLoader({
 		svgo: true,
 		svgoConfig: {
-			multipass: true,
+			multipass: false,
 			plugins: [
 				{
 					name: 'preset-default',

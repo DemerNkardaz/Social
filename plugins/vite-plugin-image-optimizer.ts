@@ -480,7 +480,7 @@ async function processConfig(
  * - Glob          → base directory (everything before the first wildcard segment)
  * - Directory     → the directory itself
  */
-function watchDirForEntry(absEntry: string, imageExts: string[]): string {
+function watchDirForEntry(absEntry: string, _imageExts: string[]): string {
   if (absEntry.includes('*') || absEntry.includes('?')) {
     const parts = absEntry.split(path.sep)
     const wi = parts.findIndex(p => p.includes('*') || p.includes('?'))
