@@ -19,6 +19,7 @@ import Components from './plugins/components'
 import svgLoader from './plugins/svg-loader'
 import scssTokensPlugin from './plugins/vite-plugin-scss-tokens'
 import svgComponents from './plugins/vite-plugin-svg-components'
+import OptimizeImages from './plugins/image-optimizer'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -34,12 +35,13 @@ export default defineConfig({
 		AutoImport(),
 		Components(),
 		svgComponents({
-			dts: 'src/svg-components.d.ts',
+			dts: 'src/types/svg-components.d.ts',
 			dirs: [
 				{ dir: '@/assets/images/socials', prefix: 'Logo' },
 				{ dir: '@/assets/images/icons',   prefix: 'Icon' },
 			],
 		}),
+		OptimizeImages(),
 		UnoCSS(),
 		vueDevTools(),
 		scssTokensPlugin(),

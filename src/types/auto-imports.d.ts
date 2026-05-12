@@ -7,9 +7,9 @@
 export {}
 declare global {
   const EffectScope: typeof import('vue').EffectScope
-  const HumanityID: typeof import('./constants/index').HumanityID
+  const HumanityID: typeof import('../constants/index').HumanityID
   const acceptHMRUpdate: typeof import('pinia').acceptHMRUpdate
-  const baseUrl: typeof import('./constants/index').baseUrl
+  const baseUrl: typeof import('../constants/index').baseUrl
   const computed: typeof import('vue').computed
   const createApp: typeof import('vue').createApp
   const createPinia: typeof import('pinia').createPinia
@@ -29,8 +29,8 @@ declare global {
   const isReadonly: typeof import('vue').isReadonly
   const isRef: typeof import('vue').isRef
   const isShallow: typeof import('vue').isShallow
-  const isWindows: typeof import('./constants/index').isWindows
-  const locale: typeof import('./constants/locale').locale
+  const isWindows: typeof import('../constants/index').isWindows
+  const locale: typeof import('../constants/locale').locale
   const mapActions: typeof import('pinia').mapActions
   const mapGetters: typeof import('pinia').mapGetters
   const mapState: typeof import('pinia').mapState
@@ -65,15 +65,15 @@ declare global {
   const shallowReadonly: typeof import('vue').shallowReadonly
   const shallowRef: typeof import('vue').shallowRef
   const storeToRefs: typeof import('pinia').storeToRefs
-  const t: typeof import('./constants/locale').t
+  const t: typeof import('../constants/locale').t
   const toRaw: typeof import('vue').toRaw
   const toRef: typeof import('vue').toRef
   const toRefs: typeof import('vue').toRefs
   const toValue: typeof import('vue').toValue
   const triggerRef: typeof import('vue').triggerRef
-  const uaData: typeof import('./constants/index').uaData
+  const uaData: typeof import('../constants/index').uaData
   const unref: typeof import('vue').unref
-  const urlParams: typeof import('./constants/index').urlParams
+  const urlParams: typeof import('../constants/index').urlParams
   const useAttrs: typeof import('vue').useAttrs
   const useCssModule: typeof import('vue').useCssModule
   const useCssVars: typeof import('vue').useCssVars

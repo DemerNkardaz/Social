@@ -1,19 +1,25 @@
 <script setup lang="ts">
-import { useWindowSize } from '@/composables/useWindowSize';
+import { toProportionalScales, useWindowSize } from '@/composables/useWindowSize';
 import { fluidPx } from '@/utils';
 
 import { useReadyAnimate } from '@/composables/useReadyAnimate';
 
-const { windowHeight } = useWindowSize()
+const {	windowWidth, windowHeight } = useWindowSize()
 const { isReady } = useReadyAnimate()
 
-const backdropImageVariants = [1080, 1440, 2160, 4320]
+const heights = [1080, 1440, 2160, 4320]
+const backdropImageVariants = [1920, 2560, 3840, 7680]
 const actualBackdropImage = computed(() => {
-	const height = windowHeight.value
-	const match = backdropImageVariants.reduce((prev, curr) =>
-		curr <= height ? curr : prev
-	, backdropImageVariants[0]!)
-	return `${baseUrl}images/backdrop-${match}.avif`
+	const proportional = toProportionalScales(windowWidth.value, windowHeight.value)
+  const height = proportional.h
+
+	const matchIndex = heights.reduce((prevIdx, curr, currIdx) => {
+    return curr <= height ? currIdx : prevIdx
+  }, 0)
+
+  const widthMatch = backdropImageVariants[matchIndex]
+
+  return `${baseUrl}images/backdrops/profile-${widthMatch}.avif`
 })
 
 </script>

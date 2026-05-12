@@ -7,7 +7,7 @@ export default function createComponents() {
 			path.resolve(process.cwd(), 'src/components'),
 		],
 
-		dts: path.resolve(process.cwd(), 'src/components.d.ts'),
+		dts: path.resolve(process.cwd(), 'src/types/components.d.ts'),
 
 		directoryAsNamespace: true,
 		collapseSamePrefixes: true,

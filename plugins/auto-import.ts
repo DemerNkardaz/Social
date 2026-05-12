@@ -14,6 +14,6 @@ export default function createAutoImport() {
 			path.resolve(process.cwd(), 'src/constants'),
 		],
 
-		dts: 'src/auto-imports.d.ts',
+		dts: 'src/types/auto-imports.d.ts',
 	})
 }
