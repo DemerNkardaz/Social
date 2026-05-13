@@ -6,7 +6,8 @@ interface IconEntry {
 	componentColor?: string
 	wrapperColor?: string
 	iconClass?: string
-	url: string
+	url: string,
+	titleLocaleKey?: string
 }
 
 const socialIcons: IconEntry[] = [
@@ -15,18 +16,21 @@ const socialIcons: IconEntry[] = [
 		componentColor: 'var(--icon-fill-a-1, currentColor)',
 		wrapperColor: '#101411',
 		url: 'https://github.com/DemerNkardaz',
+		titleLocaleKey: 'github',
 	},
 	{
 		component: LogoTwitter,
 		componentColor: 'var(--icon-fill-a-1, currentColor)',
 		wrapperColor: '#179CF0',
 		url: 'https://x.com/NKARDAZ',
+		titleLocaleKey: 'twitter',
 	},
 	{
 		component: LogoKoFi,
 		wrapperColor: '#FF5A16',
 		iconClass: 'no-fill wh-110%',
 		url: 'https://ko-fi.com/yalla',
+		titleLocaleKey: 'ko-fi',
 	}
 ]
 </script>
@@ -52,6 +56,7 @@ const socialIcons: IconEntry[] = [
 									:href="icon.url"
 									target="_blank"
 									rel="noopener noreferrer"
+									:title="icon.titleLocaleKey ? t(`profile.socials.links.${icon.titleLocaleKey}`) : undefined"
 								>
 									<component
 										class="profile__socials__icon"

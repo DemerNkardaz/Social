@@ -12,7 +12,6 @@ import './styles/_animations.scss'
 import 'uno.css'
 
 import { updateScale } from './utils/updateScale'
-import { updateRootFontSize } from './composables/useRootFontSize'
 
 const app = createApp(App)
 
@@ -21,13 +20,8 @@ app.component('MdxVueProvider', MDXProvider)
 
 app.mount('#app')
 
-function UIUpdate() {
-	updateScale()
-	updateRootFontSize()
-}
-
-window.addEventListener('resize', UIUpdate)
-UIUpdate()
+window.addEventListener('resize', updateScale)
+updateScale()
 
 if (import.meta.env.DEV) {
 	import('./dev').then(m => m.devShowBounds())

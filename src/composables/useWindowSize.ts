@@ -1,3 +1,5 @@
+import { throttle } from "@/utils"
+
 const screenWidth = window.screen.width
 const screenHeight = window.screen.height
 
@@ -5,10 +7,11 @@ export function useWindowSize() {
 	const windowWidth = ref(window.innerWidth)
 	const windowHeight = ref(window.innerHeight)
 
-	function onResize() {
+	const onResize = throttle(() => {
 		windowWidth.value = window.innerWidth
 		windowHeight.value = window.innerHeight
-	}
+	}, 1000);
+
 
 	onMounted(() => {
 		window.addEventListener('resize', onResize)
