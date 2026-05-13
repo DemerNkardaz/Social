@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { fluidPx } from '@/utils'
+import { fluidPx } from '@/composables/useRootFontSize';
 
 interface Props {
 	sizePx?: number

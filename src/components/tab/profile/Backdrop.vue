@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { toProportionalScales, useWindowSize } from '@/composables/useWindowSize';
-import { fluidPx } from '@/utils';
+import { fluidPx } from '@/composables/useRootFontSize';
 
 import { useReadyAnimate } from '@/composables/useReadyAnimate';
 
@@ -21,7 +21,6 @@ const actualBackdropImage = computed(() => {
 
   return `${baseUrl}images/backdrops/profile-${widthMatch}.avif`
 })
-
 </script>
 
 <style lang="scss" src="./Backdrop.scss"></style>

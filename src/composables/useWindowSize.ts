@@ -1,16 +1,23 @@
-const windowWidth = ref(window.innerWidth)
-const windowHeight = ref(window.innerHeight)
 const screenWidth = window.screen.width
 const screenHeight = window.screen.height
 
-function onResize() {
-	windowWidth.value = window.innerWidth
-	windowHeight.value = window.innerHeight
-}
-
-window.addEventListener('resize', onResize)
-
 export function useWindowSize() {
+	const windowWidth = ref(window.innerWidth)
+	const windowHeight = ref(window.innerHeight)
+
+	function onResize() {
+		windowWidth.value = window.innerWidth
+		windowHeight.value = window.innerHeight
+	}
+
+	onMounted(() => {
+		window.addEventListener('resize', onResize)
+	})
+
+	onUnmounted(() => {
+		window.removeEventListener('resize', onResize)
+	})
+
 	return { windowWidth, windowHeight, screenWidth, screenHeight }
 }
 

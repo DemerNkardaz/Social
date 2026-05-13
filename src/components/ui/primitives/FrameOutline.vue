@@ -1,6 +1,6 @@
 // Frame
 <script setup lang="ts">
-import { fluidPx } from '@/utils'
+import { fluidPx } from '@/composables/useRootFontSize';
 
 export type Direction = 'top' | 'right' | 'bottom' | 'left'
 
