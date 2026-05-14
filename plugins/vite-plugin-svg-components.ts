@@ -142,14 +142,11 @@ export default function svgComponents(options: SvgComponentsOptions): Plugin {
 				const usedInTemplate = new RegExp(`<${componentName}[\\s/>]`).test(code)
 				const usedInScript = new RegExp(`['"\`]${componentName}['"\`]|\\b${componentName}\\b`).test(code)
 
-				if ((usedInTemplate || usedInScript) && !code.includes(importPath)) {
+				if (usedInTemplate || usedInScript) {
 					const scriptSetupMatch = transformed.match(/<script\s[^>]*setup[^>]*>/)
 					if (scriptSetupMatch) {
 						const insertAfter = scriptSetupMatch.index! + scriptSetupMatch[0].length
-						transformed =
-							transformed.slice(0, insertAfter) +
-							`\nimport ${componentName} from '${importPath}'` +
-							transformed.slice(insertAfter)
+						transformed = transformed.slice(0, insertAfter) + `\nimport ${componentName} from '${importPath}'` + transformed.slice(insertAfter)
 						changed = true
 					}
 				}
