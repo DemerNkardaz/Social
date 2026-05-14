@@ -1,5 +1,5 @@
 export function useReadyAnimate() {
-	const isReady = ref(false)
+	const isReady = ref<boolean>(false)
 
 	const trigger = () => {
 		isReady.value = false

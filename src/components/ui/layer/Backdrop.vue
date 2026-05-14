@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useTabs } from '@/composables/useTabs';
+
+const { currentTab } = useTabs();
 const headerHeight = 82;
 </script>
 
@@ -14,6 +17,8 @@ const headerHeight = 82;
 					bg-color="#fff" :bg-opacity="0.125" />
 			</div>
 		</div>
-		<slot />
+		<KeepAlive>
+			<component :is="currentTab.backdrop" />
+		</KeepAlive>
 	</div>
 </template>

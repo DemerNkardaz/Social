@@ -4,8 +4,8 @@ const screenWidth = window.screen.width
 const screenHeight = window.screen.height
 
 export function useWindowSize() {
-	const windowWidth = ref(window.innerWidth)
-	const windowHeight = ref(window.innerHeight)
+	const windowWidth = ref<number>(window.innerWidth)
+	const windowHeight = ref<number>(window.innerHeight)
 
 	const onResize = throttle(() => {
 		windowWidth.value = window.innerWidth
