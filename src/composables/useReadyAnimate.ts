@@ -1,12 +1,21 @@
 export function useReadyAnimate() {
 	const isReady = ref(false)
 
-	onMounted(() => {
+	const trigger = () => {
+		isReady.value = false
+
 		requestAnimationFrame(() => {
 			requestAnimationFrame(() => {
 				isReady.value = true
 			})
 		})
+	}
+
+	onMounted(trigger)
+	onActivated(trigger)
+
+	onDeactivated(() => {
+		isReady.value = false
 	})
 
 	return { isReady }

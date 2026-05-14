@@ -73,7 +73,7 @@ const socialIcons: IconEntry[] = [
 
 			<div class="profile__main__middle-block">
 				<div class="profile__socials-wrapper">
-					<p class="profile__socials__title text-medium heading-decorator" v-t="'socials.title'"/>
+					<p class="profile__socials__title text-medium heading-decorator">{{ t('socials.title') }}</p>
 					<div class="profile__socials__icons">
 						<a
 							v-for="icon in socialIcons"
