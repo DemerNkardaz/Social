@@ -1,18 +1,23 @@
 import { defineConfig } from 'unocss'
 import { handler as h } from '@unocss/preset-mini/utils'
+import extractorPug from '@unocss/extractor-pug'
 
 function fluidRem(px: number, base: number = 16): string {
 	return `${px / base}rem`
 }
 
-function shift(x: number = 0, y: number = 0) {
-  const parts: string[] = []
-  if (x !== 0) parts.push(`translateX(${fluidRem(x)})`)
-  if (y !== 0) parts.push(`translateY(${fluidRem(y)})`)
-  return parts.join(' ') || 'translate(0, 0)'
+function normalizeDec(s: string): number {
+	return Number(s.replace('_', '.'))
 }
 
-const pxToRem = ([, d]: RegExpMatchArray) => fluidRem(Number(d))
+function shift(x: number = 0, y: number = 0) {
+	const parts: string[] = []
+	if (x !== 0) parts.push(`translateX(${fluidRem(x)})`)
+	if (y !== 0) parts.push(`translateY(${fluidRem(y)})`)
+	return parts.join(' ') || 'translate(0, 0)'
+}
+
+const NUM = '-?[\\d._]+'
 
 export default defineConfig({
 	rules: [
@@ -29,26 +34,31 @@ export default defineConfig({
 				return { 'text-shadow': fluid }
 		}],
 		// ─── Positioning ───────────────────────────────────────────
-		[/^top-(-?[\d.]+)px$/, ([, d]) => ({ top: fluidRem(Number(d)) })],
-		[/^bottom-(-?[\d.]+)px$/, ([, d]) => ({ bottom: fluidRem(Number(d)) })],
-		[/^left-(-?[\d.]+)px$/, ([, d]) => ({ left: fluidRem(Number(d)) })],
-		[/^right-(-?[\d.]+)px$/, ([, d]) => ({ right: fluidRem(Number(d)) })],
-		[/^inset-(-?[\d.]+)px$/, ([, d]) => ({ inset: fluidRem(Number(d)) })],
-		[/^inset-x-(-?[\d.]+)px$/, ([, d]) => ({ left: fluidRem(Number(d)), right: fluidRem(Number(d)) })],
-		[/^inset-y-(-?[\d.]+)px$/, ([, d]) => ({ top: fluidRem(Number(d)), bottom: fluidRem(Number(d)) })],
+		[/^top-(-?[\d._]+)px$/, ([, d]) => ({ top: fluidRem(normalizeDec(d)) })],
+		[/^bottom-(-?[\d._]+)px$/, ([, d]) => ({ bottom: fluidRem(normalizeDec(d)) })],
+		[/^left-(-?[\d._]+)px$/, ([, d]) => ({ left: fluidRem(normalizeDec(d)) })],
+		[/^right-(-?[\d._]+)px$/, ([, d]) => ({ right: fluidRem(normalizeDec(d)) })],
 
-		[/^inset-x-(\d+)%$/, ([, d]) => ({ 'inset-inline': `${d}%` })],
-		[/^inset-y-(\d+)%$/, ([, d]) => ({ 'inset-block': `${d}%` })],
+		[/^top-(-?[\d._]+)[%p]$/, ([, d]) => ({ top: `${normalizeDec(d)}%` })],
+		[/^bottom-(-?[\d._]+)[%p]$/, ([, d]) => ({ bottom: `${normalizeDec(d)}%` })],
+		[/^left-(-?[\d._]+)[%p]$/, ([, d]) => ({ left: `${normalizeDec(d)}%` })],
+		[/^right-(-?[\d._]+)[%p]$/, ([, d]) => ({ right: `${normalizeDec(d)}%` })],
+
+		[/^inset-(-?[\d._]+)px$/, ([, d]) => ({ inset: fluidRem(normalizeDec(d)) })],
+		[/^inset-x-(-?[\d._]+)px$/, ([, d]) => ({ left: fluidRem(normalizeDec(d)), right: fluidRem(normalizeDec(d)) })],
+		[/^inset-y-(-?[\d._]+)px$/, ([, d]) => ({ top: fluidRem(normalizeDec(d)), bottom: fluidRem(normalizeDec(d)) })],
+
+		[/^inset-x-(\d+)[%p]$/, ([, d]) => ({ 'inset-inline': `${d}%` })],
+		[/^inset-y-(\d+)[%p]$/, ([, d]) => ({ 'inset-block': `${d}%` })],
 		['inset-x-center', { 'inset-inline-start': '50%', 'transform': 'translateX(-50%)' }],
 		['inset-y-center', { 'inset-block-start': '50%', 'transform': 'translateY(-50%)' }],
-		[/^inset-x-([\d.]+)%-translate-([\d.]+)%$/, ([, d, e]) => ({ 'inset-inline-start': `${d}%`, 'transform': `translateX(-${e}%)` })],
-		[/^inset-y-([\d.]+)%-translate-([\d.]+)%$/, ([, d, e]) => ({ 'inset-block-start': `${d}%`, 'transform': `translateY(-${e}%)` })],
+		[/^inset-x-([\d._]+)[%p]-translate-([\d._]+)[%p]$/, ([, d, e]) => ({ 'inset-inline-start': `${normalizeDec(d)}%`, 'transform': `translateX(-${normalizeDec(e)}%)` })],
+		[/^inset-y-([\d._]+)[%p]-translate-([\d._]+)[%p]$/, ([, d, e]) => ({ 'inset-block-start': `${normalizeDec(d)}%`, 'transform': `translateY(-${normalizeDec(e)}%)` })],
 
 		[
-			/^shift-x-center-(-?[\d.]+)px$/,
+			/^shift-x-center-(-?[\d._]+)px$/,
 			([, val]) => {
-				const px = parseFloat(val)
-				const offset = fluidRem(px)
+				const offset = fluidRem(normalizeDec(val))
 				return {
 					'inset-inline-start': `50%`,
 					'transform': `translateX(calc(-50% + ${offset}))`,
@@ -56,10 +66,9 @@ export default defineConfig({
 			},
 		],
 		[
-			/^shift-y-center-(-?[\d.]+)px$/,
+			/^shift-y-center-(-?[\d._]+)px$/,
 			([, val]) => {
-				const px = parseFloat(val)
-				const offset = fluidRem(px)
+				const offset = fluidRem(normalizeDec(val))
 				return {
 					'inset-block-start': `50%`,
 					'transform': `translateY(calc(-50% + ${offset}))`,
@@ -67,14 +76,16 @@ export default defineConfig({
 			},
 		],
 
-		[/^shift-x-(-?[\d.]+)px$/, ([, d]) => ({ transform: shift(Number(d)) })],
-		[/^shift-y-(-?[\d.]+)px$/, ([, d]) => ({ transform: shift(0,Number(d)) })],
+		[/^shift-x-(-?[\d._]+)px$/, ([, d]) => ({ transform: shift(normalizeDec(d)) })],
+		[/^shift-y-(-?[\d._]+)px$/, ([, d]) => ({ transform: shift(0, normalizeDec(d)) })],
 
 		// ─── Sizing ────────────────────────────────────────────────
-		[/^w-(-?[\d.]+)px$/, ([, d]) => ({ width: fluidRem(Number(d)) })],
-		[/^h-(-?[\d.]+)px$/, ([, d]) => ({ height: fluidRem(Number(d)) })],
-		[/^wh-(-?[\d.]+)px$/, ([, d]) => ({ width: fluidRem(Number(d)), height: fluidRem(Number(d)) })],
-		[/^wh-(-?[\d.]+)%$/, ([, d]) => ({ width: `${d}%`, height: `${d}%` })],
+		[/^w-(-?[\d._]+)px$/, ([, d]) => ({ width: fluidRem(normalizeDec(d)) })],
+		[/^h-(-?[\d._]+)px$/, ([, d]) => ({ height: fluidRem(normalizeDec(d)) })],
+		[/^w-(-?[\d._]+)[%p]$/, ([, d]) => ({ width: `${normalizeDec(d)}%` })],
+		[/^h-(-?[\d._]+)[%p]$/, ([, d]) => ({ height: `${normalizeDec(d)}%` })],
+		[/^wh-(-?[\d._]+)px$/, ([, d]) => ({ width: fluidRem(normalizeDec(d)), height: fluidRem(normalizeDec(d)) })],
+		[/^wh-(-?[\d._]+)[%p]$/, ([, d]) => ({ width: `${normalizeDec(d)}%`, height: `${normalizeDec(d)}%` })],
 		[
 			/^h-\[calc\((.+)\)\]$/,
 			([, expr]) => {
@@ -103,75 +114,78 @@ export default defineConfig({
 		],
 
 
-		[/^size-(-?[\d.]+)px$/, ([, d]) => ({ width: fluidRem(Number(d)), height: fluidRem(Number(d)) })],
-		[/^min-w-(-?[\d.]+)px$/, ([, d]) => ({ 'min-width': fluidRem(Number(d)) })],
-		[/^max-w-(-?[\d.]+)px$/, ([, d]) => ({ 'max-width': fluidRem(Number(d)) })],
-		[/^min-h-(-?[\d.]+)px$/, ([, d]) => ({ 'min-height': fluidRem(Number(d)) })],
-		[/^max-h-(-?[\d.]+)px$/, ([, d]) => ({ 'max-height': fluidRem(Number(d)) })],
+		[/^size-(-?[\d._]+)px$/, ([, d]) => ({ width: fluidRem(normalizeDec(d)), height: fluidRem(normalizeDec(d)) })],
+		[/^min-w-(-?[\d._]+)px$/, ([, d]) => ({ 'min-width': fluidRem(normalizeDec(d)) })],
+		[/^max-w-(-?[\d._]+)px$/, ([, d]) => ({ 'max-width': fluidRem(normalizeDec(d)) })],
+		[/^min-h-(-?[\d._]+)px$/, ([, d]) => ({ 'min-height': fluidRem(normalizeDec(d)) })],
+		[/^max-h-(-?[\d._]+)px$/, ([, d]) => ({ 'max-height': fluidRem(normalizeDec(d)) })],
 
 		// ─── Margin ────────────────────────────────────────────────
-		[/^m-(-?[\d.]+)px$/, ([, d]) => ({ margin: fluidRem(Number(d)) })],
-		[/^mx-(-?[\d.]+)px$/, ([, d]) => ({ 'margin-left': fluidRem(Number(d)), 'margin-right': fluidRem(Number(d)) })],
-		[/^my-(-?[\d.]+)px$/, ([, d]) => ({ 'margin-top': fluidRem(Number(d)), 'margin-bottom': fluidRem(Number(d)) })],
-		[/^mt-(-?[\d.]+)px$/, ([, d]) => ({ 'margin-top': fluidRem(Number(d)) })],
-		[/^mb-(-?[\d.]+)px$/, ([, d]) => ({ 'margin-bottom': fluidRem(Number(d)) })],
-		[/^ml-(-?[\d.]+)px$/, ([, d]) => ({ 'margin-left': fluidRem(Number(d)) })],
-		[/^mr-(-?[\d.]+)px$/, ([, d]) => ({ 'margin-right': fluidRem(Number(d)) })],
+		[/^m-(-?[\d._]+)px$/, ([, d]) => ({ margin: fluidRem(normalizeDec(d)) })],
+		[/^mx-(-?[\d._]+)px$/, ([, d]) => ({ 'margin-left': fluidRem(normalizeDec(d)), 'margin-right': fluidRem(normalizeDec(d)) })],
+		[/^my-(-?[\d._]+)px$/, ([, d]) => ({ 'margin-top': fluidRem(normalizeDec(d)), 'margin-bottom': fluidRem(normalizeDec(d)) })],
+		[/^mt-(-?[\d._]+)px$/, ([, d]) => ({ 'margin-top': fluidRem(normalizeDec(d)) })],
+		[/^mb-(-?[\d._]+)px$/, ([, d]) => ({ 'margin-bottom': fluidRem(normalizeDec(d)) })],
+		[/^ml-(-?[\d._]+)px$/, ([, d]) => ({ 'margin-left': fluidRem(normalizeDec(d)) })],
+		[/^mr-(-?[\d._]+)px$/, ([, d]) => ({ 'margin-right': fluidRem(normalizeDec(d)) })],
 
 		// ─── Padding ───────────────────────────────────────────────
-		[/^p-(-?[\d.]+)px$/, ([, d]) => ({ padding: fluidRem(Number(d)) })],
-		[/^px-(-?[\d.]+)px$/, ([, d]) => ({ 'padding-left': fluidRem(Number(d)), 'padding-right': fluidRem(Number(d)) })],
-		[/^py-(-?[\d.]+)px$/, ([, d]) => ({ 'padding-top': fluidRem(Number(d)), 'padding-bottom': fluidRem(Number(d)) })],
-		[/^pt-(-?[\d.]+)px$/, ([, d]) => ({ 'padding-top': fluidRem(Number(d)) })],
-		[/^pb-(-?[\d.]+)px$/, ([, d]) => ({ 'padding-bottom': fluidRem(Number(d)) })],
-		[/^pl-(-?[\d.]+)px$/, ([, d]) => ({ 'padding-left': fluidRem(Number(d)) })],
-		[/^pr-(-?[\d.]+)px$/, ([, d]) => ({ 'padding-right': fluidRem(Number(d)) })],
+		[/^p-(-?[\d._]+)px$/, ([, d]) => ({ padding: fluidRem(normalizeDec(d)) })],
+		[/^px-(-?[\d._]+)px$/, ([, d]) => ({ 'padding-left': fluidRem(normalizeDec(d)), 'padding-right': fluidRem(normalizeDec(d)) })],
+		[/^py-(-?[\d._]+)px$/, ([, d]) => ({ 'padding-top': fluidRem(normalizeDec(d)), 'padding-bottom': fluidRem(normalizeDec(d)) })],
+		[/^pt-(-?[\d._]+)px$/, ([, d]) => ({ 'padding-top': fluidRem(normalizeDec(d)) })],
+		[/^pb-(-?[\d._]+)px$/, ([, d]) => ({ 'padding-bottom': fluidRem(normalizeDec(d)) })],
+		[/^pl-(-?[\d._]+)px$/, ([, d]) => ({ 'padding-left': fluidRem(normalizeDec(d)) })],
+		[/^pr-(-?[\d._]+)px$/, ([, d]) => ({ 'padding-right': fluidRem(normalizeDec(d)) })],
 
 		// ─── Typography ────────────────────────────────────────────
-		[/^text-(-?[\d.]+)px$/, ([, d]) => ({ 'font-size': fluidRem(Number(d)) })],
-		[/^leading-(-?[\d.]+)px$/, ([, d]) => ({ 'line-height': fluidRem(Number(d)) })],
-		[/^tracking-(-?[\d.]+)px$/, ([, d]) => ({ 'letter-spacing': fluidRem(Number(d)) })],
-		[/^indent-(-?[\d.]+)px$/, ([, d]) => ({ 'text-indent': fluidRem(Number(d)) })],
-		[/^word-spacing-(-?[\d.]+)px$/, ([, d]) => ({ 'word-spacing': fluidRem(Number(d)) })],
+		[/^text-(-?[\d._]+)px$/, ([, d]) => ({ 'font-size': fluidRem(normalizeDec(d)) })],
+		[/^leading-(-?[\d._]+)px$/, ([, d]) => ({ 'line-height': fluidRem(normalizeDec(d)) })],
+		[/^tracking-(-?[\d._]+)px$/, ([, d]) => ({ 'letter-spacing': fluidRem(normalizeDec(d)) })],
+		[/^indent-(-?[\d._]+)px$/, ([, d]) => ({ 'text-indent': fluidRem(normalizeDec(d)) })],
+		[/^word-spacing-(-?[\d._]+)px$/, ([, d]) => ({ 'word-spacing': fluidRem(normalizeDec(d)) })],
 
 		// ─── Border ────────────────────────────────────────────────
-		[/^border-(-?[\d.]+)px$/, ([, d]) => ({ 'border-width': fluidRem(Number(d)) })],
-		[/^border-t-(-?[\d.]+)px$/, ([, d]) => ({ 'border-top-width': fluidRem(Number(d)) })],
-		[/^border-b-(-?[\d.]+)px$/, ([, d]) => ({ 'border-bottom-width': fluidRem(Number(d)) })],
-		[/^border-l-(-?[\d.]+)px$/, ([, d]) => ({ 'border-left-width': fluidRem(Number(d)) })],
-		[/^border-r-(-?[\d.]+)px$/, ([, d]) => ({ 'border-right-width': fluidRem(Number(d)) })],
-		[/^rounded-(-?[\d.]+)px$/, ([, d]) => ({ 'border-radius': fluidRem(Number(d)) })],
-		[/^rounded-tl-(-?[\d.]+)px$/, ([, d]) => ({ 'border-top-left-radius': fluidRem(Number(d)) })],
-		[/^rounded-tr-(-?[\d.]+)px$/, ([, d]) => ({ 'border-top-right-radius': fluidRem(Number(d)) })],
-		[/^rounded-bl-(-?[\d.]+)px$/, ([, d]) => ({ 'border-bottom-left-radius': fluidRem(Number(d)) })],
-		[/^rounded-br-(-?[\d.]+)px$/, ([, d]) => ({ 'border-bottom-right-radius': fluidRem(Number(d)) })],
-		[/^rounded-t-(-?[\d.]+)px$/, ([, d]) => ({ 'border-top-left-radius': fluidRem(Number(d)), 'border-top-right-radius': fluidRem(Number(d)) })],
-		[/^rounded-b-(-?[\d.]+)px$/, ([, d]) => ({ 'border-bottom-left-radius': fluidRem(Number(d)), 'border-bottom-right-radius': fluidRem(Number(d)) })],
-		[/^rounded-l-(-?[\d.]+)px$/, ([, d]) => ({ 'border-top-left-radius': fluidRem(Number(d)), 'border-bottom-left-radius': fluidRem(Number(d)) })],
-		[/^rounded-r-(-?[\d.]+)px$/, ([, d]) => ({ 'border-top-right-radius': fluidRem(Number(d)), 'border-bottom-right-radius': fluidRem(Number(d)) })],
+		[/^border-(-?[\d._]+)px$/, ([, d]) => ({ 'border-width': fluidRem(normalizeDec(d)) })],
+		[/^border-t-(-?[\d._]+)px$/, ([, d]) => ({ 'border-top-width': fluidRem(normalizeDec(d)) })],
+		[/^border-b-(-?[\d._]+)px$/, ([, d]) => ({ 'border-bottom-width': fluidRem(normalizeDec(d)) })],
+		[/^border-l-(-?[\d._]+)px$/, ([, d]) => ({ 'border-left-width': fluidRem(normalizeDec(d)) })],
+		[/^border-r-(-?[\d._]+)px$/, ([, d]) => ({ 'border-right-width': fluidRem(normalizeDec(d)) })],
+		[/^rounded-(-?[\d._]+)px$/, ([, d]) => ({ 'border-radius': fluidRem(normalizeDec(d)) })],
+		[/^rounded-tl-(-?[\d._]+)px$/, ([, d]) => ({ 'border-top-left-radius': fluidRem(normalizeDec(d)) })],
+		[/^rounded-tr-(-?[\d._]+)px$/, ([, d]) => ({ 'border-top-right-radius': fluidRem(normalizeDec(d)) })],
+		[/^rounded-bl-(-?[\d._]+)px$/, ([, d]) => ({ 'border-bottom-left-radius': fluidRem(normalizeDec(d)) })],
+		[/^rounded-br-(-?[\d._]+)px$/, ([, d]) => ({ 'border-bottom-right-radius': fluidRem(normalizeDec(d)) })],
+		[/^rounded-t-(-?[\d._]+)px$/, ([, d]) => ({ 'border-top-left-radius': fluidRem(normalizeDec(d)), 'border-top-right-radius': fluidRem(normalizeDec(d)) })],
+		[/^rounded-b-(-?[\d._]+)px$/, ([, d]) => ({ 'border-bottom-left-radius': fluidRem(normalizeDec(d)), 'border-bottom-right-radius': fluidRem(normalizeDec(d)) })],
+		[/^rounded-l-(-?[\d._]+)px$/, ([, d]) => ({ 'border-top-left-radius': fluidRem(normalizeDec(d)), 'border-bottom-left-radius': fluidRem(normalizeDec(d)) })],
+		[/^rounded-r-(-?[\d._]+)px$/, ([, d]) => ({ 'border-top-right-radius': fluidRem(normalizeDec(d)), 'border-bottom-right-radius': fluidRem(normalizeDec(d)) })],
 
 		// ─── Gap / Flexbox / Grid ──────────────────────────────────
-		[/^gap-(-?[\d.]+)px$/, ([, d]) => ({ gap: fluidRem(Number(d)) })],
-		[/^gap-x-(-?[\d.]+)px$/, ([, d]) => ({ 'column-gap': fluidRem(Number(d)) })],
-		[/^gap-y-(-?[\d.]+)px$/, ([, d]) => ({ 'row-gap': fluidRem(Number(d)) })],
-		[/^basis-(-?[\d.]+)px$/, ([, d]) => ({ 'flex-basis': fluidRem(Number(d)) })],
+		[/^gap-(-?[\d._]+)px$/, ([, d]) => ({ gap: fluidRem(normalizeDec(d)) })],
+		[/^gap-x-(-?[\d._]+)px$/, ([, d]) => ({ 'column-gap': fluidRem(normalizeDec(d)) })],
+		[/^gap-y-(-?[\d._]+)px$/, ([, d]) => ({ 'row-gap': fluidRem(normalizeDec(d)) })],
+		[/^basis-(-?[\d._]+)px$/, ([, d]) => ({ 'flex-basis': fluidRem(normalizeDec(d)) })],
 
 		// ─── Effects ───────────────────────────────────────────────
-		[/^shadow-(-?[\d.]+)px$/, ([, d]) => ({ 'box-shadow': `0 ${fluidRem(Number(d))} ${fluidRem(Number(d) * 2)} 0 rgb(0 0 0 / 0.1)` })],
-		[/^blur-(-?[\d.]+)px$/, ([, d]) => ({ filter: `blur(${fluidRem(Number(d))})` })],
-		[/^outline-(-?[\d.]+)px$/, ([, d]) => ({ 'outline-width': fluidRem(Number(d)) })],
-		[/^ring-(-?[\d.]+)px$/, ([, d]) => ({ 'box-shadow': `0 0 0 ${fluidRem(Number(d))} currentColor` })],
+		[/^shadow-(-?[\d._]+)px$/, ([, d]) => ({ 'box-shadow': `0 ${fluidRem(normalizeDec(d))} ${fluidRem(normalizeDec(d) * 2)} 0 rgb(0 0 0 / 0.1)` })],
+		[/^blur-(-?[\d._]+)px$/, ([, d]) => ({ filter: `blur(${fluidRem(normalizeDec(d))})` })],
+		[/^outline-(-?[\d._]+)px$/, ([, d]) => ({ 'outline-width': fluidRem(normalizeDec(d)) })],
+		[/^ring-(-?[\d._]+)px$/, ([, d]) => ({ 'box-shadow': `0 0 0 ${fluidRem(normalizeDec(d))} currentColor` })],
 
 		// ─── Transform ─────────────────────────────────────────────
-		[/^translate-x-(-?[\d.]+)px$/, ([, d]) => ({ transform: `translateX(${fluidRem(Number(d))})` })],
-		[/^translate-y-(-?[\d.]+)px$/, ([, d]) => ({ transform: `translateY(${fluidRem(Number(d))})` })],
-		[/^-translate-x-(-?[\d.]+)px$/, ([, d]) => ({ transform: `translateX(-${fluidRem(Number(d))})` })],
-		[/^-translate-y-(-?[\d.]+)px$/, ([, d]) => ({ transform: `translateY(-${fluidRem(Number(d))})` })],
+		[/^translate-x-(-?[\d._]+)px$/, ([, d]) => ({ transform: `translateX(${fluidRem(normalizeDec(d))})` })],
+		[/^translate-y-(-?[\d._]+)px$/, ([, d]) => ({ transform: `translateY(${fluidRem(normalizeDec(d))})` })],
+		[/^-translate-x-(-?[\d._]+)px$/, ([, d]) => ({ transform: `translateX(-${fluidRem(normalizeDec(d))})` })],
+		[/^-translate-y-(-?[\d._]+)px$/, ([, d]) => ({ transform: `translateY(-${fluidRem(normalizeDec(d))})` })],
+
+		[/^translate-x--(-?[\d._]+)[%p]$/, ([, d]) => ({ transform: `translateX(-${normalizeDec(d)}%)` })],
+		[/^translate-y--(-?[\d._]+)[%p]$/, ([, d]) => ({ transform: `translateY(-${normalizeDec(d)}%)` })],
 
 		// ─── Columns / Scroll ──────────────────────────────────────
-		[/^columns-(-?[\d.]+)px$/, ([, d]) => ({ columns: fluidRem(Number(d)) })],
-		[/^scroll-m-(-?[\d.]+)px$/, ([, d]) => ({ 'scroll-margin': fluidRem(Number(d)) })],
-		[/^scroll-p-(-?[\d.]+)px$/, ([, d]) => ({ 'scroll-padding': fluidRem(Number(d)) })],
+		[/^columns-(-?[\d._]+)px$/, ([, d]) => ({ columns: fluidRem(normalizeDec(d)) })],
+		[/^scroll-m-(-?[\d._]+)px$/, ([, d]) => ({ 'scroll-margin': fluidRem(normalizeDec(d)) })],
+		[/^scroll-p-(-?[\d._]+)px$/, ([, d]) => ({ 'scroll-padding': fluidRem(normalizeDec(d)) })],
 
 		//
 

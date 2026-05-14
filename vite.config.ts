@@ -7,6 +7,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import vueDevTools from 'vite-plugin-vue-devtools'
 
 import { createHtmlPlugin } from 'vite-plugin-html'
+import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 
 import mdx from '@mdx-js/rollup'
 
@@ -20,6 +21,7 @@ import svgLoader from './plugins/svg-loader'
 import scssTokensPlugin from './plugins/vite-plugin-scss-tokens'
 import svgComponents from './plugins/vite-plugin-svg-components'
 import OptimizeImages from './plugins/image-optimizer'
+import path from 'node:path'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -31,6 +33,9 @@ export default defineConfig({
 		},
 		vue(),
 		vueJsx(),
+		VueI18nPlugin({
+			include: [path.resolve(__dirname, './src/locales/**')],
+		}),
 		svgLoader(),
 		AutoImport(),
 		Components(),

@@ -4,14 +4,17 @@
 <template>
 	<!-- <IconProfile :width="25" color="cyan"/>
 	<LogoGithub :width="25" color="cyan"/> -->
+
 	<LayerBackdrop>
 		<TabProfileBackdrop />
 	</LayerBackdrop>
+
 	<LayerContent>
 		<template #layer-content>
 			<TabProfile />
 		</template>
 	</LayerContent>
+
 </template>
 
 <style lang="scss">

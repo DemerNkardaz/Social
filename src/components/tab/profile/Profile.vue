@@ -37,6 +37,33 @@ const socialIcons: IconEntry[] = [
 
 <style lang="scss" src="./Profile.scss"></style>
 
+<i18n lang="json5">
+{
+	en: {
+		socials: {
+			title: 'Digital Resources',
+
+			links: {
+				github: 'GitHub Profile',
+				twitter: 'Twitter Profile',
+				'ko-fi': 'Ko-fi Page',
+			},
+		},
+	},
+
+	ru: {
+		socials: {
+			title: 'Цифровые ресурсы',
+			links: {
+				github: 'Профиль GitHub',
+				twitter: 'Профиль Twitter',
+				'ko-fi': 'Страница Ko-fi',
+			},
+		},
+	},
+}
+</i18n>
+
 <template>
 	<article class="profile">
 		<header class="profile__header">
@@ -46,30 +73,32 @@ const socialIcons: IconEntry[] = [
 
 			<div class="profile__main__middle-block">
 				<div class="profile__socials-wrapper">
-					<p class="profile__socials__title text-medium heading-decorator">{{ t('profile.socials.title') }}</p>
-						<div class="profile__socials__icons">
-								<a
-									v-for="icon in socialIcons"
-									:key="icon.url"
-									class="profile__socials__icon-wrapper"
-									:style="{ '--wrapper-color': icon.wrapperColor }"
-									:href="icon.url"
-									target="_blank"
-									rel="noopener noreferrer"
-									:title="icon.titleLocaleKey ? t(`profile.socials.links.${icon.titleLocaleKey}`) : undefined"
-								>
-									<component
-										class="profile__socials__icon"
-										:class="icon.iconClass"
-										:is="icon.component"
-										:style="{ color: icon.componentColor }"
-									/>
-								</a>
-							</div>
+					<p class="profile__socials__title text-medium heading-decorator" v-t="'socials.title'"/>
+					<div class="profile__socials__icons">
+						<a
+							v-for="icon in socialIcons"
+							:key="icon.url"
+							class="profile__socials__icon-wrapper"
+							:style="{ '--wrapper-color': icon.wrapperColor }"
+							:href="icon.url"
+							target="_blank"
+							rel="noopener noreferrer"
+							:title="icon.titleLocaleKey ? t(`socials.links.${icon.titleLocaleKey}`) : undefined"
+						>
+							<component
+								class="profile__socials__icon"
+								:class="icon.iconClass"
+								:is="icon.component"
+								:style="{ color: icon.componentColor }"
+							/>
+						</a>
+					</div>
 				</div>
 			</div>
 		</main>
+
 		<footer class="profile__footer">
 		</footer>
+
 	</article>
 </template>
