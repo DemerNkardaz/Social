@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { tabsMap, type TabName, type TabsContext } from '@/shared/tabs';
+import { tabsMap, type Tab, type TabName, type TabsContext } from '@/shared/tabs';
 
 const activeTabName = ref<TabName>('profile')
-const currentTab = computed(() => tabsMap[activeTabName.value])
+const currentTab = computed(() => tabsMap[activeTabName.value] ?? tabsMap['profile'] as Tab)
 const switchTab = (tabName: TabName) => activeTabName.value = tabName
 
 provide('tabs', {

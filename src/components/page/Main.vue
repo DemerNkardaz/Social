@@ -9,8 +9,8 @@ const { currentTab } = useTabs();
 
 <template>
 	<main class="content-main">
-			<KeepAlive>
-				<component :is="currentTab.component" />
-			</KeepAlive>
+		<KeepAlive>
+			<component :is="currentTab.component" />
+		</KeepAlive>
 	</main>
 </template>

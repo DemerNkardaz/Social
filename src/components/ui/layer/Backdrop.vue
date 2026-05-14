@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import { headerHeight } from '@/shared/ui';
 import { useTabs } from '@/composables/useTabs';
 
 const { currentTab } = useTabs();
-const headerHeight = 82;
 </script>
 
 <style lang="scss" src="./Backdrop.scss"/>

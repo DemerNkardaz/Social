@@ -19,6 +19,7 @@ declare module 'vue' {
     LogoSpotify: typeof import('@/assets/images/socials/spotify.svg?component')['default']
     LogoTelegram: typeof import('@/assets/images/socials/telegram.svg?component')['default']
     LogoTwitter: typeof import('@/assets/images/socials/twitter.svg?component')['default']
+    UITabButton: typeof import('@/assets/images/ui/tab-button.svg?component')['default']
   }
 }
 
@@ -31,4 +32,5 @@ declare global {
   const LogoSpotify: typeof import('@/assets/images/socials/spotify.svg?component')['default']
   const LogoTelegram: typeof import('@/assets/images/socials/telegram.svg?component')['default']
   const LogoTwitter: typeof import('@/assets/images/socials/twitter.svg?component')['default']
+  const UITabButton: typeof import('@/assets/images/ui/tab-button.svg?component')['default']
 }

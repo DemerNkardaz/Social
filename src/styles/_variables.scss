@@ -10,6 +10,8 @@
 
 	--surface-gradient-a-0: linear-gradient(to bottom, #CCC, #D1D1D1 50%, #E8E8E8 90%, #F0F0F0 96%, #FAFAFA);
 
+	--tab-surface-highlight: rgba(255, 255, 255, 0.2);
+
 	// Shadows
 	--shadow-a-0: rgba(0, 0, 0, 0.35);
 
@@ -27,6 +29,10 @@
 	// Icon colors
 	--icon-fill-a-0: #EEE;
 	--icon-fill-a-1: #F7F7F7;
+
+	--icon-fill-b-0: #333;
+
+	--tab-icon-fill-a-0: #313739;
 
 	--icon-stroke-a-0: #EEE;
 	--icon-stroke-a-1: #F7F7F7;

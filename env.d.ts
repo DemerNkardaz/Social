@@ -14,3 +14,9 @@ declare module '*.svg' {
 	const component: DefineComponent
 	export default component
 }
+
+declare module '*.svg?component' {
+  import { Component } from 'vue'
+  const component: Component
+  export default component
+}

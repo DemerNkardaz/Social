@@ -44,6 +44,7 @@ export default defineConfig({
 			dirs: [
 				{ dir: '@/assets/images/socials', prefix: 'Logo' },
 				{ dir: '@/assets/images/icons',   prefix: 'Icon' },
+				{ dir: '@/assets/images/ui',   prefix: 'UI' },
 			],
 		}),
 		OptimizeImages(),

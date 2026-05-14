@@ -2,7 +2,108 @@
 position: relative;
 	display: flex;
 	justify-content: center;
-	align-items: flex-start;
+	align-items: center;
 	width: 100%;
 	height: fluid-rem(82);
+}
+
+.header {
+	&__tabs {
+		width: fluid-rem(768);
+		height: 100%;
+
+		display: flex;
+		justify-content: center;
+		align-items: flex-start;
+		gap: fluid-rem(1);
+
+		&__button {
+			all: unset;
+
+			width: fluid-rem(78);
+			height: calc(100% - fluid-rem(3));
+
+			position: relative;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			color: $icon-fill-a-0;
+
+			cursor: pointer;
+			background: transparent;
+
+			transition: background 0.15s ease-in-out;
+
+			z-index: 0;
+
+			&:hover {
+				background: $tab-surface-highlight;
+			}
+
+			&:active {
+				background: transparent;
+			}
+
+			&__icon {
+				width: fluid-rem(26);
+				height: fluid-rem(26);
+				z-index: 1;
+				opacity: 0;
+
+				&--active {
+					position: absolute;
+					width: fluid-rem(30);
+					height: fluid-rem(30);
+					top: fluid-rem(20);
+					color: $tab-icon-fill-a-0;
+					opacity: 1;
+
+					animation: tab-icon-shift-to-bottom 100ms ease forwards;
+				}
+
+				&--inactive {
+					animation: tab-icon-shift-to-top 200ms ease forwards;
+				}
+			}
+
+			&__active-decorator {
+				color: #f8f546;
+				--icon-fill-1: #fded00;
+				--icon-fill-2: #769284;
+				--icon-stroke-1: transparent;
+				--icon-stroke-2: transparent;
+
+				height: calc($header-height - fluid-rem(2));
+
+				opacity: 0;
+
+				position: absolute;
+				top: 0;
+				left: 50%;
+				transform: translateX(-50%);
+
+				filter: drop-shadow(0 fluid-rem(2) fluid-rem(2) rgba(0, 0, 0, 0.5)) drop-shadow(0 fluid-rem(2) fluid-rem(5) rgba(0, 0, 0, 0.1));
+
+				z-index: 0;
+
+				animation: tab-icon-decorator 50ms ease forwards;
+			}
+
+			&__active-stripes-pattern {
+				position: absolute;
+				bottom: 0;
+				border-radius: 0 0 fluid-rem(8) fluid-rem(8);
+				overflow: hidden;
+				z-index: 0;
+			}
+
+			&__divider {
+				width: fluid-rem(2);
+				height: fluid-rem(24);
+				background: $tab-surface-highlight;
+				margin-block: auto;
+				z-index: -1;
+			}
+		}
+	}
 }
