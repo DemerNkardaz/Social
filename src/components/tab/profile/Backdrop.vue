@@ -26,8 +26,8 @@ const actualBackdropImage = computed(() => {
 <style lang="scss" src="./Backdrop.scss"></style>
 
 <template>
-	<div class="backdrop-profile">
-			<div class="backdrop-profile__top-slice" :class="{ 'animate-[zoom-out_500ms_var(--ease-out-smooth)_forwards_0ms]': isReady }">
+	<div class="backdrop backdrop-profile">
+		<div class="backdrop-profile__top-slice" :class="{ 'animate-[zoom-out_500ms_var(--ease-out-smooth)_forwards_0ms]': isReady }">
 			<div class="backdrop-profile__background">
 				<!-- Left And Right Stripes Pattern -->
 				<Stripes class="absolute right-50%" :angle="-45" :gap-px="3.522" w="50%" color="#fff" :opacity="0.5" />

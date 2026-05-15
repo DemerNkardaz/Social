@@ -89,6 +89,10 @@ position: relative;
 				animation: tab-icon-decorator 50ms ease forwards;
 			}
 
+			&:has(.header__tabs__button__active-decorator) {
+					z-index: 1;
+			}
+
 			&__active-stripes-pattern {
 				position: absolute;
 				bottom: 0;

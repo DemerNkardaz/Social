@@ -12,6 +12,18 @@
 }
 
 .backdrop {
+	position: absolute;
+	inset: 0;
+	height: $page-height;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	overflow: hidden;
+
+	z-index: 1;
+
 	&__header {
 		position: relative;
 		width: 100%;
@@ -29,7 +41,7 @@
 			left: 50%;
 			transform: translateX(-50%);
 
-			mask: linear-gradient(to right, transparent 0%, transparent 20%, #000 25%, #000 75%, transparent 80%, transparent 100%);
+			mask: linear-gradient(to right, transparent 0%, transparent 30%, #000 35%, #000 65%, transparent 70%, transparent 100%);
 
 			&__overlay {
 				position: absolute;
